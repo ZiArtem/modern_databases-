@@ -59,7 +59,6 @@
         android:hint="Surname"
         android:inputType="textPersonName"
 
-
         app:layout_constraintStart_toEndOf="@+id/first_name"
         app:layout_constraintTop_toTopOf="@+id/first_name" />
 
@@ -72,12 +71,10 @@
         android:hint="Login"
         android:inputType="text"
 
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_name" />
-
 
     <EditText
         android:id="@+id/password"
@@ -86,7 +83,6 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Password"
-
 
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +96,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-
 
         android:hint="Confirm"
         android:inputType="textPassword"
@@ -121,6 +116,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm"
         app:layout_constraintVertical_bias="0.3" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout >
