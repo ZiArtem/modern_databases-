@@ -13,7 +13,7 @@
         android:layout_marginEnd="16dp"
 
         android:drawableLeft="@drawable/ic_baseline_clear_25"
-        android:onClick="go_main"
+        android:onClick="goMain"
         android:textColor="#757575"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:onClick="addUser"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
