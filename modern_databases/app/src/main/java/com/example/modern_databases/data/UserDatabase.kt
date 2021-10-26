@@ -27,7 +27,5 @@ abstract  class UserDatabase:RoomDatabase() {
                 return instance
             }
         }
-
-
     }
 }

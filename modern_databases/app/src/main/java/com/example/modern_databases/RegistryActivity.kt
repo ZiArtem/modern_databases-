@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ListAdapter
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.modern_databases.data.User
 import com.example.modern_databases.data.UserViewModel
@@ -18,11 +21,12 @@ class RegistryActivity : AppCompatActivity() {
 
     override fun onCreate( savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-//        val view = inflater.inflate(R.layout.activity_registry,container,false)
-
         setContentView(R.layout.activity_registry)
 
+        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+//        val adapter = ListAdapter()
+//        mUserViewModel.readAllData.observe( this, Observer { user->adapter.setData(user) }
     }
 
     fun goMain(view: View){

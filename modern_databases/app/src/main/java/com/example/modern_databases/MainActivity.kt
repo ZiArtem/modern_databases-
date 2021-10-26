@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-    fun go_registery(view: View){
+    fun goRegistery(view: View){
         val intent = Intent(this, RegistryActivity::class.java)
         startActivity(intent)
     }
