@@ -4,28 +4,39 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ListAdapter
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.modern_databases.data.User
 import com.example.modern_databases.data.UserViewModel
 
 class RegistryActivity : AppCompatActivity() {
-    private lateinit var mUserViewModel: UserViewModel
+    lateinit var mUserViewModel: UserViewModel
+
+    lateinit var  firstName:EditText
+    lateinit var  lastName: EditText
+    lateinit var  password: EditText
+    lateinit var  confirm: EditText
+    lateinit var  login: EditText
 
     override fun onCreate( savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registry)
 
-        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        firstName =  findViewById(R.id.first_name)
+        lastName = findViewById(R.id.Surname)
+        password = findViewById(R.id.password)
+        confirm = findViewById(R.id.confirm)
+        login = findViewById(R.id.login)
 
-//        val adapter = ListAdapter()
+        mUserViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(UserViewModel::class.java)
+
+//        val adapter = ListAdapter(this)
 //        mUserViewModel.readAllData.observe( this, Observer { user->adapter.setData(user) }
     }
 
@@ -39,22 +50,16 @@ class RegistryActivity : AppCompatActivity() {
     }
 
     private fun insertDataToDatabase() {
-        var  firstName:EditText =  findViewById(R.id.first_name)
-        var  lastName: EditText = findViewById(R.id.Surname)
-        var  password: EditText = findViewById(R.id.password)
-        var  confirm: EditText = findViewById(R.id.confirm)
-        var  login: EditText = findViewById(R.id.login)
-
         var firstName_t:String = firstName.getText().toString()
         var lastName_t:String = lastName.getText().toString()
-        var  login_t:String = login.getText().toString()
-        var  password_t:String = password.getText().toString()
-        var  confirm_t:String =  confirm.getText().toString()
+        var login_t:String = login.getText().toString()
+        var password_t:String = password.getText().toString()
+        var confirm_t:String =  confirm.getText().toString()
 
         if (inputCheck(firstName_t,lastName_t,password_t,confirm_t,login_t)) {
             if (checkPasswordsConfim(password_t,confirm_t)) {
-                val user = User(0,firstName_t,lastName_t)
-//                mUserViewModel.addUser(user)
+                val user = User(2,firstName_t,lastName_t, login_t, password_t)
+                mUserViewModel.addUser(user)
                 Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Activity2::class.java)
                 startActivity(intent)
