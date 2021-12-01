@@ -97,6 +97,4 @@ class RegistryActivity : AppCompatActivity() {
     private fun inputCheck (first:String,last:String,pass:String,conf:String,login:String):Boolean {
         return !( TextUtils.isEmpty(first) || TextUtils.isEmpty(last) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(conf) || TextUtils.isEmpty(login))
     }
-
-
 }

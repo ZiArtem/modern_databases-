@@ -78,10 +78,6 @@ class MainActivity : AppCompatActivity() {
     private fun inputCheckSignIn (pass:String,login:String):Boolean {
         return !( TextUtils.isEmpty(pass)  || TextUtils.isEmpty(login))
     }
-
-
-
-
 }
 
 
