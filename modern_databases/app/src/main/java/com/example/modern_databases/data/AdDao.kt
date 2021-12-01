@@ -17,11 +17,6 @@ interface AdDao {
     @Query("SELECT*FROM ad_table WHERE id_ad=(:id)")
     fun getAdById(id:Int): List<Ad>
 
-
-//    @Query("SELECT * FROM user_table WHERE login=(:login) and password=(:password)")
-//    fun getUser(login:String,password:String): List<User>
-//
-//    @Query("SELECT * FROM user_table WHERE login=(:login)")
-//    fun checkUniqLogin(login:String): List<User>
-//
+    @Query("SELECT*FROM ad_table WHERE id_user_=(:id_user)")
+    fun getAdByIdUser(id_user:Int): List<Ad>
 }

@@ -37,5 +37,14 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
             repository.addAd(ad)
         }
     }
+
+    fun getAdById(id:Int): List<Ad> {
+        return repository.getAdById(id)
+    }
+
+    fun getAdByIdUser(id:Int): List<Ad> {
+        return repository.getAdByIdUser(id)
+    }
+
 }
 
