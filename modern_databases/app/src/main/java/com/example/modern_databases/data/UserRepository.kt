@@ -3,7 +3,7 @@ package com.example.modern_databases.data
 import androidx.lifecycle.LiveData
 
 class UserRepository(private val userDao: UserDao) {
-    val readAllData: LiveData<List<User>> = userDao.readAllData()
+
     suspend fun addUser (user: User) {
         userDao.addUser(user)
     }
@@ -12,4 +12,7 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getUser(login,password)
     }
 
+    fun getUserSameLogin (login:String):List<User> {
+        return userDao.getUserSameLogin(login)
+    }
 }

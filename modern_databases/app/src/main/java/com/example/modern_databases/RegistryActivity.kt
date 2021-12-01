@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
-import android.widget.ListAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.modern_databases.data.User
 import com.example.modern_databases.data.UserViewModel
@@ -20,6 +18,8 @@ class RegistryActivity : AppCompatActivity() {
     lateinit var  password: EditText
     lateinit var  confirm: EditText
     lateinit var  login: EditText
+    lateinit var  registryButton: Button
+    lateinit var  cross: TextView
 
     override fun onCreate( savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,9 @@ class RegistryActivity : AppCompatActivity() {
         confirm = findViewById(R.id.confirm)
         login = findViewById(R.id.login)
 
+        registryButton = findViewById(R.id.end_registry)
+        cross = findViewById(R.id.cross)
+
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -38,18 +41,23 @@ class RegistryActivity : AppCompatActivity() {
 
 //        val adapter = ListAdapter(this)
 //        mUserViewModel.readAllData.observe( this, Observer { user->adapter.setData(user) }
+
+        registryButton.setOnClickListener {
+            insertDataToDatabase()
+        }
+
+        cross.setOnClickListener {
+            goMain()
+        }
+
     }
 
-    fun goMain(view: View){
+    private fun goMain(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    fun addUser(view: View){
-        insertDataToDatabase()
-    }
-
-    private fun insertDataToDatabase() {
+    private  fun insertDataToDatabase() {
         var firstName_t:String = firstName.getText().toString()
         var lastName_t:String = lastName.getText().toString()
         var login_t:String = login.getText().toString()
@@ -57,24 +65,34 @@ class RegistryActivity : AppCompatActivity() {
         var confirm_t:String =  confirm.getText().toString()
 
         if (inputCheck(firstName_t,lastName_t,password_t,confirm_t,login_t)) {
-            if (checkPasswordsConfim(password_t,confirm_t)) {
-                val user = User(0,firstName_t,lastName_t, login_t, password_t)
-                mUserViewModel.addUser(user)
-                Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, Activity2::class.java)
-                startActivity(intent)
-                finish();
+            if (checkPasswordsConfirm(password_t,confirm_t)) {
+                Thread(Runnable {
+                    val user_same_login = mUserViewModel.getUserSameLogin(login_t)
+                    if (user_same_login.isEmpty()) {
+                        val user = User(0,firstName_t,lastName_t, login_t, password_t)
+                        mUserViewModel.addUser(user)
+                        runOnUiThread {
+                            Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
+                        }
+                        val intent = Intent(this, Activity2::class.java)
+                        startActivity(intent)
+                        finish();
+                    }else {
+                        runOnUiThread {
+                            Toast.makeText(applicationContext, "this login already exists", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }).start()
             } else {
-                Toast.makeText(applicationContext,"Password mismatch",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"Password and confirm mismatch",Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(applicationContext,"Please fill out all fields",Toast.LENGTH_SHORT).show()
         }
 
-//        Toast.makeText(applicationContext,lastName.getText().toString(),Toast.LENGTH_LONG).show()
     }
 
-    private fun checkPasswordsConfim (pass:String,conf:String):Boolean {
+    private fun checkPasswordsConfirm (pass:String,conf:String):Boolean {
         return pass ==conf
     }
 

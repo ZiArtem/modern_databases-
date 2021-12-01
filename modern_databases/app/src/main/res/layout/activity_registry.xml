@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-
         android:drawableLeft="@drawable/ic_baseline_clear_25"
-        android:onClick="goMain"
+
         android:textColor="#757575"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/heading_reg"
@@ -54,13 +54,14 @@
         android:id="@+id/Surname"
         android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart= "24dp"
         android:ems="10"
         android:hint="Last name"
         android:inputType="textPersonName"
 
         app:layout_constraintStart_toEndOf="@+id/first_name"
-        app:layout_constraintTop_toTopOf="@+id/first_name" />
+        app:layout_constraintTop_toTopOf="@+id/first_name"
+        android:layout_marginLeft="24dp" />
 
     <EditText
         android:id="@+id/login"
@@ -109,7 +110,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:onClick="addUser"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
