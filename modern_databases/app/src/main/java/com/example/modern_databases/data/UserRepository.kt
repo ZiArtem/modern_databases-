@@ -7,4 +7,9 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun addUser (user: User) {
         userDao.addUser(user)
     }
+
+    fun getUser (login:String,password:String):List<User> {
+        return userDao.getUser(login,password)
+    }
+
 }

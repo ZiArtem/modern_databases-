@@ -58,7 +58,7 @@ class RegistryActivity : AppCompatActivity() {
 
         if (inputCheck(firstName_t,lastName_t,password_t,confirm_t,login_t)) {
             if (checkPasswordsConfim(password_t,confirm_t)) {
-                val user = User(2,firstName_t,lastName_t, login_t, password_t)
+                val user = User(0,firstName_t,lastName_t, login_t, password_t)
                 mUserViewModel.addUser(user)
                 Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Activity2::class.java)

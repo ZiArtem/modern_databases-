@@ -22,5 +22,9 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
             repository.addUser(user)
         }
     }
+
+    fun getUser(login:String,password:String):List<User> {
+        return repository.getUser(login,password)
+    }
 }
 
