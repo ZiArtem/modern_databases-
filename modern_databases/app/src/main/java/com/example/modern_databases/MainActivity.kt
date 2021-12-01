@@ -1,10 +1,10 @@
 package com.example.modern_databases
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -56,20 +56,32 @@ class MainActivity : AppCompatActivity() {
    private fun signIn (){
         var login_s:String = login.getText().toString()
         var password_s:String = password.getText().toString()
+
         if (inputCheckSignIn(password_s,login_s)) {
             Thread(Runnable {
                 val user = mUserViewModel.getUser(login_s,password_s)
                 if (!user.isEmpty()) {
                     val intent = Intent(this, Activity2::class.java)
                     startActivity(intent)
+                    finish();
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(applicationContext, "Incorrect login or password", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }).start()
         } else {
-            Toast.makeText(applicationContext,"Fill in all the fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"Please fill out all fields",Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun inputCheckSignIn (pass:String,login:String):Boolean {
         return !( TextUtils.isEmpty(pass)  || TextUtils.isEmpty(login))
     }
+
+
+
+
 }
+
+

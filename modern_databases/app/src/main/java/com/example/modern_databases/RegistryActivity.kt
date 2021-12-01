@@ -63,6 +63,7 @@ class RegistryActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Activity2::class.java)
                 startActivity(intent)
+                finish();
             } else {
                 Toast.makeText(applicationContext,"Password mismatch",Toast.LENGTH_SHORT).show()
             }
