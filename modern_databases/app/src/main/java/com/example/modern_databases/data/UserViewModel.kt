@@ -9,10 +9,13 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(application:Application):AndroidViewModel(application) {
     private val repository: UserRepository
+    val readAllData: LiveData<List<Ad>>
 
     init {
         val userDao_ = UserDatabase.getDatabase(application).userDao()
-        repository = UserRepository(userDao_)
+        val adDao_ = UserDatabase.getDatabase(application).adDao()
+        repository = UserRepository(userDao_,adDao_)
+        readAllData =repository.readAllAd
     }
 
     fun addUser (user: User) {
@@ -25,8 +28,14 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
         return repository.getUser(login,password)
     }
 
-    fun getUserSameLogin(login:String):List<User> {
-        return repository.getUserSameLogin(login)
+    fun checkUniqLogin(login:String):List<User> {
+        return repository.checkUniqLogin(login)
+    }
+
+    fun addAd (ad: Ad) {
+        viewModelScope.launch (Dispatchers.IO){
+            repository.addAd(ad)
+        }
     }
 }
 

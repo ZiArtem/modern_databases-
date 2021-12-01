@@ -2,7 +2,9 @@ package com.example.modern_databases.data
 
 import androidx.lifecycle.LiveData
 
-class UserRepository(private val userDao: UserDao) {
+class UserRepository(private val userDao: UserDao, private val adDao: AdDao) {
+    val readAllAd: LiveData<List<Ad>> = adDao.readAllAd()
+
 
     suspend fun addUser (user: User) {
         userDao.addUser(user)
@@ -12,7 +14,11 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getUser(login,password)
     }
 
-    fun getUserSameLogin (login:String):List<User> {
-        return userDao.getUserSameLogin(login)
+    fun checkUniqLogin (login:String):List<User> {
+        return userDao.checkUniqLogin(login)
+    }
+
+    suspend fun addAd (ad: Ad) {
+        adDao.addAd(ad)
     }
 }

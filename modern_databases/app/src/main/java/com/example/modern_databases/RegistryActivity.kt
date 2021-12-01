@@ -49,7 +49,6 @@ class RegistryActivity : AppCompatActivity() {
         cross.setOnClickListener {
             goMain()
         }
-
     }
 
     private fun goMain(){
@@ -67,7 +66,7 @@ class RegistryActivity : AppCompatActivity() {
         if (inputCheck(firstName_t,lastName_t,password_t,confirm_t,login_t)) {
             if (checkPasswordsConfirm(password_t,confirm_t)) {
                 Thread(Runnable {
-                    val user_same_login = mUserViewModel.getUserSameLogin(login_t)
+                    val user_same_login = mUserViewModel.checkUniqLogin(login_t)
                     if (user_same_login.isEmpty()) {
                         val user = User(0,firstName_t,lastName_t, login_t, password_t)
                         mUserViewModel.addUser(user)
@@ -89,7 +88,6 @@ class RegistryActivity : AppCompatActivity() {
         } else {
             Toast.makeText(applicationContext,"Please fill out all fields",Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun checkPasswordsConfirm (pass:String,conf:String):Boolean {
