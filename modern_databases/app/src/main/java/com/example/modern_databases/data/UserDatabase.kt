@@ -1,16 +1,15 @@
 package com.example.modern_databases.data
 
 import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import java.util.*
 
 @Database(
-    version = 8,
+    version = 10,
     entities = [User::class,Ad::class,Order::class]
         )
 
+@TypeConverters(Converters::class)
 abstract  class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun adDao(): AdDao
@@ -37,3 +36,5 @@ abstract  class UserDatabase:RoomDatabase() {
         }
     }
 }
+
+

@@ -2,6 +2,7 @@ package com.example.modern_databases.data
 
 import android.graphics.Bitmap
 import androidx.room.*
+import java.util.*
 
 @Entity(tableName = "ad_table", foreignKeys = [
     ForeignKey(entity = User::class,
@@ -15,7 +16,7 @@ class Ad (
     val title: String,
     val description: String,
     val price: Int,
-    val date: Int,
+    val date: Date,
     val id_user_:Int
 )
 

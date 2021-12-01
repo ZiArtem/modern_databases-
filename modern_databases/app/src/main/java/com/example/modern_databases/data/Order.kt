@@ -3,6 +3,11 @@ package com.example.modern_databases.data
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import java.util.*
+
+
+
 
 @Entity(tableName = "parchasehistory_table", foreignKeys = [
     ForeignKey(entity = User::class,
@@ -21,6 +26,6 @@ class Order (
     val title: String,
     val price: Int,
     val num:Int,
-    val date: Int,
+    val date: Date,
     val id_user_:Int
 )

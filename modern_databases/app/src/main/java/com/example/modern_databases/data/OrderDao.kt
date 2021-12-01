@@ -16,4 +16,5 @@ interface OrderDao {
 
     @Query("SELECT*FROM parchasehistory_table WHERE id_order=(:id_order)")
     fun getOrderById(id_order:Int): List<Order>
+
 }
