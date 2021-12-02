@@ -19,5 +19,3 @@ class Ad (
     val date: Date,
     val id_user_:Int
 )
-
-//    @Ignore val picture: Bitmap

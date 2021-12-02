@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         login = findViewById(R.id.login_main)
         password = findViewById(R.id.password_main)
-        goReg = findViewById(R.id.textView2)
+        goReg = findViewById(R.id.createAccount)
         next = findViewById(R.id.buttonNext)
 
         goReg.setOnClickListener{

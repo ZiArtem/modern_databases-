@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.modern_databases.data.User
@@ -26,10 +25,10 @@ class RegistryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registry)
 
         firstName =  findViewById(R.id.first_name)
-        lastName = findViewById(R.id.Surname)
-        password = findViewById(R.id.password)
+        lastName = findViewById(R.id.lastName)
+        password = findViewById(R.id.password_registry)
         confirm = findViewById(R.id.confirm)
-        login = findViewById(R.id.login)
+        login = findViewById(R.id.login_registry)
 
         registryButton = findViewById(R.id.end_registry)
         cross = findViewById(R.id.cross)
@@ -66,7 +65,7 @@ class RegistryActivity : AppCompatActivity() {
         if (inputCheck(firstName_t,lastName_t,password_t,confirm_t,login_t)) {
             if (checkPasswordsConfirm(password_t,confirm_t)) {
                 Thread(Runnable {
-                    val user_same_login = mUserViewModel.checkUniqLogin(login_t)
+                    val user_same_login = mUserViewModel.checkUniqueLogin(login_t)
                     if (user_same_login.isEmpty()) {
                         val user = User(0,firstName_t,lastName_t, login_t, password_t)
                         mUserViewModel.addUser(user)

@@ -1,15 +1,18 @@
 package com.example.modern_databases.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface AdDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addAd(ad: Ad)
+
+    @Delete
+    suspend fun deleteAd (ad:Ad)
+
+    @Update
+    suspend  fun updateAd(ad:Ad)
 
     @Query("SELECT*FROM ad_table ORDER BY date")
     fun readAllAd(): LiveData<List<Ad>>
