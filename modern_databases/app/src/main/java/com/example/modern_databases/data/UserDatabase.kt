@@ -2,11 +2,10 @@ package com.example.modern_databases.data
 
 import android.content.Context
 import androidx.room.*
-import java.util.*
 
 @Database(
-    version = 10,
-    entities = [User::class,Ad::class,Order::class]
+    version = 13,
+    entities = [User::class,Ad::class,Order::class,Image::class]
         )
 
 @TypeConverters(Converters::class)
@@ -14,6 +13,7 @@ abstract  class UserDatabase:RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun adDao(): AdDao
     abstract fun orderDao(): OrderDao
+    abstract fun imageDao(): ImageDao
 
     companion object {
         @Volatile

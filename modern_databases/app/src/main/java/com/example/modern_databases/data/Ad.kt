@@ -1,6 +1,5 @@
 package com.example.modern_databases.data
 
-import android.graphics.Bitmap
 import androidx.room.*
 import java.util.*
 
@@ -10,6 +9,7 @@ import java.util.*
         childColumns = ["id_user_"],
         onDelete = ForeignKey.CASCADE
     )])
+
 class Ad (
     @PrimaryKey(autoGenerate = true)
     val id_ad: Int,

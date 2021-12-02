@@ -14,7 +14,9 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
     init {
         val userDao_ = UserDatabase.getDatabase(application).userDao()
         val adDao_ = UserDatabase.getDatabase(application).adDao()
-        repository = UserRepository(userDao_,adDao_)
+        val orderDao_ = UserDatabase.getDatabase(application).orderDao()
+        val picturesDao_ = UserDatabase.getDatabase(application).imageDao()
+        repository = UserRepository(userDao_,adDao_,orderDao_,picturesDao_)
         readAllData =repository.readAllAd
     }
 
@@ -46,5 +48,14 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
         return repository.getAdByIdUser(id)
     }
 
+    fun addImage (image: Image) {
+        viewModelScope.launch (Dispatchers.IO){
+            repository.addImage(image)
+        }
+    }
+
+    fun getImageById(id_image:Int):List<Image> {
+        return repository.getImageById(id_image)
+    }
 }
 

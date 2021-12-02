@@ -2,7 +2,7 @@ package com.example.modern_databases.data
 
 import androidx.lifecycle.LiveData
 
-class UserRepository(private val userDao: UserDao, private val adDao: AdDao) {
+class UserRepository(private val userDao: UserDao, private val adDao: AdDao,private val orderDao: OrderDao, private val imageDao: ImageDao) {
     val readAllAd: LiveData<List<Ad>> = adDao.readAllAd()
 
     suspend fun addUser (user: User) {
@@ -28,4 +28,14 @@ class UserRepository(private val userDao: UserDao, private val adDao: AdDao) {
     fun getAdByIdUser(id:Int): List<Ad> {
         return adDao.getAdByIdUser(id)
     }
+
+    suspend fun addImage (image: Image) {
+        imageDao.addImage(image)
+    }
+
+    fun getImageById(id_image:Int): List<Image> {
+        return imageDao.getImageById(id_image)
+    }
+
+
 }

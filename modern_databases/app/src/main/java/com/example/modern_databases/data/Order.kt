@@ -3,11 +3,7 @@ package com.example.modern_databases.data
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import java.util.*
-
-
-
 
 @Entity(tableName = "parchasehistory_table", foreignKeys = [
     ForeignKey(entity = User::class,
@@ -19,6 +15,7 @@ import java.util.*
         childColumns = ["id_ad_"],
         onDelete = ForeignKey.CASCADE
     )])
+
 class Order (
     @PrimaryKey(autoGenerate = true)
     val id_order: Int,
