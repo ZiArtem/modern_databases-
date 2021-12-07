@@ -63,6 +63,8 @@ class Activity2 : AppCompatActivity() {
 
     private fun getAdTest () {
         Thread(Runnable {
+
+//            val ad = mUserViewModel.getByKeyword("3090")
             val ad = mUserViewModel.getAdById(1)
             if (!ad.isEmpty()) {
                 runOnUiThread {

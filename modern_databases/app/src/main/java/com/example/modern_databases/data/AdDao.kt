@@ -22,4 +22,8 @@ interface AdDao {
 
     @Query("SELECT*FROM ad_table WHERE id_user_=(:id_user)")
     fun getAdByIdUser(id_user:Int): List<Ad>
+
+    @Query("SELECT*FROM ad_table WHERE title LIKE '%' || :keyword || '%' ")
+    fun getByKeyword(keyword:String): List<Ad>
+
 }

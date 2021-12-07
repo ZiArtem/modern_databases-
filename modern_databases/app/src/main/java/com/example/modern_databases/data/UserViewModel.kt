@@ -75,6 +75,9 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
     fun getAdByIdUser(id:Int): List<Ad> {
         return repository.getAdByIdUser(id)
     }
+    fun getByKeyword(keyword:String): List<Ad> {
+        return repository.getByKeyword(keyword)
+    }
 
     //image function
 

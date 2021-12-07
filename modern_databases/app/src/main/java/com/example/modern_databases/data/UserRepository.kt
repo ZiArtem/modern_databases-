@@ -1,6 +1,7 @@
 package com.example.modern_databases.data
 
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 
 class UserRepository(private val userDao: UserDao, private val adDao: AdDao,private val orderDao: OrderDao, private val imageDao: ImageDao) {
 
@@ -47,6 +48,10 @@ class UserRepository(private val userDao: UserDao, private val adDao: AdDao,priv
 
     fun getAdByIdUser(id:Int): List<Ad> {
         return adDao.getAdByIdUser(id)
+    }
+
+    fun getByKeyword(keyword:String): List<Ad> {
+        return adDao.getByKeyword(keyword)
     }
 
     //Image function
