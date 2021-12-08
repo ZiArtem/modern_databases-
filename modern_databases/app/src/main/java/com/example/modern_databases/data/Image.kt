@@ -17,4 +17,5 @@ class Image (
     val id_image: Int,
     val image: Bitmap,
     val id_ad_: Int,
+    val rank_in_ad:Int
 )

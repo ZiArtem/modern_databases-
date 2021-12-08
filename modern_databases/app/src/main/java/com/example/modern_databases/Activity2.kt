@@ -56,7 +56,7 @@ class Activity2 : AppCompatActivity() {
     }
 
     private fun addAdTestFunction () {
-        var ad: Ad = Ad(0, "Rtx 3090"," MSI GeForce RTX 3090 VENTUS 3X OC", 320000,Date(),1)
+        var ad: Ad = Ad(0, "Rtx 3090"," MSI GeForce RTX 3090 VENTUS 3X OC", 1,320000,Date(),1)
         mUserViewModel.addAd(ad)
         Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
     }
@@ -98,7 +98,7 @@ class Activity2 : AppCompatActivity() {
         lifecycleScope.launch {
             val im = Image(
                 0,
-                getBitmap("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg"),1
+                getBitmap("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg"),1,1
             )
             mUserViewModel.addImage(im)
         }
