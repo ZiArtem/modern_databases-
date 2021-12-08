@@ -72,7 +72,7 @@ class RegistryActivity : AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(applicationContext,"Successful!!!!",Toast.LENGTH_SHORT).show()
                         }
-                        val intent = Intent(this, Activity2::class.java)
+                        val intent = Intent(this, Activity3::class.java)
                         startActivity(intent)
                         finish();
                     }else {

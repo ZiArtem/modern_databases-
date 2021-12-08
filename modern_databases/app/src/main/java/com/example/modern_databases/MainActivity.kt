@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             Thread(Runnable {
                 val user = mUserViewModel.getUser(login_s,password_s)
                 if (!user.isEmpty()) {
-                    val intent = Intent(this, Activity2::class.java)
+                    val intent = Intent(this, Activity3::class.java)
                     startActivity(intent)
                     finish();
                 } else {
