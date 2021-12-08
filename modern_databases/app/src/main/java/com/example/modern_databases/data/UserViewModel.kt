@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class UserViewModel(application:Application):AndroidViewModel(application) {
     private val repository: UserRepository
     val readAllAd: LiveData<List<Ad>>
+    val getAllImage: LiveData<List<Image>>
 
     init {
         val userDao_ = UserDatabase.getDatabase(application).userDao()
@@ -18,6 +19,7 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
         val picturesDao_ = UserDatabase.getDatabase(application).imageDao()
         repository = UserRepository(userDao_,adDao_,orderDao_,picturesDao_)
         readAllAd =repository.readAllAd
+        getAllImage = repository.getAllImage()
     }
 
     //user function
@@ -79,6 +81,10 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
         return repository.getByKeyword(keyword)
     }
 
+    fun getAllAd(): List<Ad>{
+        return repository.getAllAd()
+    }
+
     //image function
 
     fun addImage (image: Image) {
@@ -106,6 +112,10 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
     fun getImageByIdAd(id_ad:Int): List<Image> {
         return repository.getImageByIdAd(id_ad)
     }
+
+//    fun getAllImage(): LiveData<List<Image>> {
+//        return  repository.getAllImage()
+//    }
 
     // order function
 

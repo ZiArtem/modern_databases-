@@ -1,5 +1,6 @@
 package com.example.modern_databases.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -18,4 +19,7 @@ interface ImageDao {
 
     @Query("SELECT*FROM images_table WHERE id_ad_=(:id_ad) ORDER BY rank_in_ad")
     fun getImagesByIdAd(id_ad:Int): List<Image>
+
+    @Query("SELECT*FROM images_table ORDER BY id_ad_")
+    fun getAllImage(): LiveData<List<Image>>
 }

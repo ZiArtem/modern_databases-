@@ -1,10 +1,14 @@
 package com.example.modern_databases
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -23,10 +27,12 @@ import java.util.*
 class Activity2 : AppCompatActivity() {
     lateinit var mUserViewModel: UserViewModel
     lateinit var  test: Button
+    lateinit var  delete: Button
     lateinit var  test2: Button
     lateinit var  addImage_: Button
     lateinit var  changeImage: Button
     lateinit var  image: ImageView
+    lateinit var  cross: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +48,25 @@ class Activity2 : AppCompatActivity() {
         image = findViewById(R.id.imageView)
         addImage_ = findViewById(R.id.button_image2)
         changeImage = findViewById(R.id.button_image)
+        cross = findViewById(R.id.cross1)
+        delete= findViewById(R.id.delete)
 
         test.setOnClickListener {  addAdTestFunction () }
         test2.setOnClickListener { getAdTest () }
         addImage_.setOnClickListener { addImageTest ()  }
         changeImage.setOnClickListener {  changeImage()  }
+        cross.setOnClickListener {  goSignIn()  }
+        delete.setOnClickListener {  deleteAll()  }
 
-
-        image.load("https://gamerspack.co.il/wp-content/uploads/2020/09/RTX-3090-FACE-2048x1152.jpg") {
+        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
             transformations(RoundedCornersTransformation(40f))
         }
-
     }
 
     private fun addAdTestFunction () {
-        var ad: Ad = Ad(0, "Rtx 3090"," MSI GeForce RTX 3090 VENTUS 3X OC", 1,320000,Date(),1)
+        var ad: Ad = Ad(0, "test announcement","test", 2,150,Date(),1)
         mUserViewModel.addAd(ad)
-        Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
     }
 
     private fun getAdTest () {
@@ -114,4 +122,28 @@ class Activity2 : AppCompatActivity() {
             }
         }).start()
     }
+
+
+    private fun goSignIn() {
+        val sharedPref: SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.apply {
+            putInt("id_user", -1)
+            putBoolean("is_checked", false)
+        }.apply()
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish();
+    }
+
+    private fun deleteAll() {
+        Thread(Runnable {
+            val ad = mUserViewModel.getAllAd()
+            for (i in 0..ad.size-1) {
+                mUserViewModel.deleteAd(ad[i])
+            }
+        }).start()
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.example.modern_databases
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(UserViewModel::class.java)
 
+        checkSignIn()
+
         login = findViewById(R.id.login_main)
         password = findViewById(R.id.password_main)
         goReg = findViewById(R.id.createAccount)
@@ -45,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 signIn()}
         }
-
     }
 
    private fun goRegistery(){
@@ -61,6 +64,13 @@ class MainActivity : AppCompatActivity() {
             Thread(Runnable {
                 val user = mUserViewModel.getUser(login_s,password_s)
                 if (!user.isEmpty()) {
+                    val sharedPref:SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.apply {
+                        putInt("id_user", user[0].id_user)
+                        putBoolean("is_checked", true)
+                    }.apply()
+
                     val intent = Intent(this, Activity3::class.java)
                     startActivity(intent)
                     finish();
@@ -77,6 +87,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun inputCheckSignIn (pass:String,login:String):Boolean {
         return !( TextUtils.isEmpty(pass)  || TextUtils.isEmpty(login))
+    }
+
+    private fun checkSignIn () {
+        val sharedPref:SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
+        val save_id = sharedPref.getInt("id_user", -1)
+        val save_bool = sharedPref.getBoolean("is_checked", false)
+
+        if (save_bool== true) {
+            val intent = Intent(this, Activity3::class.java)
+            startActivity(intent)
+            finish();
+        }
     }
 }
 

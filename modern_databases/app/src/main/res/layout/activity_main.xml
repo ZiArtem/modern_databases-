@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
 
@@ -13,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:text="Sign in"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30dp"
-        android:textColor="#000000"/>
+        android:textSize="30dp"/>
 
 
     <TextView
@@ -26,9 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="to continue to  _"
+        android:text="to  *name of the company*"
         android:textSize="22dp"
-        android:textColor="#757575"
+        android:textStyle="italic"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +44,9 @@
         android:layout_marginTop="280dp"
         android:ems="12"
         android:hint="Login"
+        android:textColor="@color/white"
+        android:textColorHint="@color/light_gray"
+
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -51,9 +56,13 @@
     <EditText
         android:id="@+id/password_main"
         android:layout_width="250dp"
+
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:textColorHint="@color/light_gray"
+        android:textColor="@color/white"
+
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Create account "
+        android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

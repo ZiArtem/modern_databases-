@@ -17,6 +17,9 @@ interface AdDao {
     @Query("SELECT*FROM ad_table ORDER BY date")
     fun readAllAd(): LiveData<List<Ad>>
 
+    @Query("SELECT*FROM ad_table ORDER BY date")
+    fun getAllAd(): List<Ad>
+
     @Query("SELECT*FROM ad_table WHERE id_ad=(:id)")
     fun getAdById(id:Int): List<Ad>
 
