@@ -5,11 +5,11 @@ import androidx.room.*
 
 @Database(
     version = 16,
-    entities = [User::class,Ad::class,Order::class,Image::class]
-        )
+    entities = [User::class, Ad::class, Order::class, Image::class]
+)
 
 @TypeConverters(Converters::class)
-abstract  class UserDatabase:RoomDatabase() {
+abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun adDao(): AdDao
     abstract fun orderDao(): OrderDao
@@ -19,16 +19,16 @@ abstract  class UserDatabase:RoomDatabase() {
         @Volatile
         private var INSTANCE: UserDatabase? = null
 
-        fun getDatabase (context: Context): UserDatabase {
+        fun getDatabase(context: Context): UserDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance!= null) {
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                  UserDatabase::class.java,
-                  "user_database"
+                    UserDatabase::class.java,
+                    "user_database"
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance

@@ -12,19 +12,19 @@ class SettigActivity : AppCompatActivity() {
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.settings)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item->
-            when(item.itemId) {
-                R.id.home-> {
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
                     val intent = Intent(this, Activity3::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.favorite-> {
+                R.id.favorite -> {
                     val intent = Intent(this, FavoriteActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.orders-> {
+                R.id.orders -> {
                     val intent = Intent(this, OrdersActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
@@ -33,7 +33,7 @@ class SettigActivity : AppCompatActivity() {
 //                    val intent = Intent(this, SettigActivity::class.java)
 //                    startActivity(intent)
 //                }
-                R.id.test-> {
+                R.id.test -> {
                     val intent = Intent(this, Activity2::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);

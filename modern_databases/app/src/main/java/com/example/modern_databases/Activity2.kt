@@ -121,7 +121,11 @@ class Activity2 : AppCompatActivity() {
                 }
             } else {
                 runOnUiThread {
-                    Toast.makeText(applicationContext, "There are no ads in the database", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "There are no ads in the database",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }).start()

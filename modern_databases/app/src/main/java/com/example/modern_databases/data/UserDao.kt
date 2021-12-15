@@ -8,14 +8,14 @@ interface UserDao {
     suspend fun addUser(user: User)
 
     @Delete
-    suspend fun deleteUser (user: User)
+    suspend fun deleteUser(user: User)
 
     @Update
-    suspend  fun updateUser (user: User)
+    suspend fun updateUser(user: User)
 
     @Query("SELECT * FROM user_table WHERE login=(:login) and password=(:password)")
-    fun getUser(login:String,password:String): List<User>
+    fun getUser(login: String, password: String): List<User>
 
     @Query("SELECT * FROM user_table WHERE login=(:login)")
-    fun checkUniqueLogin(login:String): List<User>
+    fun checkUniqueLogin(login: String): List<User>
 }
