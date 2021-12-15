@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.*
 
 @Database(
-    version = 16,
-    entities = [User::class, Ad::class, Order::class, Image::class]
+    version = 1,
+    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class]
 )
 
 @TypeConverters(Converters::class)
@@ -14,6 +14,7 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun adDao(): AdDao
     abstract fun orderDao(): OrderDao
     abstract fun imageDao(): ImageDao
+    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         @Volatile

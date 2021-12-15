@@ -7,7 +7,8 @@ class UserRepository(
     private val userDao: UserDao,
     private val adDao: AdDao,
     private val orderDao: OrderDao,
-    private val imageDao: ImageDao
+    private val imageDao: ImageDao,
+    private val favoriteDao: FavoriteDao
 ) {
 
     //user function
@@ -62,6 +63,9 @@ class UserRepository(
     fun getAllAd(): List<Ad> {
         return adDao.getAllAd()
     }
+    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>> {
+        return adDao.getAdByListIdAd(id_ad_)
+    }
 
     //Image function
 
@@ -109,5 +113,24 @@ class UserRepository(
 
     fun getOrderById(id_order: Int): List<Order> {
         return orderDao.getOrderById(id_order)
+    }
+
+
+    // favorite function
+
+    suspend fun addFavorite(favorite:Favorite) {
+        favoriteDao.addFavorite(favorite)
+    }
+
+    suspend fun deleteFavorite(favorite:Favorite) {
+        favoriteDao.deleteFavorite(favorite)
+    }
+
+    suspend fun updateFavorite(favorite:Favorite) {
+        favoriteDao.updateFavorite(favorite)
+    }
+
+    fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
+        return favoriteDao.getAllFavoriteByUse(id_user)
     }
 }

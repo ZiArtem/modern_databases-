@@ -44,7 +44,6 @@ class Activity3 : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
-//        mUserViewModel.getByKeyword("test").observe(this, {ad-> adapter.setData(ad) })
         mUserViewModel.getAllImage.observe(this, Observer { image -> adapter.setImage(image) })
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)

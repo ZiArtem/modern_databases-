@@ -18,6 +18,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.data.Ad
+import com.example.modern_databases.data.Favorite
 import com.example.modern_databases.data.Image
 import com.example.modern_databases.data.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,6 +33,7 @@ class Activity2 : AppCompatActivity() {
     lateinit var  test2: Button
     lateinit var  addImage_: Button
     lateinit var  changeImage: Button
+    lateinit var  test4: Button
     lateinit var  image: ImageView
     lateinit var  cross: TextView
 
@@ -51,6 +53,7 @@ class Activity2 : AppCompatActivity() {
         changeImage = findViewById(R.id.button_image)
         cross = findViewById(R.id.cross1)
         delete= findViewById(R.id.delete)
+        test4 = findViewById(R.id.buttontest4)
 
         test.setOnClickListener {  addAdTestFunction () }
 //        test2.setOnClickListener { getAdTest () }
@@ -58,6 +61,7 @@ class Activity2 : AppCompatActivity() {
         changeImage.setOnClickListener {  changeImage()  }
         cross.setOnClickListener {  goSignIn()  }
         delete.setOnClickListener {  deleteAll()  }
+        test4.setOnClickListener {  addFavorite()  }
 
 //        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
 //            transformations(RoundedCornersTransformation(40f))
@@ -96,9 +100,18 @@ class Activity2 : AppCompatActivity() {
         }
     }
 
+    private fun addFavorite() {
+        var fav:Favorite = Favorite(0,1,1)
+        mUserViewModel.addFavorite(fav)
+    }
+
     private fun addAdTestFunction () {
-        var ad: Ad = Ad(0, "ony","test", 2,0,Date(),1)
-        mUserViewModel.addAd(ad)
+        var ad1: Ad = Ad(0, "Test231","test", 1,2000,Date(),1)
+        mUserViewModel.addAd(ad1)
+        var ad2: Ad = Ad(0, "Test32","test", 2,4000,Date(),1)
+        mUserViewModel.addAd(ad2)
+        var ad3: Ad = Ad(0, "Test62","test", 3,3000,Date(),1)
+        mUserViewModel.addAd(ad3)
 //        Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
     }
 
@@ -143,7 +156,7 @@ class Activity2 : AppCompatActivity() {
         lifecycleScope.launch {
             val im = Image(
                 0,
-                getBitmap("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg"),1,1
+                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),3,1
             )
             mUserViewModel.addImage(im)
         }

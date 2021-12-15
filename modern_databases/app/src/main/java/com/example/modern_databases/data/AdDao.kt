@@ -29,4 +29,6 @@ interface AdDao {
     @Query("SELECT*FROM ad_table WHERE title LIKE '%' || :keyword || '%' ")
     fun getByKeyword(keyword: String): LiveData<List<Ad>>
 
+    @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
+    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>>
 }

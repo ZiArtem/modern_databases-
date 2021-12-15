@@ -17,7 +17,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         val adDao_ = UserDatabase.getDatabase(application).adDao()
         val orderDao_ = UserDatabase.getDatabase(application).orderDao()
         val picturesDao_ = UserDatabase.getDatabase(application).imageDao()
-        repository = UserRepository(userDao_, adDao_, orderDao_, picturesDao_)
+        val favoriteDao_ = UserDatabase.getDatabase(application).favoriteDao()
+        repository = UserRepository(userDao_, adDao_, orderDao_, picturesDao_,favoriteDao_)
         readAllAd = repository.readAllAd
         getAllImage = repository.getAllImage()
     }
@@ -86,6 +87,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllAd()
     }
 
+    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>> {
+        return repository.getAdByListIdAd(id_ad_)
+    }
+
     //image function
 
     fun addImage(image: Image) {
@@ -144,6 +149,30 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getOrderById(id_order: Int): List<Order> {
         return repository.getOrderById(id_order)
+    }
+
+    // favorite function
+
+    fun addFavorite(favorite:Favorite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addFavorite(favorite)
+        }
+    }
+
+    fun delleteFavorite(favorite:Favorite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteFavorite(favorite)
+        }
+    }
+
+    fun updateFavorite(favorite:Favorite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateFavorite(favorite)
+        }
+    }
+
+    fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
+        return repository.getAllFavoriteByUser(id_user)
     }
 }
 
