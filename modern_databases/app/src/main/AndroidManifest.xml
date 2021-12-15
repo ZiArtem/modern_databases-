@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modern_databases">
         <activity
+            android:name=".OrdersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity4"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity1"
+            android:exported="true" />
+        <activity
             android:name=".Activity3"
             android:exported="true" />
         <activity

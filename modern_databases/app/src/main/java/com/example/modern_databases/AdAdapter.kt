@@ -25,7 +25,7 @@ class AdAdapter: RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         return adList.size
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("dd MM,yyy-HH:mm")
+        val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
 //        val curimage = image[1]
         holder.itemView.title.text = currentItem.title.toString()

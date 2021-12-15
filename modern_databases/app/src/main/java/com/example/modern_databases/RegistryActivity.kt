@@ -38,9 +38,6 @@ class RegistryActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(UserViewModel::class.java)
 
-//        val adapter = ListAdapter(this)
-//        mUserViewModel.readAllData.observe( this, Observer { user->adapter.setData(user) }
-
         registryButton.setOnClickListener {
             insertDataToDatabase()
         }

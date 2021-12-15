@@ -20,6 +20,7 @@ import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.data.Ad
 import com.example.modern_databases.data.Image
 import com.example.modern_databases.data.UserViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,6 +61,30 @@ class Activity2 : AppCompatActivity() {
 
         image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
             transformations(RoundedCornersTransformation(40f))
+        }
+
+        var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.setSelectedItemId(R.id.settings)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item->
+            when(item.itemId) {
+                R.id.home-> {
+                    val intent = Intent(this, Activity3::class.java)
+                    startActivity(intent)
+                }
+                R.id.favorite-> {
+                    val intent = Intent(this, FavoriteActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.orders-> {
+                    val intent = Intent(this, OrdersActivity::class.java)
+                    startActivity(intent)
+                }
+//                R.id.settings-> {
+//                    val intent = Intent(this, Activity2::class.java)
+//                    startActivity(intent)
+//                }
+            }
+            true
         }
     }
 
