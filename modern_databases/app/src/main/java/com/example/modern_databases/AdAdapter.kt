@@ -29,15 +29,17 @@ class AdAdapter: RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         val currentItem = adList[position]
 //        val curimage = image[1]
         holder.itemView.title.text = currentItem.title.toString()
-        holder.itemView.price.text  = currentItem.price.toString()+" ₽"
-        holder.itemView.date.text  =  sdf.format(currentItem.date)
+        holder.itemView.price.text  = currentItem.price.toString()+" руб."
+//        holder.itemView.date.text  =  sdf.format(currentItem.date)
 //        holder.itemView.imageView3.load(curimage.image)
         if (currentItem.title.toString() != "ony") {
             holder.itemView.imageView3.load("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg") {
                 transformations(RoundedCornersTransformation(40f))
             }
         } else {
-
+            holder.itemView.imageView3.load("https://sun1-19.userapi.com/s/v1/ig1/2nbYHF7gZiJYZ-hcPZsIZgCjmJRivp7Gu7RHspHDWool-bgPeiiVuDfAo42fVO4f_7A9t_-i.jpg?size=400x0&quality=96&crop=505,0,1707,1707&ava=1") {
+                transformations(RoundedCornersTransformation(40f))
+            }
         }
     }
     fun setData (ad: List<Ad>) {

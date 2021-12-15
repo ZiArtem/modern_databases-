@@ -45,23 +45,23 @@ class Activity2 : AppCompatActivity() {
         ).get(UserViewModel::class.java)
 
         test=  findViewById(R.id.test_button)
-        test2=  findViewById(R.id.test_button2)
-        image = findViewById(R.id.imageView)
+//        test2=  findViewById(R.id.test_button2)
+//        image = findViewById(R.id.imageView)
         addImage_ = findViewById(R.id.button_image2)
         changeImage = findViewById(R.id.button_image)
         cross = findViewById(R.id.cross1)
         delete= findViewById(R.id.delete)
 
         test.setOnClickListener {  addAdTestFunction () }
-        test2.setOnClickListener { getAdTest () }
+//        test2.setOnClickListener { getAdTest () }
         addImage_.setOnClickListener { addImageTest ()  }
         changeImage.setOnClickListener {  changeImage()  }
         cross.setOnClickListener {  goSignIn()  }
         delete.setOnClickListener {  deleteAll()  }
 
-        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
-            transformations(RoundedCornersTransformation(40f))
-        }
+//        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
+//            transformations(RoundedCornersTransformation(40f))
+//        }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.test)
@@ -70,18 +70,22 @@ class Activity2 : AppCompatActivity() {
                 R.id.home-> {
                     val intent = Intent(this, Activity3::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
                 R.id.favorite-> {
                     val intent = Intent(this, FavoriteActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
                 R.id.orders-> {
                     val intent = Intent(this, OrdersActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
                 R.id.settings-> {
                     val intent = Intent(this, SettigActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
 //                R.id.test-> {
 //                    val intent = Intent(this, Activity2::class.java)
