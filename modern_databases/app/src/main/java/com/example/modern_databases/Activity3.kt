@@ -58,6 +58,10 @@ class Activity3 : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.settings-> {
+                    val intent = Intent(this, SettigActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.test-> {
                     val intent = Intent(this, Activity2::class.java)
                     startActivity(intent)
                 }

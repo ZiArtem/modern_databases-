@@ -20,4 +20,8 @@
         android:id="@+id/settings"
         android:icon="@drawable/ic_baseline_settings_24"
         />
+    <item android:title="Test"
+        android:id="@+id/test"
+        android:icon="@drawable/ic_baseline_build_24"
+        />
 </menu>

@@ -64,7 +64,7 @@ class Activity2 : AppCompatActivity() {
         }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setSelectedItemId(R.id.settings)
+        bottomNavigationView.setSelectedItemId(R.id.test)
         bottomNavigationView.setOnNavigationItemSelectedListener { item->
             when(item.itemId) {
                 R.id.home-> {
@@ -79,7 +79,11 @@ class Activity2 : AppCompatActivity() {
                     val intent = Intent(this, OrdersActivity::class.java)
                     startActivity(intent)
                 }
-//                R.id.settings-> {
+                R.id.settings-> {
+                    val intent = Intent(this, SettigActivity::class.java)
+                    startActivity(intent)
+                }
+//                R.id.test-> {
 //                    val intent = Intent(this, Activity2::class.java)
 //                    startActivity(intent)
 //                }
@@ -147,7 +151,6 @@ class Activity2 : AppCompatActivity() {
             }
         }).start()
     }
-
 
     private fun goSignIn() {
         val sharedPref: SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
