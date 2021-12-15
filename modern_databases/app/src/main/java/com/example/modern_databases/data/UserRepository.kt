@@ -1,14 +1,15 @@
 package com.example.modern_databases.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Query
+import androidx.room.*
 
 class UserRepository(
     private val userDao: UserDao,
     private val adDao: AdDao,
     private val orderDao: OrderDao,
     private val imageDao: ImageDao,
-    private val favoriteDao: FavoriteDao
+    private val favoriteDao: FavoriteDao,
+    private val userInformationDao: UserInformationDao,
 ) {
 
     //user function
@@ -30,6 +31,10 @@ class UserRepository(
 
     suspend fun updateUser(user: User) {
         userDao.updateUser(user)
+    }
+
+    fun getUserInfo(id: Int): List<UserDao.UserInfo> {
+        return userDao.getUserInfo(id)
     }
 
     //ad function
@@ -133,4 +138,23 @@ class UserRepository(
     fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
         return favoriteDao.getAllFavoriteByUse(id_user)
     }
+
+    // User Information function
+
+    suspend fun addUserInfo(userInformation: UserInformation) {
+        return userInformationDao.addUserInfo(userInformation)
+    }
+
+    suspend fun updateUserInfo(userInformation: UserInformation) {
+        return userInformationDao.updateUserInfo(userInformation)
+    }
+
+    suspend fun deleteUserInfo(userInformation: UserInformation) {
+        return userInformationDao.deleteUserInfo(userInformation)
+    }
+
+    fun getUserInformation(id: Int): List<UserInformation> {
+        return userInformationDao.getUserInfo(id)
+    }
+
 }

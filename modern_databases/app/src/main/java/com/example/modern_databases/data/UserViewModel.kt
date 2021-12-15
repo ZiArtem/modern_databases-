@@ -18,7 +18,15 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         val orderDao_ = UserDatabase.getDatabase(application).orderDao()
         val picturesDao_ = UserDatabase.getDatabase(application).imageDao()
         val favoriteDao_ = UserDatabase.getDatabase(application).favoriteDao()
-        repository = UserRepository(userDao_, adDao_, orderDao_, picturesDao_,favoriteDao_)
+        val userInformationDao_ = UserDatabase.getDatabase(application).userInformationDao()
+        repository = UserRepository(
+            userDao_,
+            adDao_,
+            orderDao_,
+            picturesDao_,
+            favoriteDao_,
+            userInformationDao_
+        )
         readAllAd = repository.readAllAd
         getAllImage = repository.getAllImage()
     }
@@ -49,6 +57,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun checkUniqueLogin(login: String): List<User> {
         return repository.checkUniqueLogin(login)
+    }
+
+    fun getUserInfo(id: Int): List<UserDao.UserInfo> {
+        return repository.getUserInfo(id)
     }
 
     // ad function
@@ -87,7 +99,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllAd()
     }
 
-    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>> {
+    fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>> {
         return repository.getAdByListIdAd(id_ad_)
     }
 
@@ -153,19 +165,19 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     // favorite function
 
-    fun addFavorite(favorite:Favorite) {
+    fun addFavorite(favorite: Favorite) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addFavorite(favorite)
         }
     }
 
-    fun delleteFavorite(favorite:Favorite) {
+    fun delleteFavorite(favorite: Favorite) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFavorite(favorite)
         }
     }
 
-    fun updateFavorite(favorite:Favorite) {
+    fun updateFavorite(favorite: Favorite) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateFavorite(favorite)
         }
@@ -173,6 +185,30 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
         return repository.getAllFavoriteByUser(id_user)
+    }
+
+    // User Information function
+
+    fun addUserInfo(userInformation: UserInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addUserInfo(userInformation)
+        }
+    }
+
+    fun updateUserInfo(userInformation: UserInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateUserInfo(userInformation)
+        }
+    }
+
+    fun deleteUserInfo(userInformation: UserInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUserInfo(userInformation)
+        }
+    }
+
+    fun getUserInformation(id: Int): List<UserInformation> {
+        return repository.getUserInformation(id)
     }
 }
 

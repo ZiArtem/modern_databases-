@@ -1,4 +1,5 @@
 package com.example.modern_databases
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,10 +18,7 @@ import coil.load
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.Favorite
-import com.example.modern_databases.data.Image
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.data.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,14 +26,14 @@ import java.util.*
 
 class Activity2 : AppCompatActivity() {
     lateinit var mUserViewModel: UserViewModel
-    lateinit var  test: Button
-    lateinit var  delete: Button
-    lateinit var  test2: Button
-    lateinit var  addImage_: Button
-    lateinit var  changeImage: Button
-    lateinit var  test4: Button
-    lateinit var  image: ImageView
-    lateinit var  cross: TextView
+    lateinit var test: Button
+    lateinit var delete: Button
+    lateinit var test2: Button
+    lateinit var addImage_: Button
+//    lateinit var changeImage: Button
+    lateinit var test4: Button
+    lateinit var test5: Button
+//    lateinit var image: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,47 +44,47 @@ class Activity2 : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(UserViewModel::class.java)
 
-        test=  findViewById(R.id.test_button)
+        test = findViewById(R.id.test_button)
 //        test2=  findViewById(R.id.test_button2)
 //        image = findViewById(R.id.imageView)
         addImage_ = findViewById(R.id.button_image2)
-        changeImage = findViewById(R.id.button_image)
-        cross = findViewById(R.id.cross1)
-        delete= findViewById(R.id.delete)
+//        changeImage = findViewById(R.id.button_image)
+
+        delete = findViewById(R.id.delete)
         test4 = findViewById(R.id.buttontest4)
+        test5 = findViewById(R.id.button_test_5)
 
-        test.setOnClickListener {  addAdTestFunction () }
+        test.setOnClickListener { addAdTestFunction() }
 //        test2.setOnClickListener { getAdTest () }
-        addImage_.setOnClickListener { addImageTest ()  }
-        changeImage.setOnClickListener {  changeImage()  }
-        cross.setOnClickListener {  goSignIn()  }
-        delete.setOnClickListener {  deleteAll()  }
-        test4.setOnClickListener {  addFavorite()  }
-
+        addImage_.setOnClickListener { addImageTest() }
+//        changeImage.setOnClickListener { changeImage() }
+        delete.setOnClickListener { deleteAll() }
+        test4.setOnClickListener { addFavorite() }
+        test5.setOnClickListener { addUserInfo() }
 //        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
 //            transformations(RoundedCornersTransformation(40f))
 //        }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.test)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item->
-            when(item.itemId) {
-                R.id.home-> {
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
                     val intent = Intent(this, Activity3::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.favorite-> {
+                R.id.favorite -> {
                     val intent = Intent(this, FavoriteActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.orders-> {
+                R.id.orders -> {
                     val intent = Intent(this, OrdersActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.settings-> {
+                R.id.settings -> {
                     val intent = Intent(this, SettigActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
@@ -100,99 +98,103 @@ class Activity2 : AppCompatActivity() {
         }
     }
 
+    private fun addUserInfo() {
+        lifecycleScope.launch {
+            var userInformation: UserInformation = UserInformation(
+                0,
+                "8_________6",
+                "z________@yandex.ru",
+                Date(),
+                "Nizhny Novgorod",
+                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
+                1
+            )
+            mUserViewModel.addUserInfo(userInformation)
+        }
+    }
+
     private fun addFavorite() {
-        var fav:Favorite = Favorite(0,1,1)
+        var fav: Favorite = Favorite(0, 1, 1)
         mUserViewModel.addFavorite(fav)
     }
 
-    private fun addAdTestFunction () {
-        var ad1: Ad = Ad(0, "Test231","test", 1,2000,Date(),1)
+    private fun addAdTestFunction() {
+        var ad1: Ad = Ad(0, "Test231", "test", 1, 2000, Date(), 1)
         mUserViewModel.addAd(ad1)
-        var ad2: Ad = Ad(0, "Test32","test", 2,4000,Date(),1)
+        var ad2: Ad = Ad(0, "Test32", "test", 2, 4000, Date(), 1)
         mUserViewModel.addAd(ad2)
-        var ad3: Ad = Ad(0, "Test62","test", 3,3000,Date(),1)
+        var ad3: Ad = Ad(0, "Test62", "test", 3, 3000, Date(), 1)
         mUserViewModel.addAd(ad3)
-//        Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getAdTest () {
-        Thread(Runnable {
+//    private fun getAdTest() {
+//        Thread(Runnable {
+//
+////            val ad = mUserViewModel.getByKeyword("3090")
+//            val ad = mUserViewModel.getAdById(1)
+//            if (!ad.isEmpty()) {
+//                runOnUiThread {
+//                    val sdf = SimpleDateFormat("dd MM,yyy -HH:mm")
+//
+//                    Toast.makeText(
+//                        applicationContext,
+//                        ("test 1 ad \n" +
+//                                " title = " + ad[0].title + "\n description = " + ad[0].description + " \n" +
+//                                " price = " + ad[0].price + " \n" + "date of placement " + sdf.format(
+//                            ad[0].date
+//                        )),
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                }
+//            } else {
+//                runOnUiThread {
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "There are no ads in the database",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }).start()
+//    }
 
-//            val ad = mUserViewModel.getByKeyword("3090")
-            val ad = mUserViewModel.getAdById(1)
-            if (!ad.isEmpty()) {
-                runOnUiThread {
-                    val sdf = SimpleDateFormat("dd MM,yyy -HH:mm")
+    private suspend fun getBitmap(path: String): Bitmap {
+        val loading: ImageLoader = ImageLoader(this)
+        val request = ImageRequest.Builder(this).data(path).build()
 
-                    Toast.makeText(
-                        applicationContext,
-                        ("test 1 ad \n" +
-                                " title = " + ad[0].title + "\n description = " + ad[0].description + " \n" +
-                                " price = " + ad[0].price + " \n" + "date of placement " +sdf.format(ad[0].date)),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            } else {
-                runOnUiThread {
-                    Toast.makeText(
-                        applicationContext,
-                        "There are no ads in the database",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }).start()
-    }
-
-    private suspend fun getBitmap(path:String): Bitmap {
-        val loading:ImageLoader = ImageLoader(this)
-        val request = ImageRequest.Builder(this).data (path).build()
-
-        val result =(loading.execute(request)as SuccessResult).drawable
+        val result = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
     }
 
-    private  fun addImageTest () {
+    private fun addImageTest() {
         lifecycleScope.launch {
             val im = Image(
                 0,
-                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),3,1
+                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),
+                3,
+                1
             )
             mUserViewModel.addImage(im)
         }
         Toast.makeText(applicationContext, "image added successfully", Toast.LENGTH_SHORT).show()
     }
-
-    private  fun changeImage () {
-        Thread(Runnable {
-            var im1 =  mUserViewModel.getImageById(1)
-            image.load(im1[0].image) {
-                crossfade(600)
-                transformations(RoundedCornersTransformation(40f))
-            }
-        }).start()
-    }
-
-    private fun goSignIn() {
-        val sharedPref: SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.apply {
-            putInt("id_user", -1)
-            putBoolean("is_checked", false)
-        }.apply()
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish();
-    }
+//
+//    private fun changeImage() {
+//        Thread(Runnable {
+//            var im1 = mUserViewModel.getImageById(1)
+//            image.load(im1[0].image) {
+//                crossfade(600)
+//                transformations(RoundedCornersTransformation(40f))
+//            }
+//        }).start()
+//    }
 
     private fun deleteAll() {
         Thread(Runnable {
             val ad = mUserViewModel.getAllAd()
-            for (i in 0..ad.size-1) {
+            for (i in 0..ad.size - 1) {
                 mUserViewModel.deleteAd(ad[i])
             }
         }).start()
     }
-
 }
