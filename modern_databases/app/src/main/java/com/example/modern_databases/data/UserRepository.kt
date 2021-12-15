@@ -50,7 +50,7 @@ class UserRepository(private val userDao: UserDao, private val adDao: AdDao,priv
         return adDao.getAdByIdUser(id)
     }
 
-    fun getByKeyword(keyword:String): List<Ad> {
+    fun getByKeyword(keyword:String): LiveData<List<Ad>> {
         return adDao.getByKeyword(keyword)
     }
     fun getAllAd(): List<Ad> {

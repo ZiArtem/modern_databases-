@@ -77,7 +77,7 @@ class UserViewModel(application:Application):AndroidViewModel(application) {
     fun getAdByIdUser(id:Int): List<Ad> {
         return repository.getAdByIdUser(id)
     }
-    fun getByKeyword(keyword:String): List<Ad> {
+    fun getByKeyword(keyword:String): LiveData<List<Ad>> {
         return repository.getByKeyword(keyword)
     }
 

@@ -93,7 +93,7 @@ class Activity2 : AppCompatActivity() {
     }
 
     private fun addAdTestFunction () {
-        var ad: Ad = Ad(0, "test announcement","test", 2,150,Date(),1)
+        var ad: Ad = Ad(0, "ony","test", 2,0,Date(),1)
         mUserViewModel.addAd(ad)
 //        Toast.makeText(applicationContext,"ad added successfully!!!!", Toast.LENGTH_SHORT).show()
     }

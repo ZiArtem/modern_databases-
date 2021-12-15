@@ -29,11 +29,15 @@ class AdAdapter: RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         val currentItem = adList[position]
 //        val curimage = image[1]
         holder.itemView.title.text = currentItem.title.toString()
-        holder.itemView.price.text  = currentItem.price.toString()+"₽"
+        holder.itemView.price.text  = currentItem.price.toString()+" ₽"
         holder.itemView.date.text  =  sdf.format(currentItem.date)
 //        holder.itemView.imageView3.load(curimage.image)
-        holder.itemView.imageView3.load("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg") {
-            transformations(RoundedCornersTransformation(40f))
+        if (currentItem.title.toString() != "ony") {
+            holder.itemView.imageView3.load("https://vplate.ru/images/article/orig/2019/04/siba-inu-opisanie-porody-harakter-i-soderzhanie.jpg") {
+                transformations(RoundedCornersTransformation(40f))
+            }
+        } else {
+
         }
     }
     fun setData (ad: List<Ad>) {
