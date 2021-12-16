@@ -72,8 +72,8 @@ class Activity3 : AppCompatActivity() {
             var adList: List<Int> = mUserViewModel.readAllAdId()
             runOnUiThread {
             mUserViewModel.getAllPreviewImage(adList).observe(this, Observer { image -> adapter.setImage(image) })
-                mUserViewModel.getAllFavoriteByUser(1)
-                    .observe(this, Observer { favorite -> adapter.setFavorite(favorite) })
+//                mUserViewModel.getAllFavoriteByUser(1)
+//                    .observe(this, Observer { favorite -> adapter.setFavorite(favorite) })
             }
         }).start()
     }

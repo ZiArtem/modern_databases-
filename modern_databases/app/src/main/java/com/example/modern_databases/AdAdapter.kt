@@ -25,14 +25,13 @@ import java.text.SimpleDateFormat
 import com.like.LikeButton
 
 import com.like.OnLikeListener
-
-
+import java.lang.reflect.Array
 
 
 class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
     private var adList = emptyList<Ad>()
     private var image = emptyList<Image>()
-    private var favorite = emptyList<Favorite>()
+    private lateinit var favorite: ArrayList<Favorite>
     private lateinit var context:Context
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -84,16 +83,24 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
             holder.itemView.like_button.setLiked(false)
 
 
+        holder.itemView.imageView3.setOnClickListener {
+            fun onClick(view:View) {
+//                val intent = Intent(context, Favorite::class.java)
+//                context.startActivity(intent)
+//                overridePendingTransition(0, 0);
+//                activity.startActivity(Intent(activity, NVirementEmmeteur::class.java))
+
+            }
+        }
 
         holder.itemView.like_button.setOnLikeListener(object : OnLikeListener {
-
             override fun liked(likeButton: LikeButton) {
                 Toast.makeText(
                     context ,
                     "press",
                     Toast.LENGTH_SHORT
                 ).show()
-
+                favorite.add(Favorite(0,adList[position].id_ad,1))
 //                var mUserViewModel = ViewModelProvider(
 //
 //                ).get(UserViewModel::class.java)
@@ -116,9 +123,10 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setFavorite(favorite: List<Favorite>) {
-        this.favorite = favorite
-        notifyDataSetChanged()
-    }
+//    fun setFavorite(favorite: List<Favorite>) {
+//        for (i in favorite)
+//         this.favorite.add(i)
+//        notifyDataSetChanged()
+//    }
 }
 
