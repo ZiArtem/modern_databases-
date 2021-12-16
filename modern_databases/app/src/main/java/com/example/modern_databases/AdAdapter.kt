@@ -1,26 +1,45 @@
 package com.example.modern_databases
 
+import android.content.Context
+import android.content.Intent
+import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.ListFragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.RoomDatabase
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.data.Ad
 import com.example.modern_databases.data.Favorite
 import com.example.modern_databases.data.Image
+import com.example.modern_databases.data.UserViewModel
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import java.text.SimpleDateFormat
+import com.like.LikeButton
+
+import com.like.OnLikeListener
+
+
+
 
 class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
     private var adList = emptyList<Ad>()
     private var image = emptyList<Image>()
     private var favorite = emptyList<Favorite>()
+    private lateinit var context:Context
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        context = parent.getContext()
         return MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.ad_item_1, parent, false)
         )
@@ -64,6 +83,26 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         if (i==favorite.size)
             holder.itemView.like_button.setLiked(false)
 
+
+
+        holder.itemView.like_button.setOnLikeListener(object : OnLikeListener {
+
+            override fun liked(likeButton: LikeButton) {
+                Toast.makeText(
+                    context ,
+                    "press",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+//                var mUserViewModel = ViewModelProvider(
+//
+//                ).get(UserViewModel::class.java)
+            }
+
+            override fun unLiked(likeButton: LikeButton) {
+            holder.itemView.price.text = (currentItem.price).toString() + " руб."
+            }
+        })
     }
 
     fun setData(ad: List<Ad>) {
