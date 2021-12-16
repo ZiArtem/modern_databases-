@@ -24,7 +24,7 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite)
 
-        showFavoriteAd()
+//        showFavoriteAd()
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.favorite)
@@ -59,7 +59,7 @@ class FavoriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFavoriteAd () {
+    private fun showFavoriteAd() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -69,22 +69,14 @@ class FavoriteActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleviewFavorite)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mUserViewModel.getAllImage.observe(this, Observer { image -> adapter.setImage(image) })
-        Thread(Runnable {
-        var fav: List<Favorite> =  mUserViewModel.getAllFavoriteByUser(1)
-        var fav_ad: ArrayList<Int> = ArrayList()
-        for (item in fav)
-            fav_ad.add(item.id_ad_)
 
-        var d1:LiveData<List<Ad>> = mUserViewModel.getAdByListIdAd(fav_ad)
+        Thread(Runnable {
+            var fav: List<Int> = mUserViewModel.getAllFavoriteAd(1)
+            var d1: LiveData<List<Ad>> = mUserViewModel.getAdByListIdAd(fav)
             runOnUiThread {
                 d1.observe(this, Observer { ad -> adapter.setData(ad) })
+                mUserViewModel.getAllPreviewImage(fav).observe(this, Observer { image -> adapter.setImage(image) })
             }
         }).start()
     }
-
-
-
-
-
 }

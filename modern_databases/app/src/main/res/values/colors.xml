@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_gray">#1b1b1b</color>
-    <color name="light_gray">#BDBDBD</color>
+    <color name="light_gray">#7c7c7c</color>
     <color name="pod">#c3c3c3</color>
     <color name="dark">#0c0c0c</color>
 </resources>

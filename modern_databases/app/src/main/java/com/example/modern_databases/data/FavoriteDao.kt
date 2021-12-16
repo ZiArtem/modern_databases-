@@ -17,8 +17,12 @@ interface FavoriteDao {
 //    @Query("SELECT*FROM ad_table ORDER BY date")
 //    fun readAllAd(): LiveData<List<Ad>>
 //
+
     @Query("SELECT* FROM favorite_table WHERE id_user_=(:id_user) ORDER BY id_favorite")
-    fun getAllFavoriteByUse(id_user: Int): List<Favorite>
+    fun getAllFavoriteByUser(id_user: Int): LiveData<List<Favorite>>
+//
+    @Query("SELECT id_ad_ FROM favorite_table WHERE id_user_=(:id_user) ORDER BY id_favorite")
+    fun getAllFavoriteAd(id_user: Int): List<Int>
 
 
 //

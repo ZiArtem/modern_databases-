@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+//
 
 
     // Dependencies for working with Architecture components
@@ -83,4 +84,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+
+    compile 'com.github.jd-alexander:LikeButton:0.2.3'
 }

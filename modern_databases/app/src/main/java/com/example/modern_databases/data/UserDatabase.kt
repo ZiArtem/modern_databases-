@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.*
 
 @Database(
-    version = 3,
+    version = 2,
     entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class,UserInformation::class]
 )
 

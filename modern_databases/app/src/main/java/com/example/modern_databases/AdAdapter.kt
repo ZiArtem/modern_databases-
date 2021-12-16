@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.data.Ad
+import com.example.modern_databases.data.Favorite
 import com.example.modern_databases.data.Image
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import java.text.SimpleDateFormat
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat
 class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
     private var adList = emptyList<Ad>()
     private var image = emptyList<Image>()
+    private var favorite = emptyList<Favorite>()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
@@ -31,17 +33,13 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
-//        val curimage = image[1]
         holder.itemView.title.text = currentItem.title.toString()
         holder.itemView.price.text = currentItem.price.toString() + " руб."
 //        holder.itemView.date.text  =  sdf.format(currentItem.date)
-//        holder.itemView.imageView3.load(curimage.image)
-        var id_ad:Int =currentItem.id_ad
 
         var i:Int =0
         for (item in image) {
-            if (item.id_ad_==id_ad )
-            {
+            if (item.id_ad_==currentItem.id_ad )  {
                 holder.itemView.imageView3.load(item.image){
                     transformations(RoundedCornersTransformation(40f))
                 }
@@ -49,11 +47,23 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
             }
             i+=1
         }
-        if (i ==image.size) {
-            holder.itemView.imageView3.load("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg") {
+
+        if (i == image.size) {
+            holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
                 transformations(RoundedCornersTransformation(40f))
             }
         }
+        i=0
+        for (j in favorite) {
+            if (currentItem.id_ad == j.id_ad_) {
+                holder.itemView.like_button.setLiked(true)
+                break
+            }
+            i++
+        }
+        if (i==favorite.size)
+            holder.itemView.like_button.setLiked(false)
+
     }
 
     fun setData(ad: List<Ad>) {
@@ -64,6 +74,11 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
 
     fun setImage(image: List<Image>) {
         this.image = image
+        notifyDataSetChanged()
+    }
+
+    fun setFavorite(favorite: List<Favorite>) {
+        this.favorite = favorite
         notifyDataSetChanged()
     }
 }

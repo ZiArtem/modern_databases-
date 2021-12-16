@@ -103,6 +103,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAdByListIdAd(id_ad_)
     }
 
+    fun readAllAdId(): List<Int> {
+        return repository.readAllAdId()
+    }
+
     //image function
 
     fun addImage(image: Image) {
@@ -134,6 +138,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 //    fun getAllImage(): LiveData<List<Image>> {
 //        return  repository.getAllImage()
 //    }
+
+    fun getAllPreviewImage(id_ad_:List<Int>): LiveData<List<Image>> {
+        return repository.getAllPreviewImage(id_ad_)
+    }
 
     // order function
 
@@ -183,8 +191,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
+    fun getAllFavoriteByUser(id_user: Int): LiveData<List<Favorite>> {
         return repository.getAllFavoriteByUser(id_user)
+    }
+
+    fun getAllFavoriteAd(id_user: Int): List<Int> {
+        return repository.getAllFavoriteAd(id_user)
     }
 
     // User Information function

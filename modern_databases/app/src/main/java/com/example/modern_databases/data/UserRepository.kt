@@ -68,8 +68,13 @@ class UserRepository(
     fun getAllAd(): List<Ad> {
         return adDao.getAllAd()
     }
-    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>> {
+
+    fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>> {
         return adDao.getAdByListIdAd(id_ad_)
+    }
+
+    fun readAllAdId(): List<Int> {
+        return adDao.readAllAdId()
     }
 
     //Image function
@@ -98,6 +103,10 @@ class UserRepository(
         return imageDao.getAllImage()
     }
 
+    fun getAllPreviewImage(id_ad_:List<Int>): LiveData<List<Image>> {
+        return imageDao.getAllPreviewImage(id_ad_)
+    }
+
     //order function
 
     suspend fun addOrder(order: Order) {
@@ -123,20 +132,24 @@ class UserRepository(
 
     // favorite function
 
-    suspend fun addFavorite(favorite:Favorite) {
+    suspend fun addFavorite(favorite: Favorite) {
         favoriteDao.addFavorite(favorite)
     }
 
-    suspend fun deleteFavorite(favorite:Favorite) {
+    suspend fun deleteFavorite(favorite: Favorite) {
         favoriteDao.deleteFavorite(favorite)
     }
 
-    suspend fun updateFavorite(favorite:Favorite) {
+    suspend fun updateFavorite(favorite: Favorite) {
         favoriteDao.updateFavorite(favorite)
     }
 
-    fun getAllFavoriteByUser(id_user: Int): List<Favorite> {
-        return favoriteDao.getAllFavoriteByUse(id_user)
+    fun getAllFavoriteByUser(id_user: Int): LiveData<List<Favorite>> {
+        return favoriteDao.getAllFavoriteByUser(id_user)
+    }
+
+    fun getAllFavoriteAd(id_user: Int): List<Int> {
+        return favoriteDao.getAllFavoriteAd(id_user)
     }
 
     // User Information function

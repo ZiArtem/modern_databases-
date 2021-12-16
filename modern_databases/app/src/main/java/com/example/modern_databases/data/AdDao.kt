@@ -14,10 +14,13 @@ interface AdDao {
     @Update
     suspend fun updateAd(ad: Ad)
 
-    @Query("SELECT*FROM ad_table ORDER BY date")
+    @Query("SELECT*FROM ad_table ORDER BY id_ad")
     fun readAllAd(): LiveData<List<Ad>>
 
-    @Query("SELECT*FROM ad_table ORDER BY date")
+    @Query("SELECT id_ad FROM ad_table ORDER BY id_ad")
+    fun readAllAdId(): List<Int>
+
+    @Query("SELECT*FROM ad_table ORDER BY id_ad")
     fun getAllAd(): List<Ad>
 
     @Query("SELECT*FROM ad_table WHERE id_ad=(:id)")

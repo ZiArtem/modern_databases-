@@ -27,13 +27,9 @@ import java.util.*
 class Activity2 : AppCompatActivity() {
     lateinit var mUserViewModel: UserViewModel
     lateinit var test: Button
-    lateinit var delete: Button
-    lateinit var test2: Button
-    lateinit var addImage_: Button
-//    lateinit var changeImage: Button
-    lateinit var test4: Button
-    lateinit var test5: Button
-//    lateinit var image: ImageView
+//    lateinit var addImage_: Button
+//    lateinit var test4: Button
+//    lateinit var test5: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,26 +41,18 @@ class Activity2 : AppCompatActivity() {
         ).get(UserViewModel::class.java)
 
         test = findViewById(R.id.test_button)
-//        test2=  findViewById(R.id.test_button2)
-//        image = findViewById(R.id.imageView)
-        addImage_ = findViewById(R.id.button_image2)
-//        changeImage = findViewById(R.id.button_image)
-
-        delete = findViewById(R.id.delete)
-        test4 = findViewById(R.id.buttontest4)
-        test5 = findViewById(R.id.button_test_5)
+//        addImage_ = findViewById(R.id.button_image2)
+//        test4 = findViewById(R.id.buttontest4)
+//        test5 = findViewById(R.id.button_test_5)
 
         test.setOnClickListener { addAdTestFunction() }
-//        test2.setOnClickListener { getAdTest () }
-        addImage_.setOnClickListener { addImageTest() }
-//        changeImage.setOnClickListener { changeImage() }
-        delete.setOnClickListener { deleteAll() }
-        test4.setOnClickListener { addFavorite() }
-        test5.setOnClickListener { addUserInfo() }
-//        image.load("https://www.dimm.com.uy/productos/imgs/playstation-5-regular-pre-venta-66105-34.jpg") {
-//            transformations(RoundedCornersTransformation(40f))
-//        }
+//        addImage_.setOnClickListener { addImageTest() }
+//        test4.setOnClickListener { addFavorite() }
+//        test5.setOnClickListener { addUserInfo() }
+        navigationBar()
+    }
 
+    private fun navigationBar() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.test)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -98,7 +86,27 @@ class Activity2 : AppCompatActivity() {
         }
     }
 
-    private fun addUserInfo() {
+//    private fun addUserInfo() {
+//        lifecycleScope.launch {
+//            var userInformation: UserInformation = UserInformation(
+//                0,
+//                "8_________6",
+//                "z________@yandex.ru",
+//                Date(),
+//                "Nizhny Novgorod",
+//                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
+//                1
+//            )
+//            mUserViewModel.addUserInfo(userInformation)
+//        }
+//    }
+
+//    private fun addFavorite() {
+//        var fav: Favorite = Favorite(0, 3, 1)
+//        mUserViewModel.addFavorite(fav)
+//    }
+
+    private fun addAdTestFunction() {
         lifecycleScope.launch {
             var userInformation: UserInformation = UserInformation(
                 0,
@@ -111,52 +119,71 @@ class Activity2 : AppCompatActivity() {
             )
             mUserViewModel.addUserInfo(userInformation)
         }
-    }
 
-    private fun addFavorite() {
-        var fav: Favorite = Favorite(0, 1, 1)
-        mUserViewModel.addFavorite(fav)
-    }
+        var images_list: ArrayList<String> = ArrayList()
 
-    private fun addAdTestFunction() {
-        var ad1: Ad = Ad(0, "Test231", "test", 1, 2000, Date(), 1)
-        mUserViewModel.addAd(ad1)
-        var ad2: Ad = Ad(0, "Test32", "test", 2, 4000, Date(), 1)
-        mUserViewModel.addAd(ad2)
-        var ad3: Ad = Ad(0, "Test62", "test", 3, 3000, Date(), 1)
-        mUserViewModel.addAd(ad3)
-    }
+        for (i in 1..20)
+            images_list.add("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg")
+        images_list.add("https://fun-cats.ru/wp-content/uploads/3/0/7/3071381c7efe0c6c94cec8f4eb4442e6.jpeg")
+        images_list.add("https://pbs.twimg.com/media/EkIUGBXWoAE9b0i.jpg")
+        images_list.add("https://mirsobaki.ru/wp-content/uploads/2019/01/Siba-inu-88.jpg")
+        images_list.add("https://doggav.ru/wp-content/uploads/siba-inu_24.jpg")
+        images_list.add("https://kot-pes.com/wp-content/uploads/2019/06/post_5cf6ff9b6710e-765x754.jpg")
+        images_list.add("https://porodisobak.ru/wp-content/uploads/2021/07/siba-inu-12.jpg")
+        images_list.add("https://lapkins.ru/upload/iblock/945/945b1c8bba53680aca6d63dcd04fce9b.jpg")
+        images_list.add("https://hypecrib.com/wp-content/uploads/2019/12/8-1.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
+        images_list.add("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg")
 
-//    private fun getAdTest() {
-//        Thread(Runnable {
-//
-////            val ad = mUserViewModel.getByKeyword("3090")
-//            val ad = mUserViewModel.getAdById(1)
-//            if (!ad.isEmpty()) {
-//                runOnUiThread {
-//                    val sdf = SimpleDateFormat("dd MM,yyy -HH:mm")
-//
-//                    Toast.makeText(
-//                        applicationContext,
-//                        ("test 1 ad \n" +
-//                                " title = " + ad[0].title + "\n description = " + ad[0].description + " \n" +
-//                                " price = " + ad[0].price + " \n" + "date of placement " + sdf.format(
-//                            ad[0].date
-//                        )),
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            } else {
-//                runOnUiThread {
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "There are no ads in the database",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }).start()
-//    }
+        var ad: Ad = Ad(
+            0,
+            "Test title  " + (0..100).random(),
+            "test",
+            (0..15).random(),
+            (0..10000).random(),
+            Date(),
+            1
+        )
+        mUserViewModel.addAd(ad)
+
+        lifecycleScope.launch {
+            val im = Image(
+                0,
+                getBitmap(images_list[(1..29).random()]),
+                1,
+                1
+            )
+            mUserViewModel.addImage(im)
+        }
+
+        for (item: Int in 1..100) {
+            ad = Ad(
+                0,
+                "Test title  " + (0..100).random(),
+                "test",
+                (0..15).random(),
+                (0..10000).random(),
+                Date(),
+                1
+            )
+            mUserViewModel.addAd(ad)
+
+            lifecycleScope.launch {
+                val im = Image(
+                    0,
+                    getBitmap(images_list[(1..29).random()]),
+                    item + 1,
+                    1
+                )
+                mUserViewModel.addImage(im)
+            }
+        }
+
+        for (item1 in 1..5) {
+            mUserViewModel.addFavorite(Favorite(0, (1..100).random(), 1))
+        }
+    }
 
     private suspend fun getBitmap(path: String): Bitmap {
         val loading: ImageLoader = ImageLoader(this)
@@ -166,35 +193,25 @@ class Activity2 : AppCompatActivity() {
         return (result as BitmapDrawable).bitmap
     }
 
-    private fun addImageTest() {
-        lifecycleScope.launch {
-            val im = Image(
-                0,
-                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),
-                3,
-                1
-            )
-            mUserViewModel.addImage(im)
-        }
-        Toast.makeText(applicationContext, "image added successfully", Toast.LENGTH_SHORT).show()
-    }
-//
-//    private fun changeImage() {
+//    private fun addImageTest() {
+//        lifecycleScope.launch {
+//            val im = Image(
+//                0,
+//                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),
+//                3,
+//                1
+//            )
+//            mUserViewModel.addImage(im)
+//        }
+//        Toast.makeText(applicationContext, "image added successfully", Toast.LENGTH_SHORT).show()
+//    }
+
+//    private fun deleteAll() {
 //        Thread(Runnable {
-//            var im1 = mUserViewModel.getImageById(1)
-//            image.load(im1[0].image) {
-//                crossfade(600)
-//                transformations(RoundedCornersTransformation(40f))
+//            val ad = mUserViewModel.getAllAd()
+//            for (i in 0..ad.size - 1) {
+//                mUserViewModel.deleteAd(ad[i])
 //            }
 //        }).start()
 //    }
-
-    private fun deleteAll() {
-        Thread(Runnable {
-            val ad = mUserViewModel.getAllAd()
-            for (i in 0..ad.size - 1) {
-                mUserViewModel.deleteAd(ad[i])
-            }
-        }).start()
-    }
 }

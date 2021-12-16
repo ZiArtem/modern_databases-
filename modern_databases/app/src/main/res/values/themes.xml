@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Modern_databases" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Modern_databases" parent="Theme.AppCompat.DayNight.NoActionBar">
 <!--    <style name="Theme.SearchRecyclerviewDemo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">-->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_gray</item>
@@ -15,12 +15,6 @@
         <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:editTextColor">@android:color/white</item>
         <!-- Customize your theme here. -->
-<!--        <item name="android:editTextColor">@android:color/white</item>-->
-<!--        <style name="EditTextHint" parent="TextAppearance.AppCompat"> -->
-<!--            <item name="colorAccent">@android:color/white</item>-->
-<!--            <item name="android:textColorHint">@color/BackgroundtWhiteColor</item> -->
-<!--            <item name="colorControlNormal">@color/BackgroundtWhiteColor</item> -->
-<!--            <item name="colorControlActivated">@color/your color</item> -->
-<!--            <item name="colorControlHighlight">@color/BackgroundtWhiteColor</item> </style>-->
+
     </style>
 </resources>

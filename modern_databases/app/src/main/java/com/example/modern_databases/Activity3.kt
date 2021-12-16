@@ -33,6 +33,30 @@ class Activity3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_3)
 
+        showAllAd()
+        navigationBar()
+
+        var editText: EditText = findViewById(R.id.search_ed)
+        editText.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                searchDatabase(s.toString())
+            }
+        })
+    }
+
+    private fun showAllAd() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -44,8 +68,17 @@ class Activity3 : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
-        mUserViewModel.getAllImage.observe(this, Observer { image -> adapter.setImage(image) })
+        Thread(Runnable {
+            var adList: List<Int> = mUserViewModel.readAllAdId()
+            runOnUiThread {
+            mUserViewModel.getAllPreviewImage(adList).observe(this, Observer { image -> adapter.setImage(image) })
+                mUserViewModel.getAllFavoriteByUser(1)
+                    .observe(this, Observer { favorite -> adapter.setFavorite(favorite) })
+            }
+        }).start()
+    }
 
+    private fun navigationBar() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -76,25 +109,6 @@ class Activity3 : AppCompatActivity() {
             }
             true
         }
-
-        var editText: EditText = findViewById(R.id.search_ed)
-        editText.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-                searchDatabase(s.toString())
-            }
-        })
     }
 
     private fun searchDatabase(query: String) {

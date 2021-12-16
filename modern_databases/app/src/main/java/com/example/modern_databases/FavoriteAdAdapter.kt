@@ -49,7 +49,7 @@ class FavoriteAdAdapter : RecyclerView.Adapter<FavoriteAdAdapter.MyViewHolder>()
             i += 1
         }
         if (i == image.size) {
-            holder.itemView.imageView3.load("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg") {
+            holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
                 transformations(RoundedCornersTransformation(40f))
             }
         }
