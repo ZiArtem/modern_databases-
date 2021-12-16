@@ -179,7 +179,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun delleteFavorite(favorite: Favorite) {
+    fun deleteFavorite(favorite: Favorite) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFavorite(favorite)
         }
@@ -197,6 +197,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllFavoriteAd(id_user: Int): List<Int> {
         return repository.getAllFavoriteAd(id_user)
+    }
+
+    fun getFavoriteById(id_fav:Int): List<Favorite> {
+        return repository.getFavoriteById(id_fav)
     }
 
     // User Information function
@@ -222,5 +226,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun getUserInformation(id: Int): List<UserInformation> {
         return repository.getUserInformation(id)
     }
+
+
+
 }
 

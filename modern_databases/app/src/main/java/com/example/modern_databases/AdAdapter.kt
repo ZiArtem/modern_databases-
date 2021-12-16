@@ -5,44 +5,73 @@ import android.content.Intent
 import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.ListFragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.RoomDatabase
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.data.Ad
 import com.example.modern_databases.data.Favorite
 import com.example.modern_databases.data.Image
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.databinding.AdItem1Binding
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import java.text.SimpleDateFormat
 import com.like.LikeButton
 
 import com.like.OnLikeListener
 
+interface AdActionListener {
+    fun onAdDeteils(ad:Ad)
 
+    fun onFavoriteAdd (ad:Ad)
+}
 
-
-class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
+class AdAdapter(private val actionListener:AdActionListener) : RecyclerView.Adapter<AdAdapter.MyViewHolder>(),View.OnClickListener {
     private var adList = emptyList<Ad>()
     private var image = emptyList<Image>()
     private var favorite = emptyList<Favorite>()
-    private lateinit var context:Context
-
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        context = parent.getContext()
-        return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.ad_item_1, parent, false)
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = AdItem1Binding.inflate(inflater, parent, false)
+        binding.root.setOnClickListener(this)
+        binding.imageView3.setOnClickListener(this)
+//        binding.likeButton.setOnLikeListener(object : OnLikeListener {
+//            override fun liked(likeButton: LikeButton) {
+//
+//
+////                var mUserViewModel = ViewModelProvider(
+////
+////                ).get(UserViewModel::class.java)
+//            }
+//
+//            override fun unLiked(likeButton: LikeButton) {
+//            }
+//        })
+
+        binding.likeButton.setOnClickListener(this)
+        return MyViewHolder(binding)
+
+//        return MyViewHolder(
+//            LayoutInflater.from(parent.context).inflate(R.layout.ad_item_1, parent, false)
+//        )
+    }
+
+    override fun onClick(v: View) {
+       val ad:Ad = v.tag as Ad
+        when (v.id) {
+            R.id.imageView3-> {
+                actionListener.onAdDeteils(ad)
+            }
+
+            R.id.like_button-> {
+                actionListener.onFavoriteAdd(ad)
+            }
+            else -> {
+
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -56,15 +85,20 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         holder.itemView.price.text = currentItem.price.toString() + " руб."
 //        holder.itemView.date.text  =  sdf.format(currentItem.date)
 
-        var i:Int =0
+        holder.itemView.tag = currentItem
+        holder.itemView.imageView3.tag = currentItem
+        holder.itemView.like_button.tag = currentItem
+
+
+        var i: Int = 0
         for (item in image) {
-            if (item.id_ad_==currentItem.id_ad )  {
-                holder.itemView.imageView3.load(item.image){
+            if (item.id_ad_ == currentItem.id_ad) {
+                holder.itemView.imageView3.load(item.image) {
                     transformations(RoundedCornersTransformation(40f))
                 }
                 break
             }
-            i+=1
+            i += 1
         }
 
         if (i == image.size) {
@@ -72,7 +106,7 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
                 transformations(RoundedCornersTransformation(40f))
             }
         }
-        i=0
+        i = 0
         for (j in favorite) {
             if (currentItem.id_ad == j.id_ad_) {
                 holder.itemView.like_button.setLiked(true)
@@ -80,19 +114,26 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
             }
             i++
         }
-        if (i==favorite.size)
+        if (i == favorite.size)
             holder.itemView.like_button.setLiked(false)
 
-
+//        holder.itemView.imageView3.setOnClickListener {
+//            Toast.makeText(
+//                context,
+//                "press",
+//                Toast.LENGTH_SHORT
+//            ).show()
+////            var intent = Intent(context,FavoriteActivity::class.java)
+////            context.startActivities(intent)
+//        }
 
         holder.itemView.like_button.setOnLikeListener(object : OnLikeListener {
-
             override fun liked(likeButton: LikeButton) {
-                Toast.makeText(
-                    context ,
-                    "press",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    context ,
+//                    "press",
+//                    Toast.LENGTH_SHORT
+//                ).show()
 
 //                var mUserViewModel = ViewModelProvider(
 //
@@ -100,7 +141,7 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
             }
 
             override fun unLiked(likeButton: LikeButton) {
-            holder.itemView.price.text = (currentItem.price).toString() + " руб."
+                holder.itemView.price.text = (currentItem.price).toString() + " руб."
             }
         })
     }
@@ -120,5 +161,9 @@ class AdAdapter : RecyclerView.Adapter<AdAdapter.MyViewHolder>() {
         this.favorite = favorite
         notifyDataSetChanged()
     }
+
+    class MyViewHolder(
+        val binding: AdItem1Binding
+    ) : RecyclerView.ViewHolder(binding.root)
 }
 

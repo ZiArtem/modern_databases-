@@ -4,13 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.modern_databases.data.Ad
 import com.example.modern_databases.data.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_3.view.*
 import android.text.TextWatcher
+import com.example.modern_databases.data.Favorite
 
 
 class Activity3 : AppCompatActivity() {
@@ -62,7 +56,18 @@ class Activity3 : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(UserViewModel::class.java)
 
-        adapter = AdAdapter()
+        adapter = AdAdapter(object :AdActionListener{
+            override fun onAdDeteils(ad:Ad) {
+                val intent = Intent(this@Activity3, AdPage::class.java)
+                intent.putExtra("id_ad", ad.id_ad.toInt())
+                startActivity(intent)
+                overridePendingTransition(0, 0);
+            }
+
+            override fun onFavoriteAdd(ad: Ad) {
+                adFav(ad)
+            }
+        })
         recyclerView = findViewById(R.id.recycleview)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -121,5 +126,18 @@ class Activity3 : AppCompatActivity() {
         else
             mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
 //        mUserViewModel.readAllAd.observe(this, Observer {ad-> adapter.setData(ad) })
+    }
+
+    private fun adFav(ad:Ad) {
+        Thread(Runnable {
+        var fav= mUserViewModel.getFavoriteById(ad.id_ad)
+            if (fav.size==0) {
+                mUserViewModel.addFavorite(Favorite(0,ad.id_ad,1))
+            }else {
+                runOnUiThread {
+                mUserViewModel.deleteFavorite(fav[0])
+                }
+            }
+        }).start()
     }
 }

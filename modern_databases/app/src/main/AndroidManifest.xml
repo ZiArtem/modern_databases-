@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modern_databases">
         <activity
+            android:name=".AdPage"
+            android:exported="true" />
+        <activity
             android:name=".SettigActivity"
             android:exported="true" />
         <activity

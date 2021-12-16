@@ -152,6 +152,10 @@ class UserRepository(
         return favoriteDao.getAllFavoriteAd(id_user)
     }
 
+    fun getFavoriteById(id_fav:Int): List<Favorite> {
+        return favoriteDao.getFavoriteById(id_fav)
+    }
+
     // User Information function
 
     suspend fun addUserInfo(userInformation: UserInformation) {

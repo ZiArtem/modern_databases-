@@ -179,10 +179,6 @@ class Activity2 : AppCompatActivity() {
                 mUserViewModel.addImage(im)
             }
         }
-
-        for (item1 in 1..5) {
-            mUserViewModel.addFavorite(Favorite(0, (1..100).random(), 1))
-        }
     }
 
     private suspend fun getBitmap(path: String): Bitmap {
