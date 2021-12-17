@@ -77,6 +77,10 @@ class UserRepository(
         return adDao.readAllAdId()
     }
 
+    fun TestALlAd(): LiveData<List<AdDao.FullAd>> {
+        return adDao.TestALlAd()
+    }
+
     //Image function
 
     suspend fun addImage(image: Image) {

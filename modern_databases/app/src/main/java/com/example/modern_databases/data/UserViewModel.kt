@@ -171,6 +171,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getOrderById(id_order)
     }
 
+    fun TestALlAd(): LiveData<List<AdDao.FullAd>> {
+        return repository.TestALlAd()
+    }
+
     // favorite function
 
     fun addFavorite(favorite: Favorite) {
