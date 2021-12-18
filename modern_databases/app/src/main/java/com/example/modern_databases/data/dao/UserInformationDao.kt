@@ -1,6 +1,7 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.dao
 
 import androidx.room.*
+import com.example.modern_databases.data.data_class.UserInformation
 
 @Dao
 interface UserInformationDao {

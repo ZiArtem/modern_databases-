@@ -12,28 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modern_databases">
         <activity
-            android:name=".AdPage"
+            android:name=".activity.AdPageActivity"
             android:exported="true" />
         <activity
-            android:name=".SettigActivity"
+            android:name=".activity.SettigActivity"
             android:exported="true" />
         <activity
-            android:name=".OrdersActivity"
+            android:name=".activity.OrdersActivity"
             android:exported="true" />
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".activity.FavoriteActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity3"
+            android:name=".activity.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity2"
+            android:name=".activity.TestActivity"
             android:exported="true" />
         <activity
-            android:name=".RegistryActivity"
+            android:name=".activity.RegistryActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

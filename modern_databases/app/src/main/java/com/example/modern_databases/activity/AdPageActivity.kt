@@ -1,20 +1,19 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.modern_databases.R
-import android.content.Intent
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.viewmodel.PrViewModel
 
 
-class AdPage : AppCompatActivity() {
+class AdPageActivity : AppCompatActivity() {
     private lateinit var image:ImageView
-    lateinit var mUserViewModel: UserViewModel
+    lateinit var mUserViewModel: PrViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,7 @@ class AdPage : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get( PrViewModel::class.java)
 
         Thread(Runnable {
             var image1 =  mUserViewModel.getImageByIdAd(id_ad)

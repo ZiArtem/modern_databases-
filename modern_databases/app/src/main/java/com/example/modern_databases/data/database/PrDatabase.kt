@@ -1,15 +1,17 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.database
 
 import android.content.Context
 import androidx.room.*
+import com.example.modern_databases.data.dao.*
+import com.example.modern_databases.data.data_class.*
 
 @Database(
-    version = 4,
-    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class,UserInformation::class]
+    version = 1,
+    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class]
 )
 
-@TypeConverters(Converters::class)
-abstract class UserDatabase : RoomDatabase() {
+@TypeConverters(DataConverter::class)
+abstract class PrDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun adDao(): AdDao
     abstract fun orderDao(): OrderDao
@@ -19,9 +21,9 @@ abstract class UserDatabase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE: UserDatabase? = null
+        private var INSTANCE: PrDatabase? = null
 
-        fun getDatabase(context: Context): UserDatabase {
+        fun getDatabase(context: Context): PrDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -29,7 +31,7 @@ abstract class UserDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    UserDatabase::class.java,
+                    PrDatabase::class.java,
                     "user_database"
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance

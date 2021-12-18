@@ -1,4 +1,4 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.data_class
 
 import androidx.room.*
 import java.util.*

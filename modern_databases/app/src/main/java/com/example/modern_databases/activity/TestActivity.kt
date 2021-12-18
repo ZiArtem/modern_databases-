@@ -1,31 +1,26 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
-import coil.load
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.*
+import com.example.modern_databases.R
+import com.example.modern_databases.data.data_class.Ad
+import com.example.modern_databases.data.data_class.Image
+import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
-class Activity2 : AppCompatActivity() {
-    lateinit var mUserViewModel: UserViewModel
+class TestActivity : AppCompatActivity() {
+    lateinit var mUserViewModel: PrViewModel
     lateinit var test: Button
 //    lateinit var addImage_: Button
 //    lateinit var test4: Button
@@ -33,12 +28,12 @@ class Activity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_2)
+        setContentView(R.layout.activity_test)
 
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get( PrViewModel::class.java)
 
         test = findViewById(R.id.test_button)
 //        addImage_ = findViewById(R.id.button_image2)
@@ -58,7 +53,7 @@ class Activity2 : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this, Activity3::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -107,18 +102,18 @@ class Activity2 : AppCompatActivity() {
 //    }
 
     private fun addAdTestFunction() {
-        lifecycleScope.launch {
-            var userInformation: UserInformation = UserInformation(
-                0,
-                "8_________6",
-                "z________@yandex.ru",
-                Date(),
-                "Nizhny Novgorod",
-                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
-                1
-            )
-            mUserViewModel.addUserInfo(userInformation)
-        }
+//        lifecycleScope.launch {
+//            var userInformation: UserInformation = UserInformation(
+//                1,
+//                "8_________6",
+//                "z________@yandex.ru",
+//                Date(),
+//                "Nizhny Novgorod",
+//                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
+//                1
+//            )
+//            mUserViewModel.updateUserInfo(userInformation)
+//        }
 
         var images_list: ArrayList<String> = ArrayList()
 
@@ -157,7 +152,7 @@ class Activity2 : AppCompatActivity() {
             mUserViewModel.addImage(im)
         }
 
-        for (item: Int in 1..100) {
+        for (item: Int in 1..40) {
             ad = Ad(
                 0,
                 "Test title  " + (0..100).random(),

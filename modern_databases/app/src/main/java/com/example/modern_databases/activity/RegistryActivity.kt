@@ -1,16 +1,27 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
-import com.example.modern_databases.data.User
-import com.example.modern_databases.data.UserViewModel
+import androidx.lifecycle.lifecycleScope
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
+import com.example.modern_databases.R
+import com.example.modern_databases.viewmodel.PrViewModel
+import com.example.modern_databases.data.data_class.User
+import com.example.modern_databases.data.data_class.UserInformation
+import kotlinx.coroutines.launch
+import java.util.*
 
 class RegistryActivity : AppCompatActivity() {
-    lateinit var mUserViewModel: UserViewModel
+    lateinit var mUserViewModel: PrViewModel
 
     lateinit var firstName: EditText
     lateinit var lastName: EditText
@@ -36,7 +47,7 @@ class RegistryActivity : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get(PrViewModel::class.java)
 
         registryButton.setOnClickListener {
             insertDataToDatabase()
@@ -66,11 +77,9 @@ class RegistryActivity : AppCompatActivity() {
                     if (user_same_login.isEmpty()) {
                         val user = User(0, firstName_t, lastName_t, login_t, password_t)
                         mUserViewModel.addUser(user)
-                        runOnUiThread {
-                            Toast.makeText(applicationContext, "Successful!!!!", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                        val intent = Intent(this, Activity3::class.java)
+
+                        addUserInfo(login_t)
+                        val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish();
                     } else {
@@ -110,5 +119,34 @@ class RegistryActivity : AppCompatActivity() {
         return !(TextUtils.isEmpty(first) || TextUtils.isEmpty(last) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(
             conf
         ) || TextUtils.isEmpty(login))
+    }
+
+    private suspend fun getBitmap(path: String): Bitmap {
+        val loading: ImageLoader = ImageLoader(this)
+        val request = ImageRequest.Builder(this).data(path).build()
+
+        val result = (loading.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
+    }
+
+    private fun addUserInfo(login: String) {
+        Thread(Runnable {
+            var id_user: List<Int> = mUserViewModel.getUserIdByLogin(login)
+
+            runOnUiThread {
+                lifecycleScope.launch {
+                    var userInfo = UserInformation(
+                        0,
+                        "",
+                        "",
+                        Date(),
+                        "",
+                        getBitmap("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png"),
+                        1
+                    )
+                    mUserViewModel.addUserInfo(userInfo)
+                }
+            }
+        }).start()
     }
 }

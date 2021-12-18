@@ -1,6 +1,7 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.dao
 
 import androidx.room.*
+import com.example.modern_databases.data.data_class.User
 
 @Dao
 interface UserDao {
@@ -21,6 +22,9 @@ interface UserDao {
 
     @Query("SELECT firstName,lastName FROM user_table WHERE id_user=(:id)")
     fun getUserInfo(id: Int): List<UserInfo>
+
+    @Query("SELECT id_user FROM user_table WHERE login=(:login_)")
+    fun getUserIdByLogin(login_: String): List<Int>
 
     data class UserInfo(val firstName: String?, val lastName: String?)
 }

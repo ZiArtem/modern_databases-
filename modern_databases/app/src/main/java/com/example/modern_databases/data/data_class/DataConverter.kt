@@ -1,4 +1,4 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.data_class
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,7 +6,7 @@ import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-class Converters {
+class DataConverter {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
         return value?.let { Date(it) }

@@ -1,25 +1,30 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.dao.UserDao
+import com.example.modern_databases.data.data_class.*
+import com.example.modern_databases.data.database.PrDatabase
+import com.example.modern_databases.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: UserRepository
+class PrViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: Repository
     val readAllAd: LiveData<List<Ad>>
     val getAllImage: LiveData<List<Image>>
 
     init {
-        val userDao_ = UserDatabase.getDatabase(application).userDao()
-        val adDao_ = UserDatabase.getDatabase(application).adDao()
-        val orderDao_ = UserDatabase.getDatabase(application).orderDao()
-        val picturesDao_ = UserDatabase.getDatabase(application).imageDao()
-        val favoriteDao_ = UserDatabase.getDatabase(application).favoriteDao()
-        val userInformationDao_ = UserDatabase.getDatabase(application).userInformationDao()
-        repository = UserRepository(
+        val userDao_ = PrDatabase.getDatabase(application).userDao()
+        val adDao_ = PrDatabase.getDatabase(application).adDao()
+        val orderDao_ = PrDatabase.getDatabase(application).orderDao()
+        val picturesDao_ = PrDatabase.getDatabase(application).imageDao()
+        val favoriteDao_ = PrDatabase.getDatabase(application).favoriteDao()
+        val userInformationDao_ = PrDatabase.getDatabase(application).userInformationDao()
+        repository = Repository(
             userDao_,
             adDao_,
             orderDao_,
@@ -61,6 +66,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getUserInfo(id: Int): List<UserDao.UserInfo> {
         return repository.getUserInfo(id)
+    }
+
+    fun getUserIdByLogin(login: String): List<Int> {
+        return repository.getUserIdByLogin(login)
     }
 
     // ad function
@@ -230,8 +239,5 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun getUserInformation(id: Int): List<UserInformation> {
         return repository.getUserInformation(id)
     }
-
-
-
 }
 

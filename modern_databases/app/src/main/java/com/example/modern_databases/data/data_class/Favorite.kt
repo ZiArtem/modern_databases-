@@ -1,9 +1,8 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.data_class
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "favorite_table", foreignKeys = [
     ForeignKey(entity = Ad::class,

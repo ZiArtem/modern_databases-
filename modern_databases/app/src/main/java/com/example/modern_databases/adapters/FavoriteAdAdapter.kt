@@ -1,13 +1,13 @@
-package com.example.modern_databases
+package com.example.modern_databases.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.Image
-import kotlinx.android.synthetic.main.ad_item_1.view.*
+import com.example.modern_databases.R
+import com.example.modern_databases.data.data_class.Ad
+import com.example.modern_databases.data.data_class.Image
 import kotlinx.android.synthetic.main.ad_item_1.view.imageView3
 import kotlinx.android.synthetic.main.ad_item_1.view.price
 import kotlinx.android.synthetic.main.ad_item_1.view.title
@@ -27,7 +27,7 @@ class FavoriteAdAdapter : RecyclerView.Adapter<FavoriteAdAdapter.MyViewHolder>()
         )
     }
 
-    override fun onBindViewHolder(holder: FavoriteAdAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
 //        val curimage = image[1]

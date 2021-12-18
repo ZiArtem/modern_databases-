@@ -1,10 +1,11 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.data_class
 
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.modern_databases.data.data_class.User
 import java.util.*
 
 @Entity(tableName = "user_information_table", indices = [Index(value = ["id_user_"], unique = true)],foreignKeys = [

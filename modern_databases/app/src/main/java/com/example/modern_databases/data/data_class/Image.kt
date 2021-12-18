@@ -1,9 +1,10 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.data_class
 
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.modern_databases.data.data_class.Ad
 
 @Entity(
     tableName = "images_table", foreignKeys = [

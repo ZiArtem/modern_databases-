@@ -1,8 +1,9 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.modern_databases.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class OrdersActivity : AppCompatActivity() {
@@ -10,13 +11,12 @@ class OrdersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
 
-
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.orders)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this, Activity3::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -35,7 +35,7 @@ class OrdersActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.test -> {
-                    val intent = Intent(this, Activity2::class.java)
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }

@@ -1,4 +1,4 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,22 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.Favorite
-import com.example.modern_databases.data.UserDao
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.R
+import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 
 class SettigActivity : AppCompatActivity() {
-    private lateinit var mUserViewModel: UserViewModel
+    private lateinit var mUserViewModel: PrViewModel
     private lateinit var lastName: TextView
     private lateinit var secondName: TextView
     private lateinit var signOut: TextView
@@ -42,7 +36,7 @@ class SettigActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this, Activity3::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -61,7 +55,7 @@ class SettigActivity : AppCompatActivity() {
 //                    startActivity(intent)
 //                }
                 R.id.test -> {
-                    val intent = Intent(this, Activity2::class.java)
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -76,14 +70,14 @@ class SettigActivity : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
-        lastName = findViewById(com.example.modern_databases.R.id.userName)
-        secondName = findViewById(com.example.modern_databases.R.id.userLastName)
-        userImage = findViewById(com.example.modern_databases.R.id.userImage)
-        email = findViewById(com.example.modern_databases.R.id.email)
-        phoneNumber = findViewById(com.example.modern_databases.R.id.phoneNumber)
-        location = findViewById(com.example.modern_databases.R.id.location)
-        registrationDate = findViewById(com.example.modern_databases.R.id.date_registry)
+        ).get( PrViewModel::class.java)
+        lastName = findViewById(R.id.userName)
+        secondName = findViewById(R.id.userLastName)
+        userImage = findViewById(R.id.userImage)
+        email = findViewById(R.id.email)
+        phoneNumber = findViewById(R.id.phoneNumber)
+        location = findViewById(R.id.location)
+        registrationDate = findViewById(R.id.date_registry)
 //        userImage.load("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg") {
 //            transformations(RoundedCornersTransformation(40f))
 //        }

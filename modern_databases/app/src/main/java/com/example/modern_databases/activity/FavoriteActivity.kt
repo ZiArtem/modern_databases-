@@ -1,22 +1,22 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.Favorite
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.*
+import com.example.modern_databases.adapters.FavoriteAdAdapter
+import com.example.modern_databases.data.data_class.Ad
+import com.example.modern_databases.viewmodel.PrViewModel
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FavoriteActivity : AppCompatActivity() {
-    lateinit var mUserViewModel: UserViewModel
+    lateinit var mUserViewModel: PrViewModel
     lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FavoriteAdAdapter
 
@@ -31,7 +31,7 @@ class FavoriteActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this, Activity3::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -50,7 +50,7 @@ class FavoriteActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.test -> {
-                    val intent = Intent(this, Activity2::class.java)
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -63,7 +63,7 @@ class FavoriteActivity : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get( PrViewModel::class.java)
 
         adapter = FavoriteAdAdapter()
         recyclerView = findViewById(R.id.recycleviewFavorite)

@@ -1,9 +1,10 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import com.example.modern_databases.data.dao.*
+import com.example.modern_databases.data.data_class.*
 
-class UserRepository(
+class Repository(
     private val userDao: UserDao,
     private val adDao: AdDao,
     private val orderDao: OrderDao,
@@ -35,6 +36,10 @@ class UserRepository(
 
     fun getUserInfo(id: Int): List<UserDao.UserInfo> {
         return userDao.getUserInfo(id)
+    }
+
+    fun getUserIdByLogin(login: String): List<Int> {
+        return userDao.getUserIdByLogin(login)
     }
 
     //ad function

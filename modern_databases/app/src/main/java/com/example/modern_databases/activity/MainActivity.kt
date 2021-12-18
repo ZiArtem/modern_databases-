@@ -1,4 +1,4 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 
 import android.content.Context
@@ -13,11 +13,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.modern_databases.data.UserViewModel
+import com.example.modern_databases.R
+import com.example.modern_databases.viewmodel.PrViewModel
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mUserViewModel: UserViewModel
+    lateinit var mUserViewModel: PrViewModel
 
     lateinit var login: EditText
     lateinit var password: EditText
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get(PrViewModel::class.java)
 
         checkSignIn()
 
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                         putBoolean("is_checked", true)
                     }.apply()
 
-                    val intent = Intent(this, Activity3::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish();
                 } else {
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         val save_bool = sharedPref.getBoolean("is_checked", false)
 
         if (save_bool == true) {
-            val intent = Intent(this, Activity3::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish();
         }

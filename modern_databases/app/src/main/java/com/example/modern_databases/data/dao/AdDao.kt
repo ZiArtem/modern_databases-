@@ -1,7 +1,10 @@
-package com.example.modern_databases.data
+package com.example.modern_databases.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.modern_databases.data.data_class.Ad
+import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.data.data_class.Image
 
 @Dao
 interface AdDao {
@@ -35,14 +38,12 @@ interface AdDao {
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
     fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>>
 
-
     @Transaction
     @Query("SELECT * FROM ad_table")
     fun TestALlAd(): LiveData<List<FullAd>>
 
-
     data class FullAd (
-        @Embedded val ad:Ad ,
+        @Embedded val ad: Ad,
         @Relation (
             parentColumn = "id_ad",
             entity = Image::class,

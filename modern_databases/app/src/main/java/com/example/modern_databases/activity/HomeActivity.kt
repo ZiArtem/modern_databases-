@@ -1,4 +1,4 @@
-package com.example.modern_databases
+package com.example.modern_databases.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,45 +9,47 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_3.view.*
+import kotlinx.android.synthetic.main.activity_home.view.*
 import android.text.TextWatcher
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.example.modern_databases.data.AdDao
-import com.example.modern_databases.data.Favorite
+import com.example.modern_databases.*
+import com.example.modern_databases.data.*
+import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.viewmodel.PrViewModel
 
-class Activity3 : AppCompatActivity() {
-    private lateinit var mUserViewModel: UserViewModel
+class HomeActivity : AppCompatActivity() {
+    private lateinit var mUserViewModel: PrViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_3)
+        setContentView(R.layout.activity_home)
 
         navigationBar()
         showAllAd()
-        changeRequest ()
+        changeRequest()
     }
 
     private fun showAllAd() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(UserViewModel::class.java)
+        ).get(PrViewModel::class.java)
 
-        adapter = AdAdapter(object :AdActionListener{
+        adapter = AdAdapter(object : AdActionListener {
             override fun onAdDeteils(ad: AdDao.FullAd) {
-                val intent = Intent(this@Activity3, AdPage::class.java)
+                val intent = Intent(this@HomeActivity, AdPageActivity::class.java)
                 intent.putExtra("id_ad", ad.ad.id_ad.toInt())
+
                 startActivity(intent)
-                overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0)
             }
 
             override fun onFavoriteAdd(ad: AdDao.FullAd) {
-                mUserViewModel.addFavorite(Favorite(0,ad.ad.id_ad,1))
+                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, 1))
             }
 
             override fun onFavoriteDelete(ad: AdDao.FullAd) {
@@ -58,15 +60,15 @@ class Activity3 : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleview)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val itemAnimator  = recyclerView.itemAnimator
+        val itemAnimator = recyclerView.itemAnimator
         if (itemAnimator is DefaultItemAnimator)
             itemAnimator.supportsChangeAnimations = false
 
 //        mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
         Thread(Runnable {
-            var a1  = mUserViewModel.TestALlAd()
+            var a1 = mUserViewModel.TestALlAd()
             runOnUiThread {
-            a1.observe(this, Observer { adList -> adapter.setData(adList) })
+                a1.observe(this, Observer { adList -> adapter.setData(adList) })
 
             }
 //            var adIdList: List<Int> = mUserViewModel.readAllAdId()
@@ -102,7 +104,7 @@ class Activity3 : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.test -> {
-                    val intent = Intent(this, Activity2::class.java)
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
@@ -111,7 +113,7 @@ class Activity3 : AppCompatActivity() {
         }
     }
 
-    private fun changeRequest () {
+    private fun changeRequest() {
         var editText: EditText = findViewById(R.id.search_ed)
         editText.addTextChangedListener(object : TextWatcher {
 

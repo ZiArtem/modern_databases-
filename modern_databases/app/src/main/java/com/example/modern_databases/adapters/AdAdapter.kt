@@ -1,21 +1,13 @@
 package com.example.modern_databases
 
-import android.content.Context
-import android.content.Intent
-import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.Ad
-import com.example.modern_databases.data.AdDao
-import com.example.modern_databases.data.Favorite
-import com.example.modern_databases.data.Image
+import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.databinding.AdItem1Binding
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import java.text.SimpleDateFormat
@@ -63,19 +55,18 @@ class AdAdapter(private val actionListener: AdActionListener) :
     }
 
     override fun onClick(v: View) {
-//       val ad:Ad = v.tag as FullAd
-//        when (v.id) {
-//            R.id.imageView3-> {
-//                actionListener.onAdDeteils(ad)
+       val ad:AdDao.FullAd = v.tag as AdDao.FullAd
+        when (v.id) {
+            R.id.imageView3-> {
+                actionListener.onAdDeteils(ad)
+            }
+
+//            R.id.like_button-> {
+//                actionListener.onFavoriteAdd(ad)
 //            }
-//
-////            R.id.like_button-> {
-////                actionListener.onFavoriteAdd(ad)
-////            }
-//            else -> {
-//
-//            }
-//        }
+            else -> {
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -85,7 +76,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
-        holder.itemView.title.text = currentItem.ad.title.toString() +" "+currentItem.fav.size.toString()
+        holder.itemView.title.text = currentItem.ad.title.toString()
         holder.itemView.price.text = currentItem.ad.price.toString() + " руб."
 
 
