@@ -115,6 +115,9 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun readAllAdId(): List<Int> {
         return repository.readAllAdId()
     }
+    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<AdDao.FullAd>> {
+        return repository.TestALlAdByIdAd(favList)
+    }
 
     //image function
 
@@ -212,8 +215,8 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllFavoriteAd(id_user)
     }
 
-    fun getFavoriteById(id_fav:Int): List<Favorite> {
-        return repository.getFavoriteById(id_fav)
+    fun getFavoriteByIdAd(id_fav:Int): List<Favorite> {
+        return repository.getFavoriteByIdAd(id_fav)
     }
 
     // User Information function

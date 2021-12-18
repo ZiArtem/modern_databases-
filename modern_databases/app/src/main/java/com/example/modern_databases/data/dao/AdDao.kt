@@ -42,6 +42,10 @@ interface AdDao {
     @Query("SELECT * FROM ad_table")
     fun TestALlAd(): LiveData<List<FullAd>>
 
+    @Transaction
+    @Query("SELECT * FROM ad_table WHERE id_ad IN (:favList)")
+    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<FullAd>>
+
     data class FullAd (
         @Embedded val ad: Ad,
         @Relation (

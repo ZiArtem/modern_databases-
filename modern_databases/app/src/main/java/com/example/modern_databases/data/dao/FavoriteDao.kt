@@ -25,10 +25,8 @@ interface FavoriteDao {
     @Query("SELECT id_ad_ FROM favorite_table WHERE id_user_=(:id_user) ORDER BY id_favorite")
     fun getAllFavoriteAd(id_user: Int): List<Int>
 
-
-
     @Query("SELECT * FROM favorite_table WHERE id_ad_=(:id_ad) ")
-    fun getFavoriteById(id_ad:Int): List<Favorite>
+    fun getFavoriteByIdAd(id_ad:Int): List<Favorite>
 
 //
 //    @Query("SELECT*FROM ad_table WHERE id_ad=(:id)")

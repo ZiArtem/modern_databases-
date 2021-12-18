@@ -86,6 +86,10 @@ class Repository(
         return adDao.TestALlAd()
     }
 
+    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<AdDao.FullAd>> {
+        return adDao.TestALlAdByIdAd(favList)
+    }
+
     //Image function
 
     suspend fun addImage(image: Image) {
@@ -139,6 +143,7 @@ class Repository(
     }
 
 
+
     // favorite function
 
     suspend fun addFavorite(favorite: Favorite) {
@@ -161,8 +166,8 @@ class Repository(
         return favoriteDao.getAllFavoriteAd(id_user)
     }
 
-    fun getFavoriteById(id_fav:Int): List<Favorite> {
-        return favoriteDao.getFavoriteById(id_fav)
+    fun getFavoriteByIdAd(id_fav:Int): List<Favorite> {
+        return favoriteDao.getFavoriteByIdAd(id_fav)
     }
 
     // User Information function

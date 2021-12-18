@@ -52,6 +52,14 @@ class HomeActivity : AppCompatActivity() {
                 mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, 1))
             }
 
+            override fun buy(ad: AdDao.FullAd) {
+                Toast.makeText(
+                    applicationContext,
+                    "this feature hasn't been implemented yet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
             override fun onFavoriteDelete(ad: AdDao.FullAd) {
                 mUserViewModel.deleteFavorite(ad.fav[0])
             }

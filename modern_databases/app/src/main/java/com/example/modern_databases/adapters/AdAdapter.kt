@@ -20,6 +20,8 @@ interface AdActionListener {
 
     fun onFavoriteAdd(ad: AdDao.FullAd)
 
+    fun buy (ad: AdDao.FullAd)
+
     fun onFavoriteDelete(ad: AdDao.FullAd)
 }
 
@@ -27,7 +29,6 @@ class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newLi
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
-
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldAd = oldList[oldItemPosition]
@@ -38,7 +39,14 @@ class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newLi
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldAd = oldList[oldItemPosition]
         val newAd = newList[oldItemPosition]
-        return  oldAd == newAd
+        var f = true
+        if (oldAd.ad!= newAd.ad)
+            f= false
+        if (oldAd.imageList!= newAd.imageList)
+            f= false
+        if (oldAd.fav!= newAd.fav)
+            f= false
+        return f
     }
 }
 
@@ -51,6 +59,8 @@ class AdAdapter(private val actionListener: AdActionListener) :
         val binding = AdItem1Binding.inflate(inflater, parent, false)
         binding.root.setOnClickListener(this)
         binding.imageView3.setOnClickListener(this)
+        binding.button2.setOnClickListener(this)
+
         return MyViewHolder(binding)
     }
 
@@ -60,11 +70,11 @@ class AdAdapter(private val actionListener: AdActionListener) :
             R.id.imageView3-> {
                 actionListener.onAdDeteils(ad)
             }
-
-//            R.id.like_button-> {
-//                actionListener.onFavoriteAdd(ad)
-//            }
+            R.id.button2-> {
+                actionListener.buy(ad)
+            }
             else -> {
+                actionListener.onAdDeteils(ad)
             }
         }
     }
@@ -79,11 +89,11 @@ class AdAdapter(private val actionListener: AdActionListener) :
         holder.itemView.title.text = currentItem.ad.title.toString()
         holder.itemView.price.text = currentItem.ad.price.toString() + " руб."
 
-
         holder.itemView.tag = currentItem
         holder.itemView.imageView3.tag = currentItem
-        holder.itemView.like_button.tag = currentItem
-
+        holder.itemView.title.tag = currentItem
+        holder.itemView.price.tag = currentItem
+        holder.itemView.button2.tag = currentItem
 
         if (currentItem.imageList.isEmpty()) {
             holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
@@ -122,4 +132,3 @@ class AdAdapter(private val actionListener: AdActionListener) :
         val binding: AdItem1Binding
     ) : RecyclerView.ViewHolder(binding.root)
 }
-
