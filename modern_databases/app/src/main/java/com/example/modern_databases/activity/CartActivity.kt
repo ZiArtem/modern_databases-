@@ -3,6 +3,7 @@ package com.example.modern_databases.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +28,7 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
         showCart()
+        price1()
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.cart)
@@ -76,6 +78,7 @@ class CartActivity : AppCompatActivity() {
 //                startActivity(intent)
 //                overridePendingTransition(0, 0)
             }
+
             override fun buy(ad: AdDao.FullAd) {
 //                Toast.makeText(
 //                    applicationContext,
@@ -88,7 +91,24 @@ class CartActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleviewCart)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mUserViewModel.getAllElementOnCart(1).observe(this, Observer { cart -> adapter.setDataCart(cart) })
+        mUserViewModel.getAllElementOnCart(1)
+            .observe(this, Observer { cart -> adapter.setDataCart(cart) })
     }
 
+    private fun price1() {
+        Thread(Runnable {
+            var allPrice = 0
+            var c = mUserViewModel.getAllElementOnCartTest(1)
+            for (i in c) {
+
+                var ad1 = mUserViewModel.getAdById(i.id_ad_)
+
+                allPrice += i.num * ad1[0].price
+            }
+            runOnUiThread {
+                var price:TextView = findViewById(R.id.allPrice)
+                price.setText("Всего " + allPrice.toString()+" Руб.")
+            }
+        }).start()
+    }
 }
