@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.data.dao.UserDao
 import com.example.modern_databases.data.data_class.*
 import com.example.modern_databases.data.database.PrDatabase
@@ -253,12 +254,33 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
             repository.addCartElement(cart)
         }
     }
+
     fun getAllElementOnCart(id_user: Int): LiveData<List<Cart>> {
-       return repository.getAllElementOnCart(id_user)
+        return repository.getAllElementOnCart(id_user)
     }
 
     fun getAllElementOnCartTest(id_user: Int): List<Cart> {
         return repository.getAllElementOnCartTets(id_user)
+    }
+
+    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<FullAd1>> {
+        return repository.getAllElementOnCartTest1(id_user)
+    }
+
+    fun deleteCartElement(cart: Cart) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCartElement(cart)
+        }
+    }
+
+    fun updateCartElement(cart: Cart) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateCartElement(cart)
+        }
+    }
+
+    fun getCartByIdAd(id_ad: Int): List<Cart> {
+        return repository.getCartByIdAd(id_ad)
     }
 
 }

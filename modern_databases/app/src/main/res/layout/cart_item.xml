@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="9dp"
+    android:padding="8dp"
 
     app:layout_constraintCircleRadius="20dp">
 
@@ -13,8 +13,6 @@
         android:id="@+id/imageCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginEnd="300dp"
         android:layout_marginRight="300dp"
         app:layout_constraintCircleRadius="5dp"
@@ -31,6 +29,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:text="Title"
+
         android:textColor="@color/light_gray"
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/imageCart"
@@ -43,22 +42,59 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="price"
+        android:text="Price"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintStart_toEndOf="@+id/imageCart"
         app:layout_constraintTop_toBottomOf="@+id/titleCart" />
 
-    <TextView
-        android:id="@+id/descriptionCart"
+    <EditText
+        android:id="@+id/num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
-        android:textColor="@color/light_gray"
-        android:textSize="14dp"
-        app:layout_constraintStart_toEndOf="@+id/imageCart"
-        app:layout_constraintTop_toBottomOf="@+id/priceCart" />
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:inputType="number"
+        android:text="1"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/deleteItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_cross"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="—"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/num"
+        app:layout_constraintTop_toTopOf="@+id/num" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@+id/num"
+        app:layout_constraintTop_toTopOf="@+id/num" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

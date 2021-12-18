@@ -198,8 +198,25 @@ class Repository(
         cartDao.addCartElement(cart)
     }
 
+    suspend fun deleteCartElement(cart: Cart) {
+        cartDao.deleteCartElement(cart)
+    }
+    suspend fun updateCartElement(cart: Cart)  {
+        cartDao.updateCartElement(cart)
+    }
+
+
+
     fun getAllElementOnCartTets(id_user: Int): List<Cart> {
         return cartDao.getAllElementOnCartTest(id_user)
+    }
+
+    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<FullAd1>> {
+        return cartDao.getAllElementOnCartTest1(id_user)
+    }
+
+    fun getCartByIdAd(id_ad: Int): List<Cart> {
+        return cartDao.getCartByIdAd(id_ad)
     }
 
 

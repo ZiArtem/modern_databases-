@@ -55,10 +55,14 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun buy(ad: AdDao.FullAd) {
-                mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, 1))
-
-                Toast.makeText(applicationContext, "suc", Toast.LENGTH_SHORT)
-                    .show()
+                Thread(Runnable {
+                    val cartItem = mUserViewModel.getCartByIdAd(ad.ad.id_ad)
+                    if (cartItem.isEmpty()){
+                        mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, 1))
+                    } else {
+                        mUserViewModel.updateCartElement(Cart(cartItem[0].id_cart,cartItem[0].num+1,cartItem[0].date,cartItem[0].id_ad_,cartItem[0].id_user_))
+                    }
+                }).start()
             }
 
             override fun onFavoriteDelete(ad: AdDao.FullAd) {
