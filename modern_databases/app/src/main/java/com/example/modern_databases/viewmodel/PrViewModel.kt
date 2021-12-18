@@ -24,13 +24,15 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         val picturesDao_ = PrDatabase.getDatabase(application).imageDao()
         val favoriteDao_ = PrDatabase.getDatabase(application).favoriteDao()
         val userInformationDao_ = PrDatabase.getDatabase(application).userInformationDao()
+        val cartDao_ = PrDatabase.getDatabase(application).cartDao()
         repository = Repository(
             userDao_,
             adDao_,
             orderDao_,
             picturesDao_,
             favoriteDao_,
-            userInformationDao_
+            userInformationDao_,
+            cartDao_
         )
         readAllAd = repository.readAllAd
         getAllImage = repository.getAllImage()
@@ -115,7 +117,8 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun readAllAdId(): List<Int> {
         return repository.readAllAdId()
     }
-    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<AdDao.FullAd>> {
+
+    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<AdDao.FullAd>> {
         return repository.TestALlAdByIdAd(favList)
     }
 
@@ -151,7 +154,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
 //        return  repository.getAllImage()
 //    }
 
-    fun getAllPreviewImage(id_ad_:List<Int>): LiveData<List<Image>> {
+    fun getAllPreviewImage(id_ad_: List<Int>): LiveData<List<Image>> {
         return repository.getAllPreviewImage(id_ad_)
     }
 
@@ -215,7 +218,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllFavoriteAd(id_user)
     }
 
-    fun getFavoriteByIdAd(id_fav:Int): List<Favorite> {
+    fun getFavoriteByIdAd(id_fav: Int): List<Favorite> {
         return repository.getFavoriteByIdAd(id_fav)
     }
 
@@ -242,5 +245,21 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun getUserInformation(id: Int): List<UserInformation> {
         return repository.getUserInformation(id)
     }
+
+    // cart function
+
+    fun addCartElement(cart: Cart) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addCartElement(cart)
+        }
+    }
+    fun getAllElementOnCart(id_user: Int): LiveData<List<Cart>> {
+       return repository.getAllElementOnCart(id_user)
+    }
+
+    fun getAllElementOnCartTest(id_user: Int): List<Cart> {
+        return repository.getAllElementOnCartTets(id_user)
+    }
+
 }
 

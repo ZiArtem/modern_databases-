@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.modern_databases.*
 import com.example.modern_databases.data.*
 import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.data_class.Cart
 import com.example.modern_databases.data.data_class.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var mUserViewModel: PrViewModel
@@ -53,11 +55,10 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun buy(ad: AdDao.FullAd) {
-                Toast.makeText(
-                    applicationContext,
-                    "this feature hasn't been implemented yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+                mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, 1))
+
+                Toast.makeText(applicationContext, "suc", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             override fun onFavoriteDelete(ad: AdDao.FullAd) {
@@ -101,8 +102,9 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.orders -> {
-                    val intent = Intent(this, OrdersActivity::class.java)
+
+                R.id.cart -> {
+                    val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }

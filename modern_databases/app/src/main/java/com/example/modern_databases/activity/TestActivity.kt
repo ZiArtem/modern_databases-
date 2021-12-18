@@ -62,8 +62,8 @@ class TestActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.orders -> {
-                    val intent = Intent(this, OrdersActivity::class.java)
+                R.id.cart -> {
+                    val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }

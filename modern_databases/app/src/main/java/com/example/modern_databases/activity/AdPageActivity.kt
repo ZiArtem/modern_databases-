@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.ad_item_1.*
 
 class AdPageActivity : AppCompatActivity() {
     private lateinit var image: ImageView
-    private lateinit var imageSlider:ImageSlider
     private lateinit var title: TextView
     private lateinit var descriptions: TextView
     private lateinit var price: TextView
@@ -53,11 +52,10 @@ class AdPageActivity : AppCompatActivity() {
         title = findViewById(R.id.title_1)
         fav = findViewById(R.id.like_button_1)
         buy = findViewById(R.id.buttonBuy)
-//        imageSlider = findViewById(R.Id)
 
-//        image.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
-//            transformations(RoundedCornersTransformation(40f))
-//        }
+        image.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
+            transformations(RoundedCornersTransformation(40f))
+        }
 
         val intent = intent
         id_ad = intent.getIntExtra("id_ad", 0)

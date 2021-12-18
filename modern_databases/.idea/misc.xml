@@ -19,14 +19,21 @@
         <entry key="..\:/Study/Master 1 semester/Modern database 1/modern_databases-/modern_databases/app/src/main/res/layout/fragment_blank.xml" value="0.25" />
         <entry key="..\:/Study/Master 1 semester/Modern database 1/modern_databases-/modern_databases/app/src/main/res/layout/fragment_blank2.xml" value="0.36666666666666664" />
         <entry key="..\:/Study/Master 1 semester/Modern database 1/modern_databases-/modern_databases/app/src/main/res/menu/menu.xml" value="0.40310077519379844" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28229166666666666" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.35052083333333334" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/buy_button.xml" value="0.3828125" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/custom_button.xml" value="0.3828125" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.3015625" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/ic_favorite.xml" value="0.28229166666666666" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/ic_home.xml" value="0.28229166666666666" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/ic_launcher_background.xml" value="0.28229166666666666" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/drawable/search_shape.xml" value="0.3828125" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_2.xml" value="0.28541666666666665" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_3.xml" value="0.33" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_ad_page.xml" value="0.18888888888888888" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_cart.xml" value="0.2604166666666667" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_favorite.xml" value="0.1" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_home.xml" value="0.294478527607362" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_orders.xml" value="0.36666666666666664" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_registry.xml" value="0.36666666666666664" />
@@ -34,6 +41,7 @@
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/activity_test.xml" value="0.3489583333333333" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/ad_item_1.xml" value="0.22" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/ad_item_favorite.xml" value="0.36666666666666664" />
+        <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/cart_item.xml" value="0.2604166666666667" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/layout/fragment_ad.xml" value="0.2598958333333333" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/menu/menu.xml" value="0.1111111111111111" />
         <entry key="..\:/Study/Master 1 semester/Modern database 2/modern_databases-/modern_databases/app/src/main/res/menu/search_menu.xml" value="0.1" />

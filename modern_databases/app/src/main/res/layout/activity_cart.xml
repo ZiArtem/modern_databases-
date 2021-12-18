@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".activity.OrdersActivity">
+    tools:context=".activity.CartActivity">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,6 +21,7 @@
         app:menu="@menu/menu" />
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/dark_gray"
@@ -28,18 +29,67 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/recycleviewCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Orders"
+        android:text="Cart"
         android:textColor="@color/white"
         android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <com.like.LikeButton-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleviewCart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/cart_item" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button"
+        android:text="Oder"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginBottom="24dp"
+        android:textSize="20dp"
+        android:text="Всего 0 Руб."
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--    <com.like.LikeButton-->
 <!--        android:id="@+id/like_button"-->
 <!--        android:layout_width="60dp"-->
 <!--        android:layout_height="60dp"-->

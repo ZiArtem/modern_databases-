@@ -11,6 +11,7 @@ class Repository(
     private val imageDao: ImageDao,
     private val favoriteDao: FavoriteDao,
     private val userInformationDao: UserInformationDao,
+    private val cartDao: CartDao
 ) {
 
     //user function
@@ -86,7 +87,7 @@ class Repository(
         return adDao.TestALlAd()
     }
 
-    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<AdDao.FullAd>> {
+    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<AdDao.FullAd>> {
         return adDao.TestALlAdByIdAd(favList)
     }
 
@@ -116,7 +117,7 @@ class Repository(
         return imageDao.getAllImage()
     }
 
-    fun getAllPreviewImage(id_ad_:List<Int>): LiveData<List<Image>> {
+    fun getAllPreviewImage(id_ad_: List<Int>): LiveData<List<Image>> {
         return imageDao.getAllPreviewImage(id_ad_)
     }
 
@@ -143,7 +144,6 @@ class Repository(
     }
 
 
-
     // favorite function
 
     suspend fun addFavorite(favorite: Favorite) {
@@ -166,26 +166,41 @@ class Repository(
         return favoriteDao.getAllFavoriteAd(id_user)
     }
 
-    fun getFavoriteByIdAd(id_fav:Int): List<Favorite> {
+    fun getFavoriteByIdAd(id_fav: Int): List<Favorite> {
         return favoriteDao.getFavoriteByIdAd(id_fav)
     }
 
     // User Information function
 
     suspend fun addUserInfo(userInformation: UserInformation) {
-        return userInformationDao.addUserInfo(userInformation)
+        userInformationDao.addUserInfo(userInformation)
     }
 
     suspend fun updateUserInfo(userInformation: UserInformation) {
-        return userInformationDao.updateUserInfo(userInformation)
+        userInformationDao.updateUserInfo(userInformation)
     }
 
     suspend fun deleteUserInfo(userInformation: UserInformation) {
-        return userInformationDao.deleteUserInfo(userInformation)
+        userInformationDao.deleteUserInfo(userInformation)
     }
 
     fun getUserInformation(id: Int): List<UserInformation> {
         return userInformationDao.getUserInfo(id)
     }
+
+    // cart function
+
+    fun getAllElementOnCart(id_user: Int): LiveData<List<Cart>> {
+        return cartDao.getAllElementOnCart(id_user)
+    }
+
+    suspend fun addCartElement(cart: Cart) {
+        cartDao.addCartElement(cart)
+    }
+
+    fun getAllElementOnCartTets(id_user: Int): List<Cart> {
+        return cartDao.getAllElementOnCartTest(id_user)
+    }
+
 
 }

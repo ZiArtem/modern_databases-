@@ -29,7 +29,7 @@ class SettigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settig)
-        setinformation()
+//        setinformation()
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setSelectedItemId(R.id.settings)
@@ -45,8 +45,8 @@ class SettigActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.orders -> {
-                    val intent = Intent(this, OrdersActivity::class.java)
+                R.id.cart -> {
+                    val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }

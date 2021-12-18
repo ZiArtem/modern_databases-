@@ -18,7 +18,7 @@
             android:name=".activity.SettigActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OrdersActivity"
+            android:name=".activity.CartActivity"
             android:exported="true" />
         <activity
             android:name=".activity.FavoriteActivity"
