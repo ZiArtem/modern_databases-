@@ -138,4 +138,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+
+    <Button
+        android:id="@+id/modifyData"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="233dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/dark_gray"
+        android:text="modify personal information"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_registry" />
+
+    <Button
+        android:id="@+id/changePassword"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="234dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/dark_gray"
+        android:text="change password"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modifyData" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

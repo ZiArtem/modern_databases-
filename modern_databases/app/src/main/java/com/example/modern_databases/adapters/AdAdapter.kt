@@ -96,7 +96,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
         holder.itemView.button2.tag = currentItem
 
         if (currentItem.imageList.isEmpty()) {
-            holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
+            holder.itemView.imageView3.load("https://sun9-48.userapi.com/impg/EB14wX5yUN8VgQ3got22hTt75eEEo4RcXVUkAg/Qf8qM4DDbGo.jpg?size=1397x247&quality=96&sign=ad618a5499a12d3d24c3eafdf78755a6&type=album") {
                 transformations(RoundedCornersTransformation(40f))
             }
         } else {

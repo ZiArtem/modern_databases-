@@ -1,13 +1,20 @@
 package com.example.modern_databases.data.database
 
 import android.content.Context
+import androidx.lifecycle.lifecycleScope
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.data_class.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.util.*
 
 @Database(
-    version = 2,
-    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class,Cart::class]
+    version = 3,
+    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class]
 )
 
 @TypeConverters(DataConverter::class)
@@ -35,6 +42,7 @@ abstract class PrDatabase : RoomDatabase() {
                     PrDatabase::class.java,
                     "user_database"
                 ).fallbackToDestructiveMigration().build()
+
                 INSTANCE = instance
                 return instance
             }

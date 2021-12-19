@@ -16,15 +16,17 @@ import com.example.modern_databases.adapters.CartAdapter
 import com.example.modern_databases.adapters.FavoriteAdAdapter
 import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FullAd1
+import com.example.modern_databases.data.data_class.Cart
 import com.example.modern_databases.data.data_class.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 class CartActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
     lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CartAdapter
-    private lateinit var price:TextView
+    private lateinit var price: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class CartActivity : AppCompatActivity() {
         price1()
 
         price = findViewById(R.id.allPrice)
-        val del:TextView = findViewById(R.id.deleteALlElement)
+        val del: TextView = findViewById(R.id.deleteALlElement)
         del.setOnClickListener { delete() }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -85,21 +87,59 @@ class CartActivity : AppCompatActivity() {
                 overridePendingTransition(0, 0)
             }
 
-            override fun buy(cart: FullAd1) {
-                TODO("Not yet implemented")
-            }
-
             override fun deleteItem(cart: FullAd1) {
                 Thread(Runnable {
-                var cart1 = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
+                    var cart1 = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
                     mUserViewModel.deleteCartElement(cart1[0])
                 }).start()
+                price1()
+            }
+
+            override fun plusItem(cart: FullAd1) {
+                Thread(Runnable {
+                    val cartItem = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
+
+                    mUserViewModel.updateCartElement(
+                        Cart(
+                            cartItem[0].id_cart,
+                            cartItem[0].num + 1,
+                            cartItem[0].date,
+                            cartItem[0].id_ad_,
+                            cartItem[0].id_user_
+                        )
+                    )
+
+                }).start()
+                price1()
+            }
+
+            override fun minusItem(cart: FullAd1) {
+                Thread(Runnable {
+                    val cartItem = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
+                    if (cartItem[0].num == 1) {
+                        mUserViewModel.deleteCartElement(cartItem[0])
+                        price1()
+                    } else {
+                        mUserViewModel.updateCartElement(
+                            Cart(
+                                cartItem[0].id_cart,
+                                cartItem[0].num - 1,
+                                cartItem[0].date,
+                                cartItem[0].id_ad_,
+                                cartItem[0].id_user_
+                            )
+                        )
+                        price1()
+                    }
+                }).start()
+
             }
         })
         recyclerView = findViewById(R.id.recycleviewCart)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mUserViewModel.getAllElementOnCartTest1(1).observe(this, Observer { cart -> adapter.setData(cart) })
+        mUserViewModel.getAllElementOnCartTest1(1)
+            .observe(this, Observer { cart -> adapter.setData(cart) })
     }
 
     private fun price1() {
@@ -114,7 +154,7 @@ class CartActivity : AppCompatActivity() {
                 allPrice += i.num * ad1[0].price
             }
             runOnUiThread {
-                price.setText("Всего " + allPrice.toString()+" Руб.")
+                price.setText("Всего " + allPrice.toString() + " Руб.")
             }
         }).start()
     }

@@ -22,9 +22,10 @@ import kotlinx.android.synthetic.main.cart_item.view.*
 interface CartActionListener2 {
     fun onAdDeteils(cart: FullAd1)
 
-    fun buy(cart: FullAd1)
-
     fun deleteItem(cart: FullAd1)
+
+    fun plusItem(cart: FullAd1)
+    fun minusItem(cart: FullAd1)
 
 }
 
@@ -44,6 +45,8 @@ class CartAdapter(private val actionListener: CartActionListener2) :
         binding.titleCart.setOnClickListener(this)
         binding.priceCart.setOnClickListener(this)
         binding.deleteItem.setOnClickListener(this)
+        binding.plus.setOnClickListener(this)
+        binding.minus.setOnClickListener(this)
 
         return CartAdapter.MyViewHolder2(binding)
     }
@@ -61,6 +64,8 @@ class CartAdapter(private val actionListener: CartActionListener2) :
         holder.itemView.titleCart.tag = currentItem
         holder.itemView.priceCart.tag = currentItem
         holder.itemView.deleteItem.tag = currentItem
+        holder.itemView.plus.tag = currentItem
+        holder.itemView.minus.tag = currentItem
 
 
         if (currentItem.f[0].imageList.isEmpty()) {
@@ -101,6 +106,13 @@ class CartAdapter(private val actionListener: CartActionListener2) :
             R.id.deleteItem -> {
                 actionListener.deleteItem(cart)
             }
+            R.id.plus -> {
+                actionListener.plusItem(cart)
+            }
+            R.id.minus -> {
+                actionListener.minusItem(cart)
+            }
+
             else -> {
 //                actionListener.onAdDeteils(cart)
             }

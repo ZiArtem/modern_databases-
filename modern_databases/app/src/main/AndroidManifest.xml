@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modern_databases">
         <activity
+            android:name=".activity.ModifyDataActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.CompleteRegistryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.AdPageActivity"
             android:exported="true" />
         <activity
