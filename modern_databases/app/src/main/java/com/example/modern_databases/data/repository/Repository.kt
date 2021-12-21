@@ -109,7 +109,7 @@ class Repository(
         return imageDao.getImageById(id_image)
     }
 
-    fun getImageByIdAd(id_ad: Int): List<Image> {
+    fun getImageByIdAd(id_ad: Int):  LiveData<List<Image>> {
         return imageDao.getImagesByIdAd(id_ad)
     }
 

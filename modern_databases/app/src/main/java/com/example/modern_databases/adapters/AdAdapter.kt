@@ -95,6 +95,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
+
         holder.itemView.title.text = currentItem.ad.title.toString()
         holder.itemView.price.text = currentItem.ad.price.toString() + " $"
 

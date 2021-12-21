@@ -74,8 +74,7 @@ class TestActivity : AppCompatActivity() {
     private fun addAdTestFunction() {
         var images_list: ArrayList<String> = ArrayList()
 
-        for (i in 1..20)
-            images_list.add("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg")
+        images_list.add("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg")
         images_list.add("https://fun-cats.ru/wp-content/uploads/3/0/7/3071381c7efe0c6c94cec8f4eb4442e6.jpeg")
         images_list.add("https://pbs.twimg.com/media/EkIUGBXWoAE9b0i.jpg")
         images_list.add("https://mirsobaki.ru/wp-content/uploads/2019/01/Siba-inu-88.jpg")
@@ -85,51 +84,40 @@ class TestActivity : AppCompatActivity() {
         images_list.add("https://lapkins.ru/upload/iblock/945/945b1c8bba53680aca6d63dcd04fce9b.jpg")
         images_list.add("https://hypecrib.com/wp-content/uploads/2019/12/8-1.jpg")
         images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
-        images_list.add("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-17.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-16.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-15.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-14.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-12.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-11.jpg")
+        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-10.jpg")
 
-
-        var ad: Ad = Ad(
-            0,
-            "Test title  " + (0..100).random(),
-            "test",
-            (0..15).random(),
-            (0..100).random(),
-            Date(),
-            1
-        )
-        mUserViewModel.addAd(ad)
-
+        //size =17
         lifecycleScope.launch {
-            val im = Image(
-                0,
-                getBitmap(images_list[(1..29).random()]),
-                1,
-                1
-            )
-            mUserViewModel.addImage(im)
-        }
-
-        for (item: Int in 1..40) {
-            ad = Ad(
-                0,
-                "Test title  " + (0..100).random(),
-                "test",
-                (0..15).random(),
-                (0..100).random(),
-                Date(),
-                1
-            )
-            mUserViewModel.addAd(ad)
-
-            lifecycleScope.launch {
-                val im = Image(
+            var ad: Ad
+            var im: Image
+            for (item: Int in 1..40) {
+                ad = Ad(
                     0,
-                    getBitmap(images_list[(1..29).random()]),
-                    item + 1,
+                    "Test title  " + (0..100).random(),
+                    "test",
+                    (0..15).random(),
+                    (0..100).random(),
+                    Date(),
                     1
                 )
-                mUserViewModel.addImage(im)
+                mUserViewModel.addAd(ad)
+
+
+                for (i in 1..(2..4).random()) {
+                    im = Image(
+                        0,
+                        getBitmap(images_list[(0..16).random()]),
+                        item,
+                        i
+                    )
+                    mUserViewModel.addImage(im)
+                }
             }
         }
     }

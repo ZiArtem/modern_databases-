@@ -19,7 +19,7 @@ interface ImageDao {
     fun getImageById(id_image: Int): List<Image>
 
     @Query("SELECT*FROM images_table WHERE id_ad_=(:id_ad) ORDER BY rank_in_ad")
-    fun getImagesByIdAd(id_ad: Int): List<Image>
+    fun getImagesByIdAd(id_ad: Int): LiveData<List<Image>>
 
     @Query("SELECT*FROM images_table WHERE rank_in_ad = 1 ORDER BY id_ad_")
     fun getAllImage(): LiveData<List<Image>>

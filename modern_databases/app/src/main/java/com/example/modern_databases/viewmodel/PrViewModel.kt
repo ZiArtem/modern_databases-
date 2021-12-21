@@ -148,7 +148,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getImageById(id_image)
     }
 
-    fun getImageByIdAd(id_ad: Int): List<Image> {
+    fun getImageByIdAd(id_ad: Int): LiveData<List<Image>> {
         return repository.getImageByIdAd(id_ad)
     }
 

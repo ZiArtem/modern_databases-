@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.R
-import com.example.modern_databases.adapters.CartActionListener2
+import com.example.modern_databases.adapters.CartActionListener
 import com.example.modern_databases.adapters.CartAdapter
 import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.data.entities.Cart
@@ -84,7 +84,7 @@ class CartActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(PrViewModel::class.java)
 
-        adapter = CartAdapter(object : CartActionListener2 {
+        adapter = CartAdapter(object : CartActionListener {
             override fun onAdDeteils(cart: FullAd1) {
                 val intent = Intent(this@CartActivity, AdPageActivity::class.java)
                 intent.putExtra("id_ad", cart.cart.id_ad_.toInt())

@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 //
-
+    implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
 
     // Dependencies for working with Architecture components
     // You'll probably have to update the version numbers in build.gradle (Project)

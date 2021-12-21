@@ -14,7 +14,7 @@ import com.example.modern_databases.databinding.CartItemBinding
 import kotlinx.android.synthetic.main.cart_item.view.*
 
 
-interface CartActionListener2 {
+interface CartActionListener {
     fun onAdDeteils(cart: FullAd1)
 
     fun deleteItem(cart: FullAd1)
@@ -51,15 +51,15 @@ class CartDiffCallback(private val oldList: List<FullAd1>, private val  newList:
 }
 
 
-class CartAdapter(private val actionListener: CartActionListener2) :
-    RecyclerView.Adapter<CartAdapter.MyViewHolder2>(), View.OnClickListener {
+class CartAdapter(private val actionListener: CartActionListener) :
+    RecyclerView.Adapter<CartAdapter.MyViewHolder>(), View.OnClickListener {
     private var cartList = emptyList<FullAd1>()
 
-    class MyViewHolder2(
+    class MyViewHolder(
         private val binding: CartItemBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder2 {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = CartItemBinding.inflate(inflater, parent, false)
         binding.root.setOnClickListener(this)
@@ -70,10 +70,10 @@ class CartAdapter(private val actionListener: CartActionListener2) :
         binding.plus.setOnClickListener(this)
         binding.minus.setOnClickListener(this)
 
-        return CartAdapter.MyViewHolder2(binding)
+        return CartAdapter.MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder2, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = cartList[position]
 
         holder.itemView.titleCart.text = currentItem.f[0].ad.title.toString()

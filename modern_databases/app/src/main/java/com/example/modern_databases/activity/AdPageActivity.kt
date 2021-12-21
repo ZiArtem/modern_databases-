@@ -11,10 +11,13 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.modern_databases.adapters.SliderAdapter
 import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.like.LikeButton
 import com.like.OnLikeListener
+import com.smarteist.autoimageslider.SliderAnimations
+import com.smarteist.autoimageslider.SliderView
 
 class AdPageActivity : AppCompatActivity() {
     private lateinit var title: TextView
@@ -24,6 +27,7 @@ class AdPageActivity : AppCompatActivity() {
     private lateinit var buy: Button
     private lateinit var image: ImageView
     private lateinit var fav: LikeButton
+    private lateinit var slider:SliderView
 
     lateinit var mUserViewModel: PrViewModel
     var id_ad: Int = 0
@@ -38,33 +42,33 @@ class AdPageActivity : AppCompatActivity() {
         ).get(PrViewModel::class.java)
         showAd()
         likeButtonPush()
+
+
+         var sliderItem:SliderAnimations
     }
 
     private fun showAd() {
-        image = findViewById(R.id.imageView)
         descriptions = findViewById(R.id.description_1)
         price = findViewById(R.id.price_1)
         date = findViewById(R.id.data_1)
         title = findViewById(R.id.title_1)
         fav = findViewById(R.id.like_button_1)
         buy = findViewById(R.id.buttonBuy)
+        slider = findViewById(R.id.slider)
 
-        image.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
-            transformations(RoundedCornersTransformation(40f))
-        }
 
         val intent = intent
         id_ad = intent.getIntExtra("id_ad", 0)
+
+        var adapter = SliderAdapter()
+        slider.setSliderAdapter(adapter)
+        mUserViewModel.getImageByIdAd(id_ad).observe(this,  { im -> adapter.setData(im) })
+
         Thread(Runnable {
             var image1 = mUserViewModel.getImageByIdAd(id_ad)
             var ad = mUserViewModel.getAdById(id_ad)
             var fav_ = mUserViewModel.getFavoriteByIdAd(id_ad)
             runOnUiThread {
-                if (image1.isNotEmpty()) {
-                    image.load(image1[0].image) {
-                        transformations(RoundedCornersTransformation(40f))
-                    }
-                }
                 title.text = ad[0].title.toString()
                 price.text = ad[0].price.toString() + " Руб."
                 date.text = ad[0].date.toString()

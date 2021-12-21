@@ -53,14 +53,14 @@ class FavDiffCallback(private val oldList: List<FavoriteDao.FavoriteAndAdAndImag
 }
 
 class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
-    RecyclerView.Adapter<FavoriteAdAdapter.MyViewHolder1>(), View.OnClickListener {
+    RecyclerView.Adapter<FavoriteAdAdapter.MyViewHolder>(), View.OnClickListener {
     private var favList = emptyList<FavoriteDao.FavoriteAndAdAndImage>()
 
-    class MyViewHolder1(
+    class MyViewHolder(
         private val binding: AdItemFavoriteBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder1 {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = AdItemFavoriteBinding.inflate(inflater, parent, false)
         binding.root.setOnClickListener(this)
@@ -68,10 +68,10 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         binding.title.setOnClickListener(this)
         binding.price.setOnClickListener(this)
 
-        return FavoriteAdAdapter.MyViewHolder1(binding)
+        return FavoriteAdAdapter.MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder1, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentAd = favList[position].adList[0].ad
         val currentItem = favList[position]
