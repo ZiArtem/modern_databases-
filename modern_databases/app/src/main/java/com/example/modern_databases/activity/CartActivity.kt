@@ -1,12 +1,15 @@
 package com.example.modern_databases.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.modern_databases.R
@@ -20,6 +23,8 @@ import com.example.modern_databases.data.data_class.Cart
 import com.example.modern_databases.data.data_class.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CartActivity : AppCompatActivity() {
@@ -27,10 +32,15 @@ class CartActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CartAdapter
     private lateinit var price: TextView
+    private var save_id_user = -1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        save_id_user = sharedPref.getInt("id_user", -1)
+
         showCart()
         price1()
 
@@ -39,7 +49,7 @@ class CartActivity : AppCompatActivity() {
         del.setOnClickListener { delete() }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setSelectedItemId(R.id.cart)
+        bottomNavigationView.selectedItemId = R.id.cart
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -92,7 +102,10 @@ class CartActivity : AppCompatActivity() {
                     var cart1 = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
                     mUserViewModel.deleteCartElement(cart1[0])
                 }).start()
-                price1()
+                lifecycleScope.launch {
+                    delay(100)
+                    price1()
+                }
             }
 
             override fun plusItem(cart: FullAd1) {
@@ -110,7 +123,12 @@ class CartActivity : AppCompatActivity() {
                     )
 
                 }).start()
-                price1()
+
+                lifecycleScope.launch {
+                    delay(100)
+                    price1()
+                }
+
             }
 
             override fun minusItem(cart: FullAd1) {
@@ -132,20 +150,24 @@ class CartActivity : AppCompatActivity() {
                         price1()
                     }
                 }).start()
-
+                lifecycleScope.launch {
+                    delay(100)
+                    price1()
+                }
             }
         })
         recyclerView = findViewById(R.id.recycleviewCart)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mUserViewModel.getAllElementOnCartTest1(1)
+
+        mUserViewModel.getAllElementOnCartTest1(save_id_user)
             .observe(this, Observer { cart -> adapter.setData(cart) })
     }
 
     private fun price1() {
         Thread(Runnable {
             var allPrice = 0
-            var c = mUserViewModel.getAllElementOnCartTest(1)
+            var c = mUserViewModel.getAllElementOnCartTest(save_id_user)
 
             for (i in c) {
 
@@ -154,18 +176,18 @@ class CartActivity : AppCompatActivity() {
                 allPrice += i.num * ad1[0].price
             }
             runOnUiThread {
-                price.setText("Всего " + allPrice.toString() + " Руб.")
+                price.text = "Всего " + allPrice.toString() + " Руб."
             }
         }).start()
     }
 
     private fun delete() {
         Thread(Runnable {
-            var cart = mUserViewModel.getAllElementOnCartTest(1)
+            var cart = mUserViewModel.getAllElementOnCartTest(save_id_user)
             for (i in cart) {
                 mUserViewModel.deleteCartElement(i)
             }
         }).start()
-        price.setText("Всего 0 руб.")
+        price.text = "Всего 0 руб."
     }
 }

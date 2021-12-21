@@ -18,6 +18,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    kapt {
+        arguments{
+            arg("room.shemaLocation","$projectDir/schemas")
+        }
+
+    }
     buildFeatures {
         dataBinding true
     }
