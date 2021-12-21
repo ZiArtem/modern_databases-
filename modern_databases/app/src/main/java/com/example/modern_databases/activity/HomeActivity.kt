@@ -1,8 +1,6 @@
 package com.example.modern_databases.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -16,8 +14,6 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import android.text.TextWatcher
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.modern_databases.*
-import com.example.modern_databases.adapters.AdActionListener
-import com.example.modern_databases.adapters.AdAdapter
 import com.example.modern_databases.data.*
 import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.data_class.Cart
@@ -29,14 +25,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var mUserViewModel: PrViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdAdapter
-    private var save_id_user= -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-        save_id_user = sharedPref.getInt("id_user", -1)
 
         navigationBar()
         showAllAd()
@@ -59,14 +51,14 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onFavoriteAdd(ad: AdDao.FullAd) {
-                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
+                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, 1))
             }
 
             override fun buy(ad: AdDao.FullAd) {
                 Thread(Runnable {
                     val cartItem = mUserViewModel.getCartByIdAd(ad.ad.id_ad)
                     if (cartItem.isEmpty()){
-                        mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, save_id_user))
+                        mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, 1))
                     } else {
                         mUserViewModel.updateCartElement(Cart(cartItem[0].id_cart,cartItem[0].num+1,cartItem[0].date,cartItem[0].id_ad_,cartItem[0].id_user_))
                     }

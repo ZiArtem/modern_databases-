@@ -1,8 +1,6 @@
 package com.example.modern_databases.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -29,12 +27,9 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_favorite)
 
         showFavoriteAd()
-        bottomNavigation()
-    }
 
-    private fun bottomNavigation() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.selectedItemId = R.id.favorite
+        bottomNavigationView.setSelectedItemId(R.id.favorite)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -82,10 +77,7 @@ class FavoriteActivity : AppCompatActivity() {
             }
 
             override fun onFavoriteAdd(ad: AdDao.FullAd) {
-                val sharedPref: SharedPreferences =
-                    getSharedPreferences("user", Context.MODE_PRIVATE)
-                val save_id_user = sharedPref.getInt("id_user", -1)
-                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
+                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, 1))
             }
 
             override fun buy(ad: AdDao.FullAd) {
@@ -105,14 +97,17 @@ class FavoriteActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         Thread(Runnable {
-            val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-            val save_id_user = sharedPref.getInt("id_user", -1)
-
-            var fav: List<Int> = mUserViewModel.getAllFavoriteAd(save_id_user)
+            var fav: List<Int> = mUserViewModel.getAllFavoriteAd(1)
             runOnUiThread {
                 mUserViewModel.TestALlAdByIdAd(fav)
                     .observe(this, Observer { ad -> adapter.setData(ad) })
             }
-        }).start()
+//            }
+//            var d1: LiveData<List<Ad>> = mUserViewModel.getAdByListIdAd(fav)
+//            runOnUiThread {
+//                d1.observe(this, Observer { ad -> adapter.setData(ad) })
+//                mUserViewModel.getAllPreviewImage(fav).observe(this, Observer { image -> adapter.setImage(image) })
+//            }
+            }).start()
+        }
     }
-}

@@ -29,17 +29,10 @@ class SettigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settig)
+//        setinformation()
 
-//        setInformation()
-        bottomNavigation()
-
-        signOut = findViewById(R.id.exit)
-        signOut.setOnClickListener { signOut() }
-    }
-
-    private fun bottomNavigation() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.selectedItemId = R.id.settings
+        bottomNavigationView.setSelectedItemId(R.id.settings)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -69,9 +62,11 @@ class SettigActivity : AppCompatActivity() {
             }
             true
         }
+        signOut = findViewById(R.id.exit)
+        signOut.setOnClickListener { signOut() }
     }
 
-    private fun setInformation() {
+    private fun setinformation() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
@@ -83,21 +78,21 @@ class SettigActivity : AppCompatActivity() {
         phoneNumber = findViewById(R.id.phoneNumber)
         location = findViewById(R.id.location)
         registrationDate = findViewById(R.id.date_registry)
-
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-        val save_id = sharedPref.getInt("id_user", -1)
+//        userImage.load("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg") {
+//            transformations(RoundedCornersTransformation(40f))
+//        }
 
         Thread(Runnable {
-            var user = mUserViewModel.getUserInfo(save_id)
-            var userInfo = mUserViewModel.getUserInformation(save_id)
+            var user = mUserViewModel.getUserInfo(1)
+            var userInfo = mUserViewModel.getUserInformation(1)
             runOnUiThread {
-                lastName.text = user[0].firstName
-                secondName.text = user[0].lastName
-                email.text = userInfo[0].email
-                location.text = userInfo[0].location
+                lastName.setText(user[0].firstName)
+                secondName.setText(user[0].lastName)
+                email.setText(userInfo[0].email)
+                location.setText(userInfo[0].location)
                 val sdf = SimpleDateFormat("dd.MM HH:mm")
-                registrationDate.text = sdf.format(userInfo[0].date_registry).toString()
-                phoneNumber.text = userInfo[0].phone_number
+                registrationDate.setText(sdf.format(userInfo[0].date_registry).toString())
+                phoneNumber.setText(userInfo[0].phone_number)
                 userImage.load(userInfo[0].image_user) {
                     transformations(RoundedCornersTransformation(40f))
                 }
@@ -106,7 +101,7 @@ class SettigActivity : AppCompatActivity() {
     }
 
     private fun signOut() {
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        val sharedPref: SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.apply {
             putInt("id_user", -1)
@@ -115,7 +110,6 @@ class SettigActivity : AppCompatActivity() {
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(0, 0);
         finish();
     }
 }

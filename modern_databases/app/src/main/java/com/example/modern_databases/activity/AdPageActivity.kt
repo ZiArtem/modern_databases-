@@ -1,28 +1,30 @@
 package com.example.modern_databases.activity
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.modern_databases.R
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.denzcoskun.imageslider.ImageSlider
 import com.example.modern_databases.data.data_class.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.like.LikeButton
 import com.like.OnLikeListener
+import kotlinx.android.synthetic.main.ad_item_1.*
 
 class AdPageActivity : AppCompatActivity() {
+    private lateinit var image: ImageView
     private lateinit var title: TextView
     private lateinit var descriptions: TextView
     private lateinit var price: TextView
     private lateinit var date: TextView
     private lateinit var buy: Button
-    private lateinit var image: ImageView
     private lateinit var fav: LikeButton
 
     lateinit var mUserViewModel: PrViewModel
@@ -42,6 +44,8 @@ class AdPageActivity : AppCompatActivity() {
 
     private fun showAd() {
         image = findViewById(R.id.imageView)
+
+
         descriptions = findViewById(R.id.description_1)
         price = findViewById(R.id.price_1)
         date = findViewById(R.id.data_1)
@@ -60,16 +64,20 @@ class AdPageActivity : AppCompatActivity() {
             var ad = mUserViewModel.getAdById(id_ad)
             var fav_ = mUserViewModel.getFavoriteByIdAd(id_ad)
             runOnUiThread {
-                if (image1.isNotEmpty()) {
+                if (!image1.isEmpty()) {
                     image.load(image1[0].image) {
                         transformations(RoundedCornersTransformation(40f))
                     }
                 }
-                title.text = ad[0].title.toString()
-                price.text = ad[0].price.toString() + " Руб."
-                date.text = ad[0].date.toString()
-                descriptions.text = ad[0].description.toString()
-                fav.isLiked = fav_.isNotEmpty()
+                title.setText(ad[0].title.toString())
+                price.setText(ad[0].price.toString() + " Руб.")
+                date.setText(ad[0].date.toString())
+                descriptions.setText(ad[0].description.toString())
+                if (fav_.isEmpty()) {
+                    fav.setLiked(false)
+                } else {
+                    fav.setLiked(true)
+                }
             }
         }).start()
     }
@@ -77,10 +85,7 @@ class AdPageActivity : AppCompatActivity() {
     private fun likeButtonPush() {
         fav.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
-                val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-                val save_user_id = sharedPref.getInt("id_user", -1)
-
-                mUserViewModel.addFavorite(Favorite(0, id_ad, save_user_id))
+                mUserViewModel.addFavorite(Favorite(0, id_ad, 1))
             }
 
             override fun unLiked(likeButton: LikeButton) {

@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
+
     lateinit var login: EditText
     lateinit var password: EditText
     lateinit var goReg: TextView
@@ -41,40 +42,42 @@ class MainActivity : AppCompatActivity() {
         next = findViewById(R.id.buttonNext)
 
         goReg.setOnClickListener {
+            lifecycleScope.launch {
                 goRegistery()
+            }
         }
 
         next.setOnClickListener {
+            lifecycleScope.launch {
                 signIn()
+            }
         }
     }
 
     private fun goRegistery() {
         val intent = Intent(this, RegistryActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(0, 0);
     }
 
     private fun signIn() {
-        var login_s: String = login.text.toString()
-        var password_s: String = password.text.toString()
+        var login_s: String = login.getText().toString()
+        var password_s: String = password.getText().toString()
 
         if (inputCheckSignIn(password_s, login_s)) {
             Thread(Runnable {
                 val user = mUserViewModel.getUser(login_s, password_s)
-                if (user.isNotEmpty()) {
+                if (!user.isEmpty()) {
                     val sharedPref: SharedPreferences =
-                        getSharedPreferences("user", Context.MODE_PRIVATE)
+                        getSharedPreferences("passw", Context.MODE_PRIVATE)
                     val editor = sharedPref.edit()
                     editor.apply {
                         putInt("id_user", user[0].id_user)
                         putBoolean("is_checked", true)
                     }.apply()
+
                     val intent = Intent(this, HomeActivity::class.java)
-                    intent.putExtra("id_ad", user[0].id_user)
                     startActivity(intent)
                     finish();
-                    overridePendingTransition(0, 0);
                 } else {
                     runOnUiThread {
                         Toast.makeText(
@@ -96,15 +99,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkSignIn() {
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        val sharedPref: SharedPreferences = getSharedPreferences("passw", Context.MODE_PRIVATE)
         val save_id = sharedPref.getInt("id_user", -1)
         val save_bool = sharedPref.getBoolean("is_checked", false)
 
-        if (save_bool) {
+        if (save_bool == true) {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish();
-            overridePendingTransition(0, 0);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.modern_databases.data.database
 
-import android.content.ContentValues
 import android.content.Context
 import androidx.lifecycle.lifecycleScope
 import androidx.room.*
@@ -12,13 +11,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
-import androidx.room.RoomDatabase
-
-
-
 
 @Database(
-    version = 7,
+    version = 3,
     entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class]
 )
 
@@ -45,8 +40,8 @@ abstract class PrDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     PrDatabase::class.java,
-                    "pr_database"
-                ).fallbackToDestructiveMigration().createFromAsset("new_1.db").build()
+                    "user_database"
+                ).fallbackToDestructiveMigration().build()
 
                 INSTANCE = instance
                 return instance

@@ -7,11 +7,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.modern_databases.AdActionListener
+import com.example.modern_databases.AdAdapter
+import com.example.modern_databases.AdDiffCallback
 import com.example.modern_databases.R
 import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.data_class.Ad
+import com.example.modern_databases.data.data_class.Image
+import com.example.modern_databases.databinding.AdItem1Binding
 import com.example.modern_databases.databinding.AdItemFavoriteBinding
 import com.like.LikeButton
 import com.like.OnLikeListener
+import kotlinx.android.synthetic.main.ad_item_1.view.*
 import kotlinx.android.synthetic.main.ad_item_1.view.imageView3
 import kotlinx.android.synthetic.main.ad_item_1.view.price
 import kotlinx.android.synthetic.main.ad_item_1.view.title
@@ -34,7 +41,7 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
     private var adList = emptyList<AdDao.FullAd>()
 
     class MyViewHolder1(
-        private val binding: AdItemFavoriteBinding
+        val binding: AdItemFavoriteBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder1 {
@@ -52,7 +59,7 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         holder.itemView.title.text = currentItem.ad.title.toString()
         holder.itemView.price.text = currentItem.ad.price.toString() + " руб."
         holder.itemView.description.text = currentItem.ad.description.toString()
-        holder.itemView.like_button1.isLiked = true
+        holder.itemView.like_button1.setLiked(true)
 
         holder.itemView.tag = currentItem
         holder.itemView.imageView3.tag = currentItem

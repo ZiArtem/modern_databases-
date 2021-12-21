@@ -1,8 +1,6 @@
 package com.example.modern_databases.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -19,19 +17,19 @@ import com.example.modern_databases.R
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.example.modern_databases.data.data_class.User
 import com.example.modern_databases.data.data_class.UserInformation
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
 class RegistryActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
+
     lateinit var firstName: EditText
     lateinit var lastName: EditText
     lateinit var password: EditText
     lateinit var confirm: EditText
     lateinit var login: EditText
-    lateinit var cross: TextView
     lateinit var registryButton: Button
+    lateinit var cross: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +40,7 @@ class RegistryActivity : AppCompatActivity() {
         password = findViewById(R.id.password_registry)
         confirm = findViewById(R.id.confirm)
         login = findViewById(R.id.login_registry)
+
         registryButton = findViewById(R.id.end_registry)
         cross = findViewById(R.id.cross)
 
@@ -62,30 +61,27 @@ class RegistryActivity : AppCompatActivity() {
     private fun goMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(0, 0);
     }
 
     private fun insertDataToDatabase() {
-        var firstName_t: String = firstName.text.toString()
-        var lastName_t: String = lastName.text.toString()
-        var login_t: String = login.text.toString()
-        var password_t: String = password.text.toString()
-        var confirm_t: String = confirm.text.toString()
+        var firstName_t: String = firstName.getText().toString()
+        var lastName_t: String = lastName.getText().toString()
+        var login_t: String = login.getText().toString()
+        var password_t: String = password.getText().toString()
+        var confirm_t: String = confirm.getText().toString()
 
         if (inputCheck(firstName_t, lastName_t, password_t, confirm_t, login_t)) {
-            if (password_t == confirm_t) {
+            if (checkPasswordsConfirm(password_t, confirm_t)) {
                 Thread(Runnable {
                     val user_same_login = mUserViewModel.checkUniqueLogin(login_t)
                     if (user_same_login.isEmpty()) {
                         val user = User(0, firstName_t, lastName_t, login_t, password_t)
                         mUserViewModel.addUser(user)
-                        lifecycleScope.launch {
-                            delay(500)
-                            Thread(Runnable {
-                                var id_user = mUserViewModel.getUserIdByLogin(login_t)
-                                addUserInfo(id_user[0])
-                            }).start()
-                        }
+
+                        addUserInfo(login_t)
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish();
                     } else {
                         runOnUiThread {
                             Toast.makeText(
@@ -109,31 +105,8 @@ class RegistryActivity : AppCompatActivity() {
         }
     }
 
-    private fun addUserInfo(id_user: Int) {
-        val sharedPref: SharedPreferences =
-            getSharedPreferences("user", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.apply {
-            putInt("id_user", id_user)
-            putBoolean("is_checked", true)
-        }.apply()
-
-        lifecycleScope.launch {
-            mUserViewModel.addUserInfo(
-                UserInformation(
-                    0,
-                    " ",
-                    " ",
-                    Date(),
-                    " ",
-                    getBitmap("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png"),
-                    id_user
-                )
-            )
-        }
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish();
+    private fun checkPasswordsConfirm(pass: String, conf: String): Boolean {
+        return pass == conf
     }
 
     private fun inputCheck(
@@ -151,7 +124,29 @@ class RegistryActivity : AppCompatActivity() {
     private suspend fun getBitmap(path: String): Bitmap {
         val loading: ImageLoader = ImageLoader(this)
         val request = ImageRequest.Builder(this).data(path).build()
+
         val result = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
+    }
+
+    private fun addUserInfo(login: String) {
+        Thread(Runnable {
+            var id_user: List<Int> = mUserViewModel.getUserIdByLogin(login)
+
+            runOnUiThread {
+                lifecycleScope.launch {
+                    var userInfo = UserInformation(
+                        0,
+                        "",
+                        "",
+                        Date(),
+                        "",
+                        getBitmap("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png"),
+                        1
+                    )
+                    mUserViewModel.addUserInfo(userInfo)
+                }
+            }
+        }).start()
     }
 }

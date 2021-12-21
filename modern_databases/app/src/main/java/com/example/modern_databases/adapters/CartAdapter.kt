@@ -1,14 +1,21 @@
 package com.example.modern_databases.adapters
 
+import com.example.modern_databases.databinding.ActivityCartBinding
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.modern_databases.AdDiffCallback
 import com.example.modern_databases.R
+import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FullAd1
+import com.example.modern_databases.data.data_class.Cart
 import com.example.modern_databases.databinding.CartItemBinding
+import kotlinx.android.synthetic.main.ad_item_favorite.view.*
 import kotlinx.android.synthetic.main.cart_item.view.*
 
 
@@ -27,7 +34,7 @@ class CartAdapter(private val actionListener: CartActionListener2) :
     private var cartList = emptyList<FullAd1>()
 
     class MyViewHolder2(
-        private val binding: CartItemBinding
+        val binding: CartItemBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder2 {

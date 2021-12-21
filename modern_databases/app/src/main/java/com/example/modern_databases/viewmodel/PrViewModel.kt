@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class PrViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository
-    private val readAllAd: LiveData<List<Ad>>
-    private val getAllImage: LiveData<List<Image>>
+    val readAllAd: LiveData<List<Ad>>
+    val getAllImage: LiveData<List<Image>>
 
     init {
         val userDao_ = PrDatabase.getDatabase(application).userDao()
