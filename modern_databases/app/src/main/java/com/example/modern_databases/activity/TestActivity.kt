@@ -49,7 +49,7 @@ class TestActivity : AppCompatActivity() {
 
     private fun navigationBar() {
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setSelectedItemId(R.id.test)
+        bottomNavigationView.selectedItemId = R.id.test
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -183,26 +183,4 @@ class TestActivity : AppCompatActivity() {
         val result = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
     }
-
-//    private fun addImageTest() {
-//        lifecycleScope.launch {
-//            val im = Image(
-//                0,
-//                getBitmap("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg"),
-//                3,
-//                1
-//            )
-//            mUserViewModel.addImage(im)
-//        }
-//        Toast.makeText(applicationContext, "image added successfully", Toast.LENGTH_SHORT).show()
-//    }
-
-//    private fun deleteAll() {
-//        Thread(Runnable {
-//            val ad = mUserViewModel.getAllAd()
-//            for (i in 0..ad.size - 1) {
-//                mUserViewModel.deleteAd(ad[i])
-//            }
-//        }).start()
-//    }
 }

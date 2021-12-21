@@ -1,4 +1,4 @@
-package com.example.modern_databases
+package com.example.modern_databases.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.modern_databases.R
 import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.databinding.AdItem1Binding
 import kotlinx.android.synthetic.main.ad_item_1.view.*
@@ -65,12 +66,12 @@ class AdAdapter(private val actionListener: AdActionListener) :
     }
 
     override fun onClick(v: View) {
-       val ad:AdDao.FullAd = v.tag as AdDao.FullAd
+        val ad:AdDao.FullAd = v.tag as AdDao.FullAd
         when (v.id) {
-            R.id.imageView3-> {
+            R.id.imageView3 -> {
                 actionListener.onAdDeteils(ad)
             }
-            R.id.button2-> {
+            R.id.button2 -> {
                 actionListener.buy(ad)
             }
             else -> {
@@ -105,11 +106,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
             }
         }
 
-        if (currentItem.fav.size==0) {
-            holder.itemView.like_button.setLiked(false)
-        } else {
-            holder.itemView.like_button.setLiked(true)
-        }
+        holder.itemView.like_button.isLiked = currentItem.fav.isNotEmpty()
 
         holder.itemView.like_button.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
@@ -129,6 +126,6 @@ class AdAdapter(private val actionListener: AdActionListener) :
     }
 
     class MyViewHolder(
-        val binding: AdItem1Binding
+        private val binding: AdItem1Binding
     ) : RecyclerView.ViewHolder(binding.root)
 }
