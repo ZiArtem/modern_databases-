@@ -15,11 +15,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.view.*
 import android.text.TextWatcher
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.*
+import com.example.modern_databases.adapters.AdActionListener
+import com.example.modern_databases.adapters.AdAdapter
 import com.example.modern_databases.data.*
 import com.example.modern_databases.data.dao.AdDao
-import com.example.modern_databases.data.data_class.Cart
-import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.data.entities.Ad
+import com.example.modern_databases.data.entities.Cart
+import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import java.util.*
 
@@ -27,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var mUserViewModel: PrViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdAdapter
-    private var save_id_user= -1
+    private var save_id_user = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,47 +60,46 @@ class HomeActivity : AppCompatActivity() {
                 overridePendingTransition(0, 0)
             }
 
-            override fun onFavoriteAdd(ad: AdDao.FullAd) {
-                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
-            }
 
             override fun buy(ad: AdDao.FullAd) {
                 Thread(Runnable {
                     val cartItem = mUserViewModel.getCartByIdAd(ad.ad.id_ad)
-                    if (cartItem.isEmpty()){
+                    if (cartItem.isEmpty()) {
                         mUserViewModel.addCartElement(Cart(0, 1, Date(), ad.ad.id_ad, save_id_user))
                     } else {
-                        mUserViewModel.updateCartElement(Cart(cartItem[0].id_cart,cartItem[0].num+1,cartItem[0].date,cartItem[0].id_ad_,cartItem[0].id_user_))
+                        mUserViewModel.updateCartElement(
+                            Cart(
+                                cartItem[0].id_cart,
+                                cartItem[0].num + 1,
+                                cartItem[0].date,
+                                cartItem[0].id_ad_,
+                                cartItem[0].id_user_
+                            )
+                        )
                     }
                 }).start()
             }
 
+            override fun onFavoriteAdd(ad: AdDao.FullAd) {
+                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
+            }
+
             override fun onFavoriteDelete(ad: AdDao.FullAd) {
-                mUserViewModel.deleteFavorite(ad.fav[0])
+                for (i in ad.fav)
+                    if (i.id_ad_ == ad.ad.id_ad) {
+                        mUserViewModel.deleteFavorite(i)
+                        break
+                    }
             }
         })
 
         recyclerView = findViewById(R.id.recycleview)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val itemAnimator = recyclerView.itemAnimator
-        if (itemAnimator is DefaultItemAnimator)
-            itemAnimator.supportsChangeAnimations = false
 
-//        mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
-        Thread(Runnable {
-            var a1 = mUserViewModel.TestALlAd()
-            runOnUiThread {
-                a1.observe(this, Observer { adList -> adapter.setData(adList) })
+        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-            }
-//            var adIdList: List<Int> = mUserViewModel.readAllAdId()
-//            runOnUiThread {
-//            mUserViewModel.getAllPreviewImage(adIdList).observe(this, Observer { image -> adapter.setImage(image) })
-//                mUserViewModel.getAllFavoriteByUser(1)
-//                    .observe(this, Observer { favorite -> adapter.setFavorite(favorite) })
-//            }
-        }).start()
+        mUserViewModel.TestALlAd().observe(this, Observer { adList -> adapter.setData(adList) })
     }
 
     private fun navigationBar() {
@@ -148,21 +151,17 @@ class HomeActivity : AppCompatActivity() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-//                searchDatabase(s.toString())
+                searchDatabase(s.toString())
             }
         })
     }
 
-//    private fun searchDatabase(query: String) {
-//        val searchQuery = "$query"
-////        var ad1: LiveData<List<Ad>> = mUserViewModel.getByKeyword(searchQuery)
-////        ad1.observe(this, {ad-> adapter.setData(ad) })
-//
-//        if (query != null)
-//            mUserViewModel.getByKeyword(searchQuery).observe(this, { ad -> adapter.setData(ad) })
-//        else
-//            mUserViewModel.readAllAd.observe(this, Observer { ad -> adapter.setData(ad) })
-////        mUserViewModel.readAllAd.observe(this, Observer {ad-> adapter.setData(ad) })
-//    }
+    private fun searchDatabase(query: String) {
+        val searchQuery = "$query"
 
+        if (query != null)
+            mUserViewModel.getByKeyword(searchQuery).observe(this, { ad -> adapter.setData(ad) })
+        else
+            mUserViewModel.TestALlAd().observe(this, Observer { adList -> adapter.setData(adList) })
+    }
 }

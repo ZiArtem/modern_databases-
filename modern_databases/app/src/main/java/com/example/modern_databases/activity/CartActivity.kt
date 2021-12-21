@@ -6,21 +6,17 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.R
-import com.example.modern_databases.adapters.AdActionListener1
 import com.example.modern_databases.adapters.CartActionListener2
 import com.example.modern_databases.adapters.CartAdapter
-import com.example.modern_databases.adapters.FavoriteAdAdapter
-import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FullAd1
-import com.example.modern_databases.data.data_class.Cart
-import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.data.entities.Cart
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
@@ -159,6 +155,7 @@ class CartActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleviewCart)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         mUserViewModel.getAllElementOnCartTest1(save_id_user)
             .observe(this, Observer { cart -> adapter.setData(cart) })
@@ -176,7 +173,7 @@ class CartActivity : AppCompatActivity() {
                 allPrice += i.num * ad1[0].price
             }
             runOnUiThread {
-                price.text = "Всего " + allPrice.toString() + " Руб."
+                price.text = "All " + allPrice.toString() + " $"
             }
         }).start()
     }
@@ -188,6 +185,6 @@ class CartActivity : AppCompatActivity() {
                 mUserViewModel.deleteCartElement(i)
             }
         }).start()
-        price.text = "Всего 0 руб."
+        price.text = "All 0 $"
     }
 }

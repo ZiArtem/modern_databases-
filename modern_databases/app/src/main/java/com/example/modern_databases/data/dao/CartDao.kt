@@ -2,7 +2,7 @@ package com.example.modern_databases.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.modern_databases.data.data_class.*
+import com.example.modern_databases.data.entities.*
 
 
 @Dao
@@ -30,7 +30,6 @@ interface CartDao {
 
     @Query("SELECT*FROM cart_table WHERE id_ad_=(:id_ad) ORDER BY date")
     fun getCartByIdAd(id_ad: Int): List<Cart>
-
 }
 
 data class FullAd1 (
@@ -40,12 +39,4 @@ data class FullAd1 (
         entity = Ad::class,
         entityColumn = "id_ad"
     )
-  val f:List<AdDao.FullAd>
-
-//    @Relation (
-//        parentColumn = "id_ad",
-//        entity = Favorite::class,
-//        entityColumn = "id_ad_"
-//    )
-//    val fav: List<Favorite>
-)
+  val f:List<AdDao.FullAd>)

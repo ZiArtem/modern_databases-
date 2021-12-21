@@ -1,4 +1,4 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
 import androidx.room.*
 import java.util.*
@@ -10,7 +10,7 @@ import java.util.*
         onDelete = ForeignKey.CASCADE
     )])
 
-class Ad (
+data class Ad (
     @PrimaryKey(autoGenerate = true)
     val id_ad: Int,
     val title: String,

@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.like.LikeButton
 import com.like.OnLikeListener

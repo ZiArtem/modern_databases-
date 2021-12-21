@@ -1,16 +1,10 @@
 package com.example.modern_databases.data.database
 
 import android.content.Context
-import androidx.lifecycle.lifecycleScope
 import androidx.room.*
-import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.modern_databases.data.converter.DataConverter
 import com.example.modern_databases.data.dao.*
-import com.example.modern_databases.data.data_class.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import java.util.*
+import com.example.modern_databases.data.entities.*
 
 @Database(
     version = 3,
@@ -42,6 +36,7 @@ abstract class PrDatabase : RoomDatabase() {
                     PrDatabase::class.java,
                     "user_database"
                 ).fallbackToDestructiveMigration().build()
+//                    .createFromAsset("new_1.db")
 
                 INSTANCE = instance
                 return instance

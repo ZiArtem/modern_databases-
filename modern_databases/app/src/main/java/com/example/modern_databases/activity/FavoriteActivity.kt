@@ -14,7 +14,8 @@ import com.example.modern_databases.*
 import com.example.modern_databases.adapters.AdActionListener1
 import com.example.modern_databases.adapters.FavoriteAdAdapter
 import com.example.modern_databases.data.dao.AdDao
-import com.example.modern_databases.data.data_class.Favorite
+import com.example.modern_databases.data.dao.FavoriteDao
+import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -73,22 +74,15 @@ class FavoriteActivity : AppCompatActivity() {
         ).get(PrViewModel::class.java)
 
         adapter = FavoriteAdAdapter(object : AdActionListener1 {
-            override fun onAdDeteils(ad: AdDao.FullAd) {
+            override fun onAdDeteils(fav: FavoriteDao.FavoriteAndAdAndImage) {
                 val intent = Intent(this@FavoriteActivity, AdPageActivity::class.java)
-                intent.putExtra("id_ad", ad.ad.id_ad.toInt())
+                intent.putExtra("id_ad", fav.adList[0].ad.id_ad)
 
                 startActivity(intent)
                 overridePendingTransition(0, 0)
             }
 
-            override fun onFavoriteAdd(ad: AdDao.FullAd) {
-                val sharedPref: SharedPreferences =
-                    getSharedPreferences("user", Context.MODE_PRIVATE)
-                val save_id_user = sharedPref.getInt("id_user", -1)
-                mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
-            }
-
-            override fun buy(ad: AdDao.FullAd) {
+            override fun buy(fav: FavoriteDao.FavoriteAndAdAndImage) {
                 Toast.makeText(
                     applicationContext,
                     "this feature hasn't been implemented yet",
@@ -96,23 +90,18 @@ class FavoriteActivity : AppCompatActivity() {
                 ).show()
             }
 
-            override fun onFavoriteDelete(ad: AdDao.FullAd) {
-                mUserViewModel.deleteFavorite(ad.fav[0])
+            override fun onFavoriteDelete(fav: FavoriteDao.FavoriteAndAdAndImage) {
+                mUserViewModel.deleteFavorite(fav.favorite)
             }
         })
         recyclerView = findViewById(R.id.recycleviewFavorite)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        Thread(Runnable {
-            val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-            val save_id_user = sharedPref.getInt("id_user", -1)
+        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        val save_id_user = sharedPref.getInt("id_user", -1)
+        mUserViewModel.getAllFavoriteByUser(save_id_user)
+            .observe(this, Observer { fav -> adapter.setData(fav) })
 
-            var fav: List<Int> = mUserViewModel.getAllFavoriteAd(save_id_user)
-            runOnUiThread {
-                mUserViewModel.TestALlAdByIdAd(fav)
-                    .observe(this, Observer { ad -> adapter.setData(ad) })
-            }
-        }).start()
     }
 }

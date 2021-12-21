@@ -1,4 +1,4 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.converter
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

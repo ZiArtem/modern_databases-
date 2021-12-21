@@ -1,12 +1,11 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_table", indices = [Index(value = ["login"], unique = true)])
-class User(
+data class User(
     @PrimaryKey(autoGenerate = true)
     val id_user: Int,
     val firstName: String,

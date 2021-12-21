@@ -1,7 +1,7 @@
 package com.example.modern_databases.data.dao
 
 import androidx.room.*
-import com.example.modern_databases.data.data_class.Order
+import com.example.modern_databases.data.entities.Order
 
 @Dao
 interface OrderDao {

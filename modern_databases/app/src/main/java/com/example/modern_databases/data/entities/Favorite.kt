@@ -1,4 +1,4 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )])
 
-class Favorite (
+data class Favorite (
     @PrimaryKey(autoGenerate = true)
     val id_favorite:Int,
     val id_ad_: Int,

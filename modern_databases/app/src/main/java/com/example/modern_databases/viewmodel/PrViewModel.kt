@@ -5,9 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.dao.FavoriteDao
 import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.data.dao.UserDao
-import com.example.modern_databases.data.data_class.*
+import com.example.modern_databases.data.entities.*
 import com.example.modern_databases.data.database.PrDatabase
 import com.example.modern_databases.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
@@ -103,7 +104,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAdByIdUser(id)
     }
 
-    fun getByKeyword(keyword: String): LiveData<List<Ad>> {
+    fun getByKeyword(keyword: String): LiveData<List<AdDao.FullAd>> {
         return repository.getByKeyword(keyword)
     }
 
@@ -211,7 +212,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getAllFavoriteByUser(id_user: Int): LiveData<List<Favorite>> {
+    fun getAllFavoriteByUser(id_user: Int): LiveData<List<FavoriteDao.FavoriteAndAdAndImage>> {
         return repository.getAllFavoriteByUser(id_user)
     }
 

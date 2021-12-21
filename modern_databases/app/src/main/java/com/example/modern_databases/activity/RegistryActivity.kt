@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.text.TextUtils
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +16,8 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.modern_databases.R
 import com.example.modern_databases.viewmodel.PrViewModel
-import com.example.modern_databases.data.data_class.User
-import com.example.modern_databases.data.data_class.UserInformation
+import com.example.modern_databases.data.entities.User
+import com.example.modern_databases.data.entities.UserInformation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*

@@ -9,6 +9,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.R
 import com.example.modern_databases.data.dao.AdDao
+import com.example.modern_databases.data.dao.FavoriteDao
 import com.example.modern_databases.databinding.AdItemFavoriteBinding
 import com.like.LikeButton
 import com.like.OnLikeListener
@@ -18,20 +19,42 @@ import kotlinx.android.synthetic.main.ad_item_1.view.title
 import kotlinx.android.synthetic.main.ad_item_favorite.view.*
 import java.text.SimpleDateFormat
 
-
 interface AdActionListener1 {
-    fun onAdDeteils(ad: AdDao.FullAd)
+    fun onAdDeteils(fav: FavoriteDao.FavoriteAndAdAndImage)
 
-    fun onFavoriteAdd(ad: AdDao.FullAd)
+    fun buy(fav: FavoriteDao.FavoriteAndAdAndImage)
 
-    fun buy(ad: AdDao.FullAd)
+    fun onFavoriteDelete(fav: FavoriteDao.FavoriteAndAdAndImage)
+}
 
-    fun onFavoriteDelete(ad: AdDao.FullAd)
+class FavDiffCallback(private val oldList: List<FavoriteDao.FavoriteAndAdAndImage>, private val  newList: List<FavoriteDao.FavoriteAndAdAndImage>) :
+    DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldList.size
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].favorite.id_favorite == newList[newItemPosition].favorite.id_favorite
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldAd = oldList[oldItemPosition].favorite
+        val newAd = newList[newItemPosition].favorite
+
+        if (oldAd.id_favorite!=newAd.id_favorite)
+            return false
+        if (oldAd.id_ad_!=newAd.id_ad_)
+            return false
+        if (oldAd.id_user_!=newAd.id_user_)
+            return false
+
+
+        return true
+    }
 }
 
 class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
     RecyclerView.Adapter<FavoriteAdAdapter.MyViewHolder1>(), View.OnClickListener {
-    private var adList = emptyList<AdDao.FullAd>()
+    private var favList = emptyList<FavoriteDao.FavoriteAndAdAndImage>()
 
     class MyViewHolder1(
         private val binding: AdItemFavoriteBinding
@@ -42,16 +65,20 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         val binding = AdItemFavoriteBinding.inflate(inflater, parent, false)
         binding.root.setOnClickListener(this)
         binding.imageView3.setOnClickListener(this)
+        binding.title.setOnClickListener(this)
+        binding.price.setOnClickListener(this)
 
         return FavoriteAdAdapter.MyViewHolder1(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder1, position: Int) {
         val sdf = SimpleDateFormat("dd.MM HH:mm")
-        val currentItem = adList[position]
-        holder.itemView.title.text = currentItem.ad.title.toString()
-        holder.itemView.price.text = currentItem.ad.price.toString() + " руб."
-        holder.itemView.description.text = currentItem.ad.description.toString()
+        val currentAd = favList[position].adList[0].ad
+        val currentItem = favList[position]
+
+        holder.itemView.title.text = currentAd.title.toString()
+        holder.itemView.price.text = currentAd.price.toString() + " $"
+        holder.itemView.description.text = currentAd.description.toString()
         holder.itemView.like_button1.isLiked = true
 
         holder.itemView.tag = currentItem
@@ -60,19 +87,19 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         holder.itemView.price.tag = currentItem
         holder.itemView.description.tag = currentItem
 
-        if (currentItem.imageList.isEmpty()) {
+        if (currentItem.adList[0].imageList.isEmpty()) {
             holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
                 transformations(RoundedCornersTransformation(40f))
             }
         } else {
-            holder.itemView.imageView3.load(currentItem.imageList[0].image) {
+            holder.itemView.imageView3.load(currentItem.adList[0].imageList[0].image) {
                 transformations(RoundedCornersTransformation(40f))
             }
         }
 
         holder.itemView.like_button1.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
-                actionListener.onFavoriteAdd(currentItem)
+
             }
 
             override fun unLiked(likeButton: LikeButton) {
@@ -82,24 +109,30 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
     }
 
     override fun getItemCount(): Int {
-        return adList.size
+        return favList.size
     }
 
-    fun setData(ad_: List<AdDao.FullAd>) {
-        val difUpdate =  DiffUtil.calculateDiff(AdDiffCallback(adList,ad_))
-        this.adList = ad_
-//        notifyDataSetChanged()
+    fun setData(fav: List<FavoriteDao.FavoriteAndAdAndImage>) {
+        val difUpdate =  DiffUtil.calculateDiff(FavDiffCallback(favList,fav))
+        this.favList = fav
         difUpdate.dispatchUpdatesTo(this)
     }
 
     override fun onClick(v: View) {
-        val ad: AdDao.FullAd = v.tag as AdDao.FullAd
+        val fav: FavoriteDao.FavoriteAndAdAndImage = v.tag as FavoriteDao.FavoriteAndAdAndImage
         when (v.id) {
             R.id.imageView3 -> {
-                actionListener.onAdDeteils(ad)
+                actionListener.onAdDeteils(fav)
             }
+            R.id.title -> {
+                actionListener.onAdDeteils(fav)
+            }
+            R.id.price -> {
+                actionListener.onAdDeteils(fav)
+            }
+
             else -> {
-                actionListener.onAdDeteils(ad)
+//                actionListener.onAdDeteils(fav)
             }
         }
     }

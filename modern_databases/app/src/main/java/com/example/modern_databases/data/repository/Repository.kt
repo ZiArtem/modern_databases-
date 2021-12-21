@@ -2,7 +2,7 @@ package com.example.modern_databases.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.modern_databases.data.dao.*
-import com.example.modern_databases.data.data_class.*
+import com.example.modern_databases.data.entities.*
 
 class Repository(
     private val userDao: UserDao,
@@ -67,7 +67,7 @@ class Repository(
         return adDao.getAdByIdUser(id)
     }
 
-    fun getByKeyword(keyword: String): LiveData<List<Ad>> {
+    fun getByKeyword(keyword: String): LiveData<List<AdDao.FullAd>> {
         return adDao.getByKeyword(keyword)
     }
 
@@ -158,7 +158,7 @@ class Repository(
         favoriteDao.updateFavorite(favorite)
     }
 
-    fun getAllFavoriteByUser(id_user: Int): LiveData<List<Favorite>> {
+    fun getAllFavoriteByUser(id_user: Int): LiveData<List<FavoriteDao.FavoriteAndAdAndImage>> {
         return favoriteDao.getAllFavoriteByUser(id_user)
     }
 

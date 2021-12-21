@@ -1,11 +1,10 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.modern_databases.data.data_class.User
 import java.util.*
 
 @Entity(tableName = "user_information_table", indices = [Index(value = ["id_user_"], unique = true)],foreignKeys = [
@@ -15,7 +14,7 @@ import java.util.*
         onDelete = ForeignKey.CASCADE
     )])
 
-class UserInformation (
+data class UserInformation (
     @PrimaryKey(autoGenerate = true)
     val id_info:Int,
     val phone_number: String,

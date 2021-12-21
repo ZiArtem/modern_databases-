@@ -1,4 +1,4 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(
-    tableName = "cart_table", foreignKeys = [
+    tableName = "parchasehistory_table", foreignKeys = [
         ForeignKey(
             entity = User::class,
             parentColumns = ["id_user"],
@@ -20,11 +20,13 @@ import java.util.*
         )]
 )
 
-class Cart (
+data class Order(
     @PrimaryKey(autoGenerate = true)
-    val id_cart: Int,
+    val id_order: Int,
+    val id_ad_: Int,
+    val title: String,
+    val price: Int,
     val num: Int,
     val date: Date,
-    val id_ad_: Int,
     val id_user_: Int
 )

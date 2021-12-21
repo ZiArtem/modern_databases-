@@ -2,9 +2,9 @@ package com.example.modern_databases.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.modern_databases.data.data_class.Ad
-import com.example.modern_databases.data.data_class.Favorite
-import com.example.modern_databases.data.data_class.Image
+import com.example.modern_databases.data.entities.Ad
+import com.example.modern_databases.data.entities.Favorite
+import com.example.modern_databases.data.entities.Image
 
 @Dao
 interface AdDao {
@@ -33,10 +33,10 @@ interface AdDao {
     fun getAdByIdUser(id_user: Int): List<Ad>
 
     @Query("SELECT*FROM ad_table WHERE title LIKE '%' || :keyword || '%' ")
-    fun getByKeyword(keyword: String): LiveData<List<Ad>>
+    fun getByKeyword(keyword: String): LiveData<List<FullAd>>
 
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
-    fun getAdByListIdAd(id_ad_:List<Int>): LiveData<List<Ad>>
+    fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>>
 
     @Transaction
     @Query("SELECT * FROM ad_table")
@@ -44,22 +44,22 @@ interface AdDao {
 
     @Transaction
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:favList)")
-    fun TestALlAdByIdAd(favList:List<Int>): LiveData<List<FullAd>>
+    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<FullAd>>
 
-    data class FullAd (
+    data class FullAd(
         @Embedded val ad: Ad,
-        @Relation (
+        @Relation(
             parentColumn = "id_ad",
             entity = Image::class,
             entityColumn = "id_ad_"
-                )
+        )
         val imageList: List<Image>,
 
-        @Relation (
+        @Relation(
             parentColumn = "id_ad",
             entity = Favorite::class,
             entityColumn = "id_ad_"
         )
         val fav: List<Favorite>
-            )
+    )
 }

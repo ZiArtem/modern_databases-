@@ -20,10 +20,9 @@ interface AdActionListener {
     fun onAdDeteils(ad: AdDao.FullAd)
 
     fun onFavoriteAdd(ad: AdDao.FullAd)
+    fun onFavoriteDelete(ad: AdDao.FullAd)
 
     fun buy (ad: AdDao.FullAd)
-
-    fun onFavoriteDelete(ad: AdDao.FullAd)
 }
 
 class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newList: List<AdDao.FullAd>) :
@@ -32,22 +31,31 @@ class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newLi
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldAd = oldList[oldItemPosition]
-        val newAd = newList[oldItemPosition]
-        return oldAd.ad.id_ad == newAd.ad.id_ad
+        return oldList[oldItemPosition].ad.id_ad == newList[newItemPosition].ad.id_ad
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldAd = oldList[oldItemPosition]
-        val newAd = newList[oldItemPosition]
-        var f = true
-        if (oldAd.ad!= newAd.ad)
-            f= false
-        if (oldAd.imageList!= newAd.imageList)
-            f= false
-        if (oldAd.fav!= newAd.fav)
-            f= false
-        return f
+        val oldAd = oldList[oldItemPosition].ad
+        val newAd = newList[newItemPosition].ad
+
+        if (oldAd.id_ad!=newAd.id_ad)
+            return false
+        if (oldAd.title!=newAd.title)
+            return false
+        if (oldAd.price!=newAd.price)
+            return false
+        if (oldAd.category!=newAd.category)
+            return false
+        if (oldAd.date!=newAd.date)
+            return false
+        if (oldAd.id_user_!=newAd.id_user_)
+            return false
+        if (oldAd.description!=newAd.description)
+            return false
+        if (oldList[oldItemPosition].fav!=newList[newItemPosition].fav)
+            return false
+
+        return true
     }
 }
 
@@ -88,7 +96,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
         val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentItem = adList[position]
         holder.itemView.title.text = currentItem.ad.title.toString()
-        holder.itemView.price.text = currentItem.ad.price.toString() + " руб."
+        holder.itemView.price.text = currentItem.ad.price.toString() + " $"
 
         holder.itemView.tag = currentItem
         holder.itemView.imageView3.tag = currentItem
@@ -97,7 +105,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
         holder.itemView.button2.tag = currentItem
 
         if (currentItem.imageList.isEmpty()) {
-            holder.itemView.imageView3.load("https://sun9-48.userapi.com/impg/EB14wX5yUN8VgQ3got22hTt75eEEo4RcXVUkAg/Qf8qM4DDbGo.jpg?size=1397x247&quality=96&sign=ad618a5499a12d3d24c3eafdf78755a6&type=album") {
+            holder.itemView.imageView3.load("https://img2.freepng.ru/20180524/hc/kisspng-brand-paper-artikel-manufacturing-gray-camera-5b067144295791.5793394415271488681694.jpg") {
                 transformations(RoundedCornersTransformation(40f))
             }
         } else {
@@ -106,7 +114,15 @@ class AdAdapter(private val actionListener: AdActionListener) :
             }
         }
 
-        holder.itemView.like_button.isLiked = currentItem.fav.isNotEmpty()
+        var f = false
+        for(i in currentItem.fav) {
+            if (currentItem.ad.id_ad == i.id_ad_) {
+                f= true
+                break
+            }
+        }
+
+        holder.itemView.like_button.isLiked = f
 
         holder.itemView.like_button.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
@@ -123,7 +139,9 @@ class AdAdapter(private val actionListener: AdActionListener) :
         val difUpdate =  DiffUtil.calculateDiff(AdDiffCallback(adList,ad_))
         this.adList = ad_
         difUpdate.dispatchUpdatesTo(this)
+//    notifyDataSetChanged()
     }
+
 
     class MyViewHolder(
         private val binding: AdItem1Binding

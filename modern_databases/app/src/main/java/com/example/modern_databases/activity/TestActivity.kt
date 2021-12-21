@@ -12,8 +12,8 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.modern_databases.R
-import com.example.modern_databases.data.data_class.Ad
-import com.example.modern_databases.data.data_class.Image
+import com.example.modern_databases.data.entities.Ad
+import com.example.modern_databases.data.entities.Image
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
@@ -22,9 +22,6 @@ import java.util.*
 class TestActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
     lateinit var test: Button
-//    lateinit var addImage_: Button
-//    lateinit var test4: Button
-//    lateinit var test5: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +30,10 @@ class TestActivity : AppCompatActivity() {
         mUserViewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get( PrViewModel::class.java)
+        ).get(PrViewModel::class.java)
 
         test = findViewById(R.id.test_button)
-//        addImage_ = findViewById(R.id.button_image2)
-//        test4 = findViewById(R.id.buttontest4)
-//        test5 = findViewById(R.id.button_test_5)
-
         test.setOnClickListener { addAdTestFunction() }
-//        addImage_.setOnClickListener { addImageTest() }
-//        test4.setOnClickListener { addFavorite() }
-//        test5.setOnClickListener { addUserInfo() }
         navigationBar()
     }
 
@@ -81,40 +71,7 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
-//    private fun addUserInfo() {
-//        lifecycleScope.launch {
-//            var userInformation: UserInformation = UserInformation(
-//                0,
-//                "8_________6",
-//                "z________@yandex.ru",
-//                Date(),
-//                "Nizhny Novgorod",
-//                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
-//                1
-//            )
-//            mUserViewModel.addUserInfo(userInformation)
-//        }
-//    }
-
-//    private fun addFavorite() {
-//        var fav: Favorite = Favorite(0, 3, 1)
-//        mUserViewModel.addFavorite(fav)
-//    }
-
     private fun addAdTestFunction() {
-//        lifecycleScope.launch {
-//            var userInformation: UserInformation = UserInformation(
-//                1,
-//                "8_________6",
-//                "z________@yandex.ru",
-//                Date(),
-//                "Nizhny Novgorod",
-//                getBitmap("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg"),
-//                1
-//            )
-//            mUserViewModel.updateUserInfo(userInformation)
-//        }
-
         var images_list: ArrayList<String> = ArrayList()
 
         for (i in 1..20)
@@ -131,12 +88,13 @@ class TestActivity : AppCompatActivity() {
         images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
         images_list.add("https://beopeo.com/wp-content/uploads/2021/05/1558264640_issyrider_56328817_129932821482783_8321331283586384766_n-768x698.jpg")
 
+
         var ad: Ad = Ad(
             0,
             "Test title  " + (0..100).random(),
             "test",
             (0..15).random(),
-            (0..10000).random(),
+            (0..100).random(),
             Date(),
             1
         )
@@ -158,7 +116,7 @@ class TestActivity : AppCompatActivity() {
                 "Test title  " + (0..100).random(),
                 "test",
                 (0..15).random(),
-                (0..10000).random(),
+                (0..100).random(),
                 Date(),
                 1
             )

@@ -1,10 +1,9 @@
-package com.example.modern_databases.data.data_class
+package com.example.modern_databases.data.entities
 
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.modern_databases.data.data_class.Ad
 
 @Entity(
     tableName = "images_table", foreignKeys = [
@@ -16,7 +15,7 @@ import com.example.modern_databases.data.data_class.Ad
         )]
 )
 
-class Image(
+data class Image(
     @PrimaryKey(autoGenerate = true)
     val id_image: Int,
     val image: Bitmap,
