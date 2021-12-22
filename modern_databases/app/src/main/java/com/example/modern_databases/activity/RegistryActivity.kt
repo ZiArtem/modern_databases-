@@ -109,30 +109,24 @@ class RegistryActivity : AppCompatActivity() {
     }
 
     private fun addUserInfo(id_user: Int) {
-        val sharedPref: SharedPreferences =
-            getSharedPreferences("user", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.apply {
-            putInt("id_user", id_user)
-            putBoolean("is_checked", true)
-        }.apply()
 
         lifecycleScope.launch {
             mUserViewModel.addUserInfo(
                 UserInformation(
                     0,
-                    " ",
-                    " ",
+                    "empty",
+                    "empty",
                     Date(),
-                    " ",
+                    "empty",
                     getBitmap("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png"),
                     id_user
                 )
             )
         }
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, CompleteRegistryActivity::class.java)
+        intent.putExtra("id_ad", id_user)
         startActivity(intent)
-        finish();
+        overridePendingTransition(0, 0);
     }
 
     private fun inputCheck(

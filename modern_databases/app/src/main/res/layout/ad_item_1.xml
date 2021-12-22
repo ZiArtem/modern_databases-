@@ -56,11 +56,11 @@
         android:id="@+id/like_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         app:anim_scale_factor="8"
-        app:icon_size="10dp"
+        app:icon_size="8dp"
         app:icon_type="Star"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -70,13 +70,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/custom_button"
-        android:text="Buy it now"
+        android:background="@drawable/custom_buttom"
+        android:text="Add to Cart"
         android:textAllCaps="false"
 
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintEnd_toStartOf="@+id/like_button"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 

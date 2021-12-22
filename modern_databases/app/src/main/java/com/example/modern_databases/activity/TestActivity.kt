@@ -96,7 +96,7 @@ class TestActivity : AppCompatActivity() {
         lifecycleScope.launch {
             var ad: Ad
             var im: Image
-            for (item: Int in 1..40) {
+            for (item: Int in 1..20) {
                 ad = Ad(
                     0,
                     "Test title  " + (0..100).random(),

@@ -30,7 +30,7 @@ class SettigActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settig)
 
-//        setInformation()
+        setInformation()
         bottomNavigation()
 
         signOut = findViewById(R.id.exit)

@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/custom_buttom"
         android:text="Buy it now"
         android:textAllCaps="false"
 

@@ -117,7 +117,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
 
         var f = false
         for(i in currentItem.fav) {
-            if (currentItem.ad.id_ad == i.id_ad_) {
+            if (currentItem.ad.id_user_ == i.id_user_) {
                 f= true
                 break
             }

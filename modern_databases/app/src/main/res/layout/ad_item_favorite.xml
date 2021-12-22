@@ -66,13 +66,27 @@
         android:id="@+id/like_button1"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
         app:anim_scale_factor="8"
-        app:icon_size="10dp"
+        app:icon_size="7dp"
         app:icon_type="Star"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_buttom"
+        android:text="Add to Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!--    <TextView-->
     <!--        android:id="@+id/date"-->

@@ -42,12 +42,13 @@
         android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:text="Log out"
-        android:textSize="20dp"
         android:textColor="#03A9F4"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -58,7 +59,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:text="  email:"
+        android:drawablePadding="10dp"
+        android:text="email:"
         android:textColor="@color/light_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImage" />
@@ -70,6 +72,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:drawablePadding="10dp"
         android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
         android:text=" registration date:"
         android:textColor="@color/light_gray"
@@ -83,6 +86,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:drawablePadding="10dp"
         android:drawableLeft="@drawable/ic_baseline_location_on_24"
         android:text=" location:"
         android:textColor="@color/light_gray"
@@ -96,6 +100,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:drawablePadding="10dp"
         android:drawableLeft="@drawable/ic_baseline_phone_android_24"
         android:text=" phone number:"
         android:textColor="@color/light_gray"
@@ -141,35 +146,35 @@
 
 
     <Button
-        android:id="@+id/modifyData"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="233dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/dark_gray"
-        android:text="modify personal information"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_registry" />
-
-    <Button
         android:id="@+id/changePassword"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="234dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="@color/dark_gray"
-        android:text="change password"
+        android:text="Change password"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modifyData" />
+
+    <Button
+        android:id="@+id/modifyData"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="233dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="164dp"
+        android:background="@color/dark_gray"
+        android:text="Modify personal information"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_registry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
