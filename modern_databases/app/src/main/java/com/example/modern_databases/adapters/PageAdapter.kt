@@ -11,6 +11,7 @@ import com.like.LikeButton
 import com.like.OnLikeListener
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import kotlinx.android.synthetic.main.item_page.view.*
+import java.text.DecimalFormat
 
 
 interface PageActionListener {
@@ -25,11 +26,11 @@ interface PageActionListener {
 class PageAdapter(private val actionListener: PageActionListener) :
     RecyclerView.Adapter<PageAdapter.MyViewHolder>(), View.OnClickListener {
     private var ad: List<AdDao.FullAd> = emptyList<AdDao.FullAd>()
+    private var id_user = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemPageBinding.inflate(inflater, parent, false)
-        binding.root.setOnClickListener(this)
         binding.addToCart.setOnClickListener(this)
         binding.buyNow.setOnClickListener(this)
 
@@ -60,7 +61,7 @@ class PageAdapter(private val actionListener: PageActionListener) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.title_2.text = ad[0].ad.title
-        holder.itemView.price_2.text = ad[0].ad.price.toString() + " $"
+        holder.itemView.price_2.text = DecimalFormat("##.00").format(ad[0].ad.price).toString() + " $"
         holder.itemView.description_2.text =  ad[0].ad.description.toString()
         holder.itemView.aboutItem.text = ad[0].ad.about_this_item.toString()
 
@@ -69,15 +70,15 @@ class PageAdapter(private val actionListener: PageActionListener) :
 
         var f = false
         for(i in ad[position].fav) {
-            if (ad[position].ad.id_user_ == i.id_user_) {
+            if (id_user == i.id_user_) {
                 f= true
                 break
             }
         }
 
-        holder.itemView.like_button_2.isLiked = f
+        holder.itemView.like_button_4.isLiked = f
 
-        holder.itemView.like_button_2.setOnLikeListener(object : OnLikeListener {
+        holder.itemView.like_button_4.setOnLikeListener(object : OnLikeListener {
             override fun liked(likeButton: LikeButton) {
                 actionListener.onFavoriteAdd(ad[0])
             }
@@ -92,5 +93,9 @@ class PageAdapter(private val actionListener: PageActionListener) :
     fun setData(ad_: List<AdDao.FullAd>) {
         ad = ad_
         notifyDataSetChanged()
+    }
+
+    fun setUserId (id: Int) {
+        id_user = id
     }
 }

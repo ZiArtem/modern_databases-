@@ -7,7 +7,7 @@ import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.entities.*
 
 @Database(
-    version = 2,
+    version = 6,
     entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class]
 )
 
@@ -35,8 +35,8 @@ abstract class PrDatabase : RoomDatabase() {
                     context.applicationContext,
                     PrDatabase::class.java,
                     "user_database"
-                ).fallbackToDestructiveMigration().build()
-//                    .createFromAsset("new_1.db")
+                ).fallbackToDestructiveMigration().createFromAsset("bd/new.db").build()
+//
 
                 INSTANCE = instance
                 return instance

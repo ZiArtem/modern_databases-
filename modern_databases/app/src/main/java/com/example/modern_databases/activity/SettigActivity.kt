@@ -43,6 +43,11 @@ class SettigActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settig)
 
+        mUserViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(PrViewModel::class.java)
+
         setInformation()
         bottomNavigation()
 
@@ -100,10 +105,7 @@ class SettigActivity : AppCompatActivity() {
     }
 
     private fun setInformation() {
-        mUserViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(PrViewModel::class.java)
+
         lastName = findViewById(R.id.userName)
         secondName = findViewById(R.id.userLastName)
         userImage = findViewById(R.id.userImage)
@@ -216,7 +218,89 @@ class SettigActivity : AppCompatActivity() {
             ))
 
 
-            for (item: Int in 2..21) {
+
+            ad = Ad(
+                0,
+                "Xbox Series S",
+                "Platform : Xbox, Xbox Series S",
+                "   Access your favorite entertainment through apps like YouTube, Netflix, and more\n" +
+                        "   Enjoy over 100 games right out of the box with a 1 month Xbox Game Pass trial\n" +
+                        "   Watch 4K Blu-ray movies and stream 4K video on Netflix, Amazon, Hulu, Microsoft Movies & TV, and more\n" +
+                        "   Play with friends and family near and far—sitting together on the sofa or around the world on Xbox Live, the fastest, most reliable gaming network\n" +
+                        "   Xbox 1 games and accessories work together",
+                2,
+                299.99,
+                Date(),
+                1
+            )
+            mUserViewModel.addAd(ad)
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://3dnews.ru/assets/external/illustrations/2020/10/13/1022849/sm.xbox.5.750.jpg"),
+                2,
+                1
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://cryptichack3r.com/wp-content/uploads/2020/11/3735881-xboxseriess.jpg"),
+                2,
+                2
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://forum.xboxera.com/uploads/default/original/2X/0/06ec74ac491b0f8568b804ad1910a1a43ebbbeca.jpeg"),
+                2,
+                3
+            ))
+
+
+            ad = Ad(
+                0,
+                "DJI Mavic 3 - Camera Drone with 4/3 CMOS Hasselblad Camera, 5.1K Video, Omnidirectional Obstacle Sensing, 46-Min Flight, RC Quadcopter with Advanced Auto Return, Max 15km Video Transmission",
+                "Brand                    DJI\n" +
+                        "Color                     Gray\n" +
+                        "Control Type\t            Remote Control\n" +
+                        "Video Capture Resolution\t4K HD, FHD 1080p\n" +
+                        "Are Batteries Included\t  Yes\n" +
+                        "Wireless Communication Technology\tCellular\n" +
+                        "Item Weight\t              895 Grams\n" +
+                        "Video Output Resolution\t 1920x1080 Pixels\n" +
+                        "Remote Control Included?\tYes\n" +
+                        "Battery Cell Composition\tLithium Ion",
+                "   Imaging Above Everything - With a 4/3 CMOS Hasselblad Camera, the sensor provides a 12.8-stop dynamic range that retains more details in highlights and shadows, upgrading your work to a professional level.\n" +
+                        "   46 Minutes of Flight Time - Stay in the air longer and capture more with a breathtaking max flight time of 46 minutes. This lets you get all the shots you want on just a single battery.\n" +
+                        "   Fly Safer - DJI Mavic 3 drone with camera is equipped with advanced Omnidirectional Obstacle Sensing. This lets you fly confidently and safely wherever you are.\n" +
+                        "   Explore and Capture more - the DJI Mavic 3 drone offers a 15-kilometer max transmission range, which means you can fly farther to explore and capture more. And with the O3 Plus Transmission system, live feeds are smooth and stable.\n" +
+                        "   Smart Return to Home - With a new Advanced RTH system, Mavic 3 camera drone can return to its home point on a fast, safe, and optimized route. Whether activated by low battery or the pilot, getting the quadcopter drone back to you during flight is easier than ever.",
+                3,
+                2199.00,
+                Date(),
+                1
+            )
+            mUserViewModel.addAd(ad)
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-13.userapi.com/impg/B7zylRfe5LsvH6CVpBKZygNKYCh6_3jtGvBVvw/KzIfxbL5rCk.jpg?size=1486x726&quality=96&sign=5ca8f9624f8e4d3311cfd2093da2273a&type=album"),
+                3,
+                1
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-26.userapi.com/impg/YLkJLTGq6ceXfQAzvORjIYc0UbFPugZJbbJHUw/dRLV-n348EQ.jpg?size=1417x706&quality=96&sign=8f921d32a8722c5f3120117a4250a72f&type=album"),
+                3,
+                2
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-2.userapi.com/impg/w2TlQKhKdt8tBfQEn52m9vORLKm0HBd5mZAkQA/g7XQPsTrnfc.jpg?size=536x693&quality=96&sign=2ec25cf78e05c0865c9573c39d3fde9e&type=album"),
+                3,
+                3
+            ))
+
+
+
+
+            for (item: Int in 4..20) {
                 ad = Ad(
                     0,
                     "Test title  " + (0..100).random(),

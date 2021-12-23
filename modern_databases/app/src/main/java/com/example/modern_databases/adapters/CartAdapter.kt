@@ -12,6 +12,8 @@ import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.databinding.CartItemBinding
 import kotlinx.android.synthetic.main.cart_item.view.*
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 
 interface CartActionListener {
@@ -77,7 +79,7 @@ class CartAdapter(private val actionListener: CartActionListener) :
         val currentItem = cartList[position]
 
         holder.itemView.titleCart.text = currentItem.f[0].ad.title.toString()
-        holder.itemView.priceCart.setText(currentItem.f[0].ad.price.toString() + " $")
+        holder.itemView.priceCart.text = DecimalFormat("##.00").format(currentItem.f[0].ad.price).toString()+" $"
         holder.itemView.num.setText(currentItem.cart.num.toString())
 
         holder.itemView.tag = currentItem

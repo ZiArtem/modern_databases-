@@ -110,28 +110,10 @@ class AdPageActivity : AppCompatActivity() {
         recyclerView.adapter = adapter1
         recyclerView.layoutManager = LinearLayoutManager(this)
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        adapter1.setUserId(save_user_id)
 
         mUserViewModel.TestALlAdByIdAd(listOf(id_ad)).observe(this, { ad -> adapter1.setData(ad) })
-//        Thread(Runnable {
-////            var image1 = mUserViewModel.getImageByIdAd(id_ad)
-////            var ad = mUserViewModel.getAdById(id_ad)
-////            var fav_ = mUserViewModel.getFavoriteByIdAd(id_ad)
-////            runOnUiThread {
-////                title.text = ad[0].title.toString()
-////                price.text = ad[0].price.toString() + " $"
-////
-//////                descriptions.text = ad[0].description.toString()
-////                descriptions.text = ("   An iconic tool meant for a lifetime of use Unique \"Twist and Click\" mechanism retracts entire lead and sleeve for durability and pocket-safety\n"
-////                        + "   Full metal body providing ideal balance of weight and feeling Hexagonal barrel ensuring fatigue-free writing and drawing Shaped to prevent the tool from sliding when laid down on tables Non-slip metal knurled grip\n"
-////                        +"   Hexagonal shape prevents sliding on tilted tables Design, pattern and size of metallic grip zone enable working for long hours without slipping\n"+
-////                        "   Fixed lead guidance sleeve prevents breakage and gives a clear page view for ruler-based drawing Brass mechanism for precision lead advancement\n"+
-////                        "   Limited warranty: guaranteed for 2 years from original purchase date against defects in materials or workmanship").toString()
-////
-////                fav.isLiked = fav_.isNotEmpty()
-////            }
-//        }).start()
     }
-
 
     private fun likeButtonPush() {
         fav.setOnLikeListener(object : OnLikeListener {

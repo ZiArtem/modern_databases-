@@ -15,10 +15,12 @@ import com.example.modern_databases.adapters.AdActionListener1
 import com.example.modern_databases.adapters.FavoriteAdAdapter
 import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FavoriteDao
+import com.example.modern_databases.data.entities.Cart
 import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 class FavoriteActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
@@ -82,12 +84,25 @@ class FavoriteActivity : AppCompatActivity() {
                 overridePendingTransition(0, 0)
             }
 
-            override fun buy(fav: FavoriteDao.FavoriteAndAdAndImage) {
-                Toast.makeText(
-                    applicationContext,
-                    "this feature hasn't been implemented yet",
-                    Toast.LENGTH_SHORT
-                ).show()
+            override fun addToCart(fav: FavoriteDao.FavoriteAndAdAndImage) {
+                Thread(Runnable {
+                    val cartItem = mUserViewModel.getCartByIdAd(fav.favorite.id_ad_)
+                    if (cartItem.isEmpty()) {
+                        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+                        val save_id_user = sharedPref.getInt("id_user", -1)
+                        mUserViewModel.addCartElement(Cart(0, 1, Date(), fav.favorite.id_ad_, save_id_user))
+                    } else {
+                        mUserViewModel.updateCartElement(
+                            Cart(
+                                cartItem[0].id_cart,
+                                cartItem[0].num + 1,
+                                cartItem[0].date,
+                                cartItem[0].id_ad_,
+                                cartItem[0].id_user_
+                            )
+                        )
+                    }
+                }).start()
             }
 
             override fun onFavoriteDelete(fav: FavoriteDao.FavoriteAndAdAndImage) {

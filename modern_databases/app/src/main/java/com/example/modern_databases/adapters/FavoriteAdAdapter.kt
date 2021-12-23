@@ -17,12 +17,13 @@ import kotlinx.android.synthetic.main.ad_item_1.view.imageView3
 import kotlinx.android.synthetic.main.ad_item_1.view.price
 import kotlinx.android.synthetic.main.ad_item_1.view.title
 import kotlinx.android.synthetic.main.ad_item_favorite.view.*
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 interface AdActionListener1 {
     fun onAdDeteils(fav: FavoriteDao.FavoriteAndAdAndImage)
 
-    fun buy(fav: FavoriteDao.FavoriteAndAdAndImage)
+    fun addToCart(fav: FavoriteDao.FavoriteAndAdAndImage)
 
     fun onFavoriteDelete(fav: FavoriteDao.FavoriteAndAdAndImage)
 }
@@ -46,8 +47,6 @@ class FavDiffCallback(private val oldList: List<FavoriteDao.FavoriteAndAdAndImag
             return false
         if (oldAd.id_user_!=newAd.id_user_)
             return false
-
-
         return true
     }
 }
@@ -67,6 +66,7 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         binding.imageView3.setOnClickListener(this)
         binding.title.setOnClickListener(this)
         binding.price.setOnClickListener(this)
+        binding.buttonAdd.setOnClickListener(this)
 
         return FavoriteAdAdapter.MyViewHolder(binding)
     }
@@ -77,15 +77,17 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         val currentItem = favList[position]
 
         holder.itemView.title.text = currentAd.title.toString()
-        holder.itemView.price.text = currentAd.price.toString() + " $"
-        holder.itemView.description.text = currentAd.description.toString()
+        holder.itemView.price.text = DecimalFormat("##.00").format(currentAd.price).toString() + " $"
+//        holder.itemView.description.text = currentAd.description.toString()
         holder.itemView.like_button1.isLiked = true
 
         holder.itemView.tag = currentItem
         holder.itemView.imageView3.tag = currentItem
         holder.itemView.title.tag = currentItem
         holder.itemView.price.tag = currentItem
-        holder.itemView.description.tag = currentItem
+        holder.itemView.buttonAdd.tag = currentItem
+
+//        holder.itemView.description.tag = currentItem
 
         if (currentItem.adList[0].imageList.isEmpty()) {
             holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
@@ -130,6 +132,10 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
             R.id.price -> {
                 actionListener.onAdDeteils(fav)
             }
+            R.id.buttonAdd -> {
+                actionListener.addToCart(fav)
+            }
+
 
             else -> {
 //                actionListener.onAdDeteils(fav)

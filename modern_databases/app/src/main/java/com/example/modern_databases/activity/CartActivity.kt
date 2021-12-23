@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.example.modern_databases.adapters.CartActionListener
 import com.example.modern_databases.adapters.CartAdapter
 import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.data.entities.Cart
+import com.example.modern_databases.data.entities.Order
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
@@ -29,7 +31,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var adapter: CartAdapter
     private lateinit var price: TextView
     private var save_id_user = -1
-
+    private lateinit var order: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +43,11 @@ class CartActivity : AppCompatActivity() {
         price1()
 
         price = findViewById(R.id.allPrice)
+        order = findViewById(R.id.orderButton)
+
         val del: TextView = findViewById(R.id.deleteALlElement)
         del.setOnClickListener { delete() }
+        order.setOnClickListener { pushOrder() }
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.selectedItemId = R.id.cart
@@ -76,6 +81,21 @@ class CartActivity : AppCompatActivity() {
             true
         }
 
+    }
+
+    private fun pushOrder() {
+        Thread(Runnable {
+            var allPrice = 0.00
+            var cart = mUserViewModel.getAllElementOnCartTest(save_id_user)
+            for (i in cart) {
+                var ad1 = mUserViewModel.getAdById(i.id_ad_)
+                allPrice += i.num * ad1[0].price
+            }
+
+            val userInfo = mUserViewModel.getUserInformation(save_id_user)
+            mUserViewModel.addOrder(Order(0,allPrice,Date(),userInfo[0].location,save_id_user))
+        }).start()
+        delete()
     }
 
     private fun showCart() {
@@ -173,7 +193,8 @@ class CartActivity : AppCompatActivity() {
                 allPrice += i.num * ad1[0].price
             }
             runOnUiThread {
-                price.text = "All " + allPrice.toString() + " $"
+                val roundOff = Math.round(allPrice * 100.0) / 100.0
+                price.text = "All " + roundOff.toString() + " $"
             }
         }).start()
     }

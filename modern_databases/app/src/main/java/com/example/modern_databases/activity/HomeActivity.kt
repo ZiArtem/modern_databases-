@@ -99,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-
+        adapter.setUserId(save_id_user)
         mUserViewModel.TestALlAd().observe(this, Observer { adList -> adapter.setData(adList) })
     }
 
@@ -128,9 +128,9 @@ class HomeActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.order -> {
-//                    val intent = Intent(this, TestActivity::class.java)
-//                    startActivity(intent)
-//                    overridePendingTransition(0, 0);
+                    val intent = Intent(this, New::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
             }
             true

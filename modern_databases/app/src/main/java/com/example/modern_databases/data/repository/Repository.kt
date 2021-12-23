@@ -139,7 +139,7 @@ class Repository(
         orderDao.updateOrder(order)
     }
 
-    fun readAllOrders(id_user: Int): List<Order> {
+    fun readAllOrders(id_user: Int):  LiveData<List<Order>> {
         return orderDao.readAllOrders(id_user)
     }
 

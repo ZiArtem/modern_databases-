@@ -185,7 +185,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun readAllOrders(id_user: Int): List<Order> {
+    fun readAllOrders(id_user: Int):  LiveData<List<Order>> {
         return repository.readAllOrders(id_user)
     }
 
