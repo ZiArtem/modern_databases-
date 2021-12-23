@@ -15,8 +15,9 @@ data class Ad (
     val id_ad: Int,
     val title: String,
     val description: String,
+    val about_this_item: String,
     val category: Int,
-    val price: Int,
+    val price: Double,
     val date: Date,
     val id_user_:Int
 )

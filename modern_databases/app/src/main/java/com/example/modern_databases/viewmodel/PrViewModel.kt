@@ -76,6 +76,11 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getUserIdByLogin(login)
     }
 
+    fun checkPasswordByUser(password: String,id_user:Int): List<User> {
+        return repository.checkPasswordByUser(password,id_user)
+    }
+
+
     // ad function
 
     fun addAd(ad: Ad) {

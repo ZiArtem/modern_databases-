@@ -16,12 +16,12 @@
         android:id="@+id/cart"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         />
+    <item android:title="Order"
+        android:id="@+id/order"
+        android:icon="@drawable/ic_baseline_shopping_bag_24"
+        />
     <item android:title="Settings"
         android:id="@+id/settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        />
-    <item android:title="Test"
-        android:id="@+id/test"
-        android:icon="@drawable/ic_baseline_build_24"
         />
 </menu>

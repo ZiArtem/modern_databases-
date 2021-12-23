@@ -67,10 +67,10 @@ class CartActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.test -> {
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0);
+                R.id.order -> {
+//                    val intent = Intent(this, TestActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(0, 0);
                 }
             }
             true
@@ -163,7 +163,7 @@ class CartActivity : AppCompatActivity() {
 
     private fun price1() {
         Thread(Runnable {
-            var allPrice = 0
+            var allPrice = 0.0
             var c = mUserViewModel.getAllElementOnCartTest(save_id_user)
 
             for (i in c) {

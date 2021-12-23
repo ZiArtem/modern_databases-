@@ -54,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
         adapter = AdAdapter(object : AdActionListener {
             override fun onAdDeteils(ad: AdDao.FullAd) {
                 val intent = Intent(this@HomeActivity, AdPageActivity::class.java)
+//                val intent = Intent(this@HomeActivity, New::class.java)
                 intent.putExtra("id_ad", ad.ad.id_ad.toInt())
 
                 startActivity(intent)
@@ -126,10 +127,10 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.test -> {
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0);
+                R.id.order -> {
+//                    val intent = Intent(this, TestActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(0, 0);
                 }
             }
             true

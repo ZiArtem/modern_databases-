@@ -43,6 +43,10 @@ class Repository(
         return userDao.getUserIdByLogin(login)
     }
 
+    fun checkPasswordByUser(password: String,id_user:Int): List<User> {
+        return userDao.checkPasswordByUser(password,id_user)
+    }
+
     //ad function
 
     val readAllAd: LiveData<List<Ad>> = adDao.readAllAd()

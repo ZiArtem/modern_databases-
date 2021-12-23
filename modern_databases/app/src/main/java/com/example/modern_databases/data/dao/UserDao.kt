@@ -20,6 +20,9 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE login=(:login)")
     fun checkUniqueLogin(login: String): List<User>
 
+    @Query("SELECT * FROM user_table WHERE password=(:password) AND id_user=(:id_user)")
+    fun checkPasswordByUser(password: String,id_user:Int): List<User>
+
     @Query("SELECT firstName,lastName FROM user_table WHERE id_user=(:id)")
     fun getUserInfo(id: Int): List<UserInfo>
 

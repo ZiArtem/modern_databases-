@@ -57,10 +57,10 @@ class FavoriteActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                R.id.test -> {
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0);
+                R.id.order -> {
+//                    val intent = Intent(this, TestActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(0, 0);
                 }
             }
             true
