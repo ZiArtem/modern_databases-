@@ -4,15 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.modern_databases.data.dao.AdDao
-import com.example.modern_databases.data.dao.FavoriteDao
-import com.example.modern_databases.data.dao.FullAd1
-import com.example.modern_databases.data.dao.UserDao
+import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.entities.*
 import com.example.modern_databases.data.database.PrDatabase
 import com.example.modern_databases.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class PrViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository
@@ -27,6 +25,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         val favoriteDao_ = PrDatabase.getDatabase(application).favoriteDao()
         val userInformationDao_ = PrDatabase.getDatabase(application).userInformationDao()
         val cartDao_ = PrDatabase.getDatabase(application).cartDao()
+        val orderItemDao_ = PrDatabase.getDatabase(application).orderItemDao()
         repository = Repository(
             userDao_,
             adDao_,
@@ -34,7 +33,8 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
             picturesDao_,
             favoriteDao_,
             userInformationDao_,
-            cartDao_
+            cartDao_,
+            orderItemDao_
         )
         readAllAd = repository.readAllAd
         getAllImage = repository.getAllImage()
@@ -76,8 +76,8 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getUserIdByLogin(login)
     }
 
-    fun checkPasswordByUser(password: String,id_user:Int): List<User> {
-        return repository.checkPasswordByUser(password,id_user)
+    fun checkPasswordByUser(password: String, id_user: Int): List<User> {
+        return repository.checkPasswordByUser(password, id_user)
     }
 
 
@@ -128,6 +128,11 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<AdDao.FullAd>> {
         return repository.TestALlAdByIdAd(favList)
     }
+
+    fun getAdByListIdAdNoLiveData(id_ad_: List<Int>): List<Ad> {
+        return repository.getAdByListIdAdNoLiveData(id_ad_)
+    }
+
 
     //image function
 
@@ -185,7 +190,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun readAllOrders(id_user: Int):  LiveData<List<Order>> {
+    fun readAllOrders(id_user: Int): LiveData<List<Order>> {
         return repository.readAllOrders(id_user)
     }
 
@@ -196,6 +201,11 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun TestALlAd(): LiveData<List<AdDao.FullAd>> {
         return repository.TestALlAd()
     }
+
+    fun getOrdeIdrByUserIdAndDate(id_user: Int,date: Date): List<Int> {
+        return repository.getOrdeIdrByUserIdAndDate(id_user,date)
+    }
+
 
     // favorite function
 
@@ -289,5 +299,34 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getCartByIdAd(id_ad)
     }
 
+    fun getAllIdElementOnCart(id_user: Int): List<Int> {
+        return repository.getAllIdElementOnCart(id_user)
+    }
+
+
+    // order item function
+
+
+    fun addOrderItem(orderItem: OrderItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addOrderItem(orderItem)
+        }
+    }
+
+    fun deleteOrderItem(orderItem: OrderItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteOrderItem(orderItem)
+        }
+    }
+
+    fun updateOrderItem(orderItem: OrderItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateOrderItem(orderItem)
+        }
+    }
+
+    fun getOrderItemByIdOrder(id_order: Int): LiveData<List<OrderItemDao.OrderItemAndAdAndImage>> {
+        return repository.getOrderItemByIdOrder(id_order)
+    }
 }
 

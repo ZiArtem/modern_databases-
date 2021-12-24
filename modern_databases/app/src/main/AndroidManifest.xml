@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modern_databases">
         <activity
+            android:name=".activity.OrderItemActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.New"
             android:exported="true" />
         <activity

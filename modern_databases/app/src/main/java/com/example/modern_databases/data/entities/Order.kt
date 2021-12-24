@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(
-    tableName = "parchasehistory_table", foreignKeys = [
+    tableName = "order_table", foreignKeys = [
         ForeignKey(
             entity = User::class,
             parentColumns = ["id_user"],

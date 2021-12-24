@@ -95,9 +95,9 @@ class SettigActivity : AppCompatActivity() {
 //                    startActivity(intent)
 //                }
                 R.id.order -> {
-//                    val intent = Intent(this, TestActivity::class.java)
-//                    startActivity(intent)
-//                    overridePendingTransition(0, 0);
+                    val intent = Intent(this, New::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
             }
             true
@@ -150,25 +150,25 @@ class SettigActivity : AppCompatActivity() {
     }
 
     private fun addAdTestFunction() {
-        var images_list: ArrayList<String> = ArrayList()
-
-        images_list.add("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg")
-        images_list.add("https://fun-cats.ru/wp-content/uploads/3/0/7/3071381c7efe0c6c94cec8f4eb4442e6.jpeg")
-        images_list.add("https://pbs.twimg.com/media/EkIUGBXWoAE9b0i.jpg")
-        images_list.add("https://mirsobaki.ru/wp-content/uploads/2019/01/Siba-inu-88.jpg")
-        images_list.add("https://doggav.ru/wp-content/uploads/siba-inu_24.jpg")
-        images_list.add("https://kot-pes.com/wp-content/uploads/2019/06/post_5cf6ff9b6710e-765x754.jpg")
-        images_list.add("https://porodisobak.ru/wp-content/uploads/2021/07/siba-inu-12.jpg")
-        images_list.add("https://lapkins.ru/upload/iblock/945/945b1c8bba53680aca6d63dcd04fce9b.jpg")
-        images_list.add("https://hypecrib.com/wp-content/uploads/2019/12/8-1.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-17.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-16.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-15.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-14.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-12.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-11.jpg")
-        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-10.jpg")
+//        var images_list: ArrayList<String> = ArrayList()
+//
+//        images_list.add("https://pbs.twimg.com/media/E00ZZrKXoAEiyla.jpg")
+//        images_list.add("https://fun-cats.ru/wp-content/uploads/3/0/7/3071381c7efe0c6c94cec8f4eb4442e6.jpeg")
+//        images_list.add("https://pbs.twimg.com/media/EkIUGBXWoAE9b0i.jpg")
+//        images_list.add("https://mirsobaki.ru/wp-content/uploads/2019/01/Siba-inu-88.jpg")
+//        images_list.add("https://doggav.ru/wp-content/uploads/siba-inu_24.jpg")
+//        images_list.add("https://kot-pes.com/wp-content/uploads/2019/06/post_5cf6ff9b6710e-765x754.jpg")
+//        images_list.add("https://porodisobak.ru/wp-content/uploads/2021/07/siba-inu-12.jpg")
+//        images_list.add("https://lapkins.ru/upload/iblock/945/945b1c8bba53680aca6d63dcd04fce9b.jpg")
+//        images_list.add("https://hypecrib.com/wp-content/uploads/2019/12/8-1.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-13.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-17.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-16.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-15.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-14.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-12.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-11.jpg")
+//        images_list.add("https://koshka-pushinka.ru/wp-content/uploads/2019/05/Hatchi-10.jpg")
 
         //size =17
 
@@ -298,32 +298,121 @@ class SettigActivity : AppCompatActivity() {
             ))
 
 
+            ad = Ad(
+                0,
+                "GoPro HERO9 Black - Waterproof Action Camera with Front LCD and Touch Rear Screens, 5K Ultra HD Video, 20MP Photos, 1080p Live Streaming, Webcam, Stabilization",
+                "\n" +
+                        "Brand                        tGoPro\n" +
+                        "Model Name\t               HERO9 Black\n" +
+                        "Special Feature\t           Waterproof, Time Lapse\n" +
+                        "Video Capture Resolution\t  5K\n" +
+                        "Connectivity Technology\t   Wi-Fi\n" +
+                        "Optical Zoom\t              1 x\n" +
+                        "Video Capture Format\t       MP4\n" +
+                        "Maximum Focal Length\t         24.4 Millimeters\n" +
+                        "Minimum Focal Length\t1         5.5 Millimeters\n" +
+                        "Lens Type\t                     Fisheye",
+                "   5K Video - Shoot stunning video with up to 5K resolution, perfect for maintaining detail even when zooming in\n" +
+                        "   20MP Photo with SuperPhoto: Capture crisp, pro-quality photos with 20MP clarity. And with SuperPhoto, HERO9 Black can automatically pick all the best image processing for you\n" +
+                        "   Front Display + Rear Touch Screen: A new, larger rear touch screen with touch zoom on HERO9 Black and a dazzling new front display makes for easy framing and intuitive camera control\n" +
+                        "   Live Streaming + Webcam: Live stream in 1080p on social, get HyperSmooth stabilization as you broadcast\n" +
+                        "   HyperSmooth 3.0: Experience the ultimate smoothness with our most advanced video stabilization ever.TimeWarp 3.0: Record mesmerizes time lapse scenes as you move on the road, on foot or anywhere else.Rugged + Waterproof: Shoot in the gnarliest conditions imaginable. HERO9 Black can take it. It's tough as nails, and waterproof down to 33 feet right out of the box",
+                1,
+                329.99,
+                Date(),
+                1
+            )
+            mUserViewModel.addAd(ad)
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-37.userapi.com/impg/u_FXyWyp8iUF9d_cOo2QWW5Ui4VqJaFk81pZJQ/aYjBV4w8F2M.jpg?size=1077x689&quality=96&sign=e81eb22dcd40346f5b28dd4497cffec2&type=album"),
+                4,
+                1
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-59.userapi.com/impg/z0oUYtSXyIkF-dIhzibBC4BWRknR8yVKmWL9kg/2WleHAaOOvs.jpg?size=958x626&quality=96&sign=8258061d8ff270ede80ee6bac730075a&type=album"),
+                4,
+                2
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-10.userapi.com/impg/iHmdD5FeRzPpjAE0LFd3iKEGPcy6C3z7JS53AA/sJfKDuaH2ds.jpg?size=969x652&quality=96&sign=12977f50ad6ecf965bd01aafa18c574a&type=album"),
+                4,
+                3
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-84.userapi.com/impg/nhhxTAnIJ7aGCNlaUp2PFcFTWDXhnMIZcHoMGQ/wpaSuiwydDg.jpg?size=582x713&quality=96&sign=fe01059b68c42f44abc59997da0b4fd5&type=album"),
+                4,
+                3
+            ))
 
+            ad = Ad(
+                0,
+                "2021 Apple 11-inch iPad Pro (Wi‑Fi, 512GB) - Silver",
+                "\n" +
+                        "Model Name\t           IPad Pro\n" +
+                        "Brand\t                Apple\n" +
+                        "Screen Size\t          11 Inches\n" +
+                        "Operating System\t      IPadOS\n" +
+                        "Memory Storage Capacity\t     512 GB",
+                "   Apple M1 chip for next-level performance\n" +
+                        "   Stunning 11-inch Liquid Retina display with ProMotion, True Tone, and P3 wide color\n" +
+                        "   TrueDepth camera system featuring Ultra Wide front camera with Center Stage\n" +
+                        "   12MP Wide camera, 10MP Ultra Wide camera, and LiDAR Scanner for immersive AR\n" +
+                        "   Stay connected with ultrafast Wi-Fi\n" +
+                        "   Go further with all-day battery life\n" +
+                        "   Thunderbolt port for connecting to fast external storage, displays, and docks",
+                3,
+                869.84,
+                Date(),
+                1
+            )
+            mUserViewModel.addAd(ad)
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-8.userapi.com/impg/7gPzKHfEWLsMDiob6j5N8egvHUzo2cgNk84dIA/C7U31hm1yY8.jpg?size=705x714&quality=96&sign=176f6e931ce53a3c11ade614fb10e44f&type=album"),
+                5,
+                1
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-28.userapi.com/impg/GP0C8CnwnM4koh_ZlfV_wn3xCZJ6bKGUHjttqA/WaXxmNPPNA8.jpg?size=469x704&quality=96&sign=6fb54ec7d570de9b9a53bb434e352fd5&type=album"),
+                5,
+                2
+            ))
+            mUserViewModel.addImage(Image(
+                0,
+                getBitmap("https://sun9-87.userapi.com/impg/ZJpOzi-swc5VQwmyTBxSSonvp6I_2Pz8rxVKVw/NGO6Lkpygio.jpg?size=743x708&quality=96&sign=431474896217611b4e0b0d44f6d66b62&type=album"),
+                5,
+                3
+            ))
 
-            for (item: Int in 4..20) {
-                ad = Ad(
-                    0,
-                    "Test title  " + (0..100).random(),
-                    "test",
-                    "about this item test  " + (0..100).random().toString(),
-                    (0..15).random(),
-                    (0..10000).random().toDouble()/100,
-                    Date(),
-                    1
-                )
-                mUserViewModel.addAd(ad)
-
-
-                for (i in 1..(2..4).random()) {
-                    im = Image(
-                        0,
-                        getBitmap(images_list[(0..16).random()]),
-                        item,
-                        i
-                    )
-                    mUserViewModel.addImage(im)
-                }
-            }
+//            for (item: Int in 6..20) {
+//                ad = Ad(
+//                    0,
+//                    "Test title  " + (0..100).random(),
+//                    "test",
+//                    "about this item test  " + (0..100).random().toString(),
+//                    (0..15).random(),
+//                    (0..10000).random().toDouble()/100,
+//                    Date(),
+//                    1
+//                )
+//                mUserViewModel.addAd(ad)
+//
+//
+//                for (i in 1..(2..4).random()) {
+//                    im = Image(
+//                        0,
+//                        getBitmap(images_list[(0..16).random()]),
+//                        item,
+//                        i
+//                    )
+//                    mUserViewModel.addImage(im)
+//                }
+//            }
         }
     }
 

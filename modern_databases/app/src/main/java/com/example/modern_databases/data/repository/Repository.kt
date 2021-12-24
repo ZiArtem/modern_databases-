@@ -1,8 +1,10 @@
 package com.example.modern_databases.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.entities.*
+import java.util.*
 
 class Repository(
     private val userDao: UserDao,
@@ -11,7 +13,8 @@ class Repository(
     private val imageDao: ImageDao,
     private val favoriteDao: FavoriteDao,
     private val userInformationDao: UserInformationDao,
-    private val cartDao: CartDao
+    private val cartDao: CartDao,
+    private val orderItemDao: OrderItemDao
 ) {
 
     //user function
@@ -83,6 +86,10 @@ class Repository(
         return adDao.getAdByListIdAd(id_ad_)
     }
 
+    fun getAdByListIdAdNoLiveData(id_ad_: List<Int>): List<Ad> {
+        return adDao.getAdByListIdAdNoLiveData(id_ad_)
+    }
+
     fun readAllAdId(): List<Int> {
         return adDao.readAllAdId()
     }
@@ -147,6 +154,10 @@ class Repository(
         return orderDao.getOrderById(id_order)
     }
 
+    fun getOrdeIdrByUserIdAndDate(id_user: Int,date: Date): List<Int> {
+        return orderDao.getOrdeIdrByUserIdAndDate(id_user,date)
+    }
+
 
     // favorite function
 
@@ -209,6 +220,9 @@ class Repository(
         cartDao.updateCartElement(cart)
     }
 
+    fun getAllIdElementOnCart(id_user: Int): List<Int> {
+        return cartDao.getAllIdElementOnCart(id_user)
+    }
 
 
     fun getAllElementOnCartTets(id_user: Int): List<Cart> {
@@ -224,4 +238,23 @@ class Repository(
     }
 
 
+    // order Item function
+
+
+    suspend fun addOrderItem(orderItem: OrderItem) {
+        orderItemDao.addOrderItem(orderItem)
+    }
+
+    suspend fun deleteOrderItem(orderItem: OrderItem){
+        orderItemDao.deleteOrderItem(orderItem)
+    }
+
+    suspend fun updateOrderItem(orderItem: OrderItem){
+        orderItemDao.updateOrderItem(orderItem)
+    }
+
+
+    fun getOrderItemByIdOrder(id_order: Int): LiveData<List<OrderItemDao.OrderItemAndAdAndImage>> {
+        return  orderItemDao.getOrderItemByIdOrder(id_order)
+    }
 }

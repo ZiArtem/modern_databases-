@@ -19,32 +19,37 @@ import kotlinx.android.synthetic.main.order_item.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
-class OrderAdapter :
+
+interface OrderItemActionListener {
+    fun onAdDeteils(order: Order)
+}
+
+class OrderAdapter(private val actionListener: OrderItemActionListener) :
     RecyclerView.Adapter<OrderAdapter.MyViewHolder>(), View.OnClickListener {
-    private var orderList:List<Order> = emptyList<Order>()
+    private var orderList: List<Order> = emptyList<Order>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = OrderItemBinding.inflate(inflater, parent, false)
-//        binding.imageView3.setOnClickListener(this)
+        binding.root.setOnClickListener(this)
 //        binding.button2.setOnClickListener(this)
 
         return MyViewHolder(binding)
     }
 
     override fun onClick(v: View) {
-        val ad: AdDao.FullAd = v.tag as AdDao.FullAd
-//        when (v.id) {
+        val order: Order = v.tag as Order
+        when (v.id) {
 //            R.id.imageView3 -> {
 //                actionListener.onAdDeteils(ad)
 //            }
 //            R.id.button2 -> {
 //                actionListener.buy(ad)
 //            }
-//            else -> {
-//                actionListener.onAdDeteils(ad)
-//            }
-//        }
+            else -> {
+                actionListener.onAdDeteils(order)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -52,21 +57,22 @@ class OrderAdapter :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("MM HH:mm")
+        val sdf = SimpleDateFormat("MMM  d  HH:mm")
         val currentItem = orderList[position]
 
-        holder.itemView.priceOrder.text = DecimalFormat("##.00").format(currentItem.price).toString() + " $"
-        holder.itemView.dataOrder.text = "Order from"+ sdf.format(currentItem.date)
-        holder.itemView.orderNumber.text = "№"+currentItem.id_order.toString()
-        holder.itemView.delivery.text = "delivery from "+ currentItem.address.toString()
-
+        holder.itemView.priceOrder.text =
+            DecimalFormat("##.00").format(currentItem.price).toString() + " $"
+        holder.itemView.dataOrder.text = "Order from " + sdf.format(currentItem.date)
+        holder.itemView.orderNumber.text = currentItem.id_order.toString()
+        holder.itemView.delivery.text = "delivery from " + currentItem.address.toString()
+        holder.itemView.tag = currentItem
     }
 
     fun setData(order: List<Order>) {
 //        val difUpdate =  DiffUtil.calculateDiff(AdDiffCallback(adList,ad_))
         this.orderList = order
 //        difUpdate.dispatchUpdatesTo(this)
-    notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
 

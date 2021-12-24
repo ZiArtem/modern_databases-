@@ -59,10 +59,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:anim_scale_factor="8"
-        app:icon_size="7dp"
+        app:icon_size="8dp"
         app:icon_type="Star"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageView3" />
 
     <Button
         android:id="@+id/buttonAdd"

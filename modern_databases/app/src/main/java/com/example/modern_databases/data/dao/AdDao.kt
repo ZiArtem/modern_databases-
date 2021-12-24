@@ -38,6 +38,9 @@ interface AdDao {
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
     fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>>
 
+    @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
+    fun getAdByListIdAdNoLiveData(id_ad_: List<Int>): List<Ad>
+
     @Transaction
     @Query("SELECT * FROM ad_table")
     fun TestALlAd(): LiveData<List<FullAd>>

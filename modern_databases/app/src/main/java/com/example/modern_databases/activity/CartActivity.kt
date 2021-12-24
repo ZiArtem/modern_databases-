@@ -19,6 +19,7 @@ import com.example.modern_databases.adapters.CartAdapter
 import com.example.modern_databases.data.dao.FullAd1
 import com.example.modern_databases.data.entities.Cart
 import com.example.modern_databases.data.entities.Order
+import com.example.modern_databases.data.entities.OrderItem
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
@@ -73,9 +74,9 @@ class CartActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.order -> {
-//                    val intent = Intent(this, TestActivity::class.java)
-//                    startActivity(intent)
-//                    overridePendingTransition(0, 0);
+                    val intent = Intent(this, New::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0);
                 }
             }
             true
@@ -86,14 +87,43 @@ class CartActivity : AppCompatActivity() {
     private fun pushOrder() {
         Thread(Runnable {
             var allPrice = 0.00
-            var cart = mUserViewModel.getAllElementOnCartTest(save_id_user)
-            for (i in cart) {
-                var ad1 = mUserViewModel.getAdById(i.id_ad_)
-                allPrice += i.num * ad1[0].price
+            val allCartItemId = mUserViewModel.getAllIdElementOnCart(save_id_user)
+            val allCartItem = mUserViewModel.getAllElementOnCartTest(save_id_user)
+            val allAdInCart = mUserViewModel.getAdByListIdAdNoLiveData(allCartItemId)
+
+            for (i in allAdInCart.indices) {
+                allPrice += allCartItem[i].num * allAdInCart[i].price
             }
 
             val userInfo = mUserViewModel.getUserInformation(save_id_user)
-            mUserViewModel.addOrder(Order(0,allPrice,Date(),userInfo[0].location,save_id_user))
+
+            var order = Order(
+                0,
+                allPrice,
+                Date(),
+                userInfo[0].location,
+                save_id_user
+            )
+
+            lifecycleScope.launch {
+                mUserViewModel.addOrder(order)
+                delay(100)
+                Thread(Runnable {
+                    val id_order = mUserViewModel.getOrdeIdrByUserIdAndDate(save_id_user, order.date)
+
+                    for (i in allAdInCart.indices) {
+                        mUserViewModel.addOrderItem(
+                            OrderItem(
+                                0,
+                                id_order[0],
+                                allAdInCart[i].price,
+                                allAdInCart[i].id_ad,
+                                allCartItem[i].num
+                            )
+                        )
+                    }
+                }).start()
+            }
         }).start()
         delete()
     }

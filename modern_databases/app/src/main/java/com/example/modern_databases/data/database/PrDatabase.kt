@@ -7,8 +7,8 @@ import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.entities.*
 
 @Database(
-    version = 6,
-    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class]
+    version = 9,
+    entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class,OrderItem::class]
 )
 
 @TypeConverters(DataConverter::class)
@@ -20,6 +20,7 @@ abstract class PrDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
     abstract fun userInformationDao(): UserInformationDao
     abstract fun cartDao(): CartDao
+    abstract fun orderItemDao(): OrderItemDao
 
     companion object {
         @Volatile

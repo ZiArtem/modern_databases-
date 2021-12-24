@@ -21,6 +21,10 @@ interface CartDao {
 
     @Query("SELECT*FROM cart_table WHERE id_user_=(:id_user)")
     fun getAllElementOnCartTest(id_user: Int): List<Cart>
+
+    @Query("SELECT id_ad_ FROM cart_table WHERE id_user_=(:id_user)")
+    fun getAllIdElementOnCart(id_user: Int): List<Int>
+
 //
 //    @Query("SELECT*FROM parchasehistory_table WHERE id_order=(:id_order)")
 //    fun getOrderById(id_order: Int): List<Order>
