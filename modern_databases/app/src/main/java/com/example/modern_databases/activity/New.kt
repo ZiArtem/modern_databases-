@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.R
-import com.example.modern_databases.adapters.AdActionListener
-import com.example.modern_databases.adapters.OrderAdapter
-import com.example.modern_databases.adapters.OrderItemActionListener
-import com.example.modern_databases.adapters.PageAdapter
+import com.example.modern_databases.adapters.*
 import com.example.modern_databases.data.entities.Order
 import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,7 +24,7 @@ class New : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(PrViewModel::class.java)
 
-        var adapter = OrderAdapter(object : OrderItemActionListener{
+        var adapter = OrderAdapter(object : OrderActionListener {
             override fun onAdDeteils(order: Order) {
                 val intent = Intent(this@New, OrderItemActivity::class.java)
                 intent.putExtra("id_order", order.id_order.toInt())

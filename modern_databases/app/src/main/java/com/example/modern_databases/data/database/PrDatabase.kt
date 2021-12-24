@@ -7,7 +7,7 @@ import com.example.modern_databases.data.dao.*
 import com.example.modern_databases.data.entities.*
 
 @Database(
-    version = 9,
+    version = 4,
     entities = [User::class, Ad::class, Order::class, Image::class, Favorite::class, UserInformation::class, Cart::class,OrderItem::class]
 )
 

@@ -20,11 +20,11 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 
-interface OrderItemActionListener {
+interface OrderActionListener {
     fun onAdDeteils(order: Order)
 }
 
-class OrderAdapter(private val actionListener: OrderItemActionListener) :
+class OrderAdapter(private val actionListener: OrderActionListener) :
     RecyclerView.Adapter<OrderAdapter.MyViewHolder>(), View.OnClickListener {
     private var orderList: List<Order> = emptyList<Order>()
 
@@ -63,7 +63,7 @@ class OrderAdapter(private val actionListener: OrderItemActionListener) :
         holder.itemView.priceOrder.text =
             DecimalFormat("##.00").format(currentItem.price).toString() + " $"
         holder.itemView.dataOrder.text = "Order from " + sdf.format(currentItem.date)
-        holder.itemView.orderNumber.text = currentItem.id_order.toString()
+        holder.itemView.orderNumber.text = "#"+currentItem.id_order.toString()
         holder.itemView.delivery.text = "delivery from " + currentItem.address.toString()
         holder.itemView.tag = currentItem
     }

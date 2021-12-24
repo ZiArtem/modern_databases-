@@ -29,7 +29,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         updatePassword = findViewById(R.id.saveNewPassword)
 
         val intent = intent
-        id_ad = intent.getIntExtra("id_ad", -1)
+        id_ad = intent.getIntExtra("id_user", -1)
 
         updatePassword.setOnClickListener { UpdatePassword() }
     }

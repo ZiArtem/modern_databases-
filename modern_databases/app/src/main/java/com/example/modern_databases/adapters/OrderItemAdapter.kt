@@ -14,8 +14,11 @@ import kotlinx.android.synthetic.main.item_order_item.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
+interface OrderItemActionListener {
+    fun onAdDeteils(orderItems: OrderItemDao.OrderItemAndAdAndImage)
+}
 
-class OrderItemAdapter :
+class OrderItemAdapter(private val actionListener: OrderItemActionListener) :
     RecyclerView.Adapter<OrderItemAdapter.MyViewHolder>(), View.OnClickListener {
     var orderItemList = emptyList<OrderItemDao.OrderItemAndAdAndImage>()
 
@@ -27,18 +30,23 @@ class OrderItemAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemOrderItemBinding.inflate(inflater, parent, false)
-//        binding.root.setOnClickListener(this)
-//        binding.imageView3.setOnClickListener(this)
-//        binding.button2.setOnClickListener(this)
+        binding.root.setOnClickListener(this)
+        binding.imageOrderItem.setOnClickListener(this)
+        binding.count.setOnClickListener(this)
+        binding.titleOrderItem.setOnClickListener(this)
 
         return MyViewHolder(binding)
     }
 
     override fun onClick(v: View) {
-        val ad: AdDao.FullAd = v.tag as AdDao.FullAd
+        val orderItems: OrderItemDao.OrderItemAndAdAndImage =
+            v.tag as OrderItemDao.OrderItemAndAdAndImage
         when (v.id) {
-            R.id.imageView3 -> {
-//                actionListener.onAdDeteils(ad)
+            R.id.imageOrderItem -> {
+                actionListener.onAdDeteils(orderItems)
+            }
+            else ->  {
+                actionListener.onAdDeteils(orderItems)
             }
         }
     }
@@ -51,18 +59,15 @@ class OrderItemAdapter :
         val sdf = SimpleDateFormat("MM HH:mm")
         val currentItem = orderItemList[position]
 
-        holder.itemView.priceOrderItem.text = DecimalFormat("##.00").format(currentItem.orderItem.price).toString() + " $"
+        holder.itemView.priceOrderItem.text =
+            DecimalFormat("##.00").format(currentItem.orderItem.price).toString() + " $"
         holder.itemView.titleOrderItem.text = currentItem.adList[0].ad.title
+        holder.itemView.count.text = currentItem.orderItem.num.toString() + " pcs."
 
-//
-//        holder.itemView.title.text = currentItem.ad.title.toString()
-//
-
-//        holder.itemView.tag = currentItem
-//        holder.itemView.imageView3.tag = currentItem
-//        holder.itemView.title.tag = currentItem
-//        holder.itemView.price.tag = currentItem
-//        holder.itemView.button2.tag = currentItem
+        holder.itemView.imageOrderItem.tag = currentItem
+        holder.itemView.tag = currentItem
+        holder.itemView.priceOrderItem.tag = currentItem
+        holder.itemView.titleOrderItem.tag = currentItem
 
         if (currentItem.adList[0].imageList.isEmpty()) {
             holder.itemView.imageOrderItem.load("https://img2.freepng.ru/20180524/hc/kisspng-brand-paper-artikel-manufacturing-gray-camera-5b067144295791.5793394415271488681694.jpg") {
