@@ -177,18 +177,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_registry" />
 
-    <Button
-        android:id="@+id/test_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:text="test"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:background="@drawable/custom_button"
-        app:layout_constraintStart_toEndOf="@+id/userImage"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+<!--    <Button-->
+<!--        android:id="@+id/test_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="test"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@drawable/custom_button"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/userImage"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/userName" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

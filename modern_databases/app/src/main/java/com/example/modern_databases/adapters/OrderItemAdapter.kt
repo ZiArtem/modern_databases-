@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.R
-import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.OrderItemDao
 import com.example.modern_databases.databinding.ItemOrderItemBinding
 import kotlinx.android.synthetic.main.item_order_item.view.*
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
 
 interface OrderItemActionListener {
     fun onAdDeteils(orderItems: OrderItemDao.OrderItemAndAdAndImage)
@@ -21,7 +19,6 @@ interface OrderItemActionListener {
 class OrderItemAdapter(private val actionListener: OrderItemActionListener) :
     RecyclerView.Adapter<OrderItemAdapter.MyViewHolder>(), View.OnClickListener {
     var orderItemList = emptyList<OrderItemDao.OrderItemAndAdAndImage>()
-
 
     class MyViewHolder(
         private val binding: ItemOrderItemBinding
@@ -45,7 +42,7 @@ class OrderItemAdapter(private val actionListener: OrderItemActionListener) :
             R.id.imageOrderItem -> {
                 actionListener.onAdDeteils(orderItems)
             }
-            else ->  {
+            else -> {
                 actionListener.onAdDeteils(orderItems)
             }
         }
@@ -56,7 +53,6 @@ class OrderItemAdapter(private val actionListener: OrderItemActionListener) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("MM HH:mm")
         val currentItem = orderItemList[position]
 
         holder.itemView.priceOrderItem.text =

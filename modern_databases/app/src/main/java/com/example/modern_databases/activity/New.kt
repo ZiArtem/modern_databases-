@@ -34,7 +34,7 @@ class New : AppCompatActivity() {
             }
         })
 
-        val recyclerView:RecyclerView = findViewById(R.id.recycleviewOrders)
+        val recyclerView: RecyclerView = findViewById(R.id.recycleviewOrders)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -42,7 +42,7 @@ class New : AppCompatActivity() {
 
         val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
         val save_id = sharedPref.getInt("id_user", -1)
-        mUserViewModel.readAllOrders(save_id) .observe(this,  { orders -> adapter.setData(orders) })
+        mUserViewModel.readAllOrders(save_id).observe(this, { orders -> adapter.setData(orders) })
 
         var bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.selectedItemId = R.id.order
@@ -58,10 +58,10 @@ class New : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
-                 R.id.cart-> {
+                R.id.cart -> {
                     val intent = Intent(this, CartActivity::class.java)
                     startActivity(intent)
-                     overridePendingTransition(0, 0);
+                    overridePendingTransition(0, 0);
                 }
                 R.id.settings -> {
                     val intent = Intent(this, SettigActivity::class.java)
@@ -76,7 +76,5 @@ class New : AppCompatActivity() {
             }
             true
         }
-
-
     }
 }

@@ -15,7 +15,6 @@ interface OrderItemDao {
     @Update
     suspend fun updateOrderItem(orderItem: OrderItem)
 
-
     @Query("SELECT*FROM order_item_table WHERE id_order_=(:id_order)")
     fun getOrderItemByIdOrder(id_order: Int): LiveData<List<OrderItemAndAdAndImage>>
 

@@ -105,34 +105,21 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAdById(id)
     }
 
-    fun getAdByIdUser(id: Int): List<Ad> {
-        return repository.getAdByIdUser(id)
-    }
-
-    fun getByKeyword(keyword: String): LiveData<List<AdDao.FullAd>> {
+    fun getByKeyword(keyword: String): LiveData<List<AdDao.AdAndImageAndFavorite>> {
         return repository.getByKeyword(keyword)
-    }
-
-    fun getAllAd(): List<Ad> {
-        return repository.getAllAd()
     }
 
     fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>> {
         return repository.getAdByListIdAd(id_ad_)
     }
 
-    fun readAllAdId(): List<Int> {
-        return repository.readAllAdId()
-    }
-
-    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<AdDao.FullAd>> {
-        return repository.TestALlAdByIdAd(favList)
+    fun getAllAdAndImageAndFavoriteByIdAd(favList: List<Int>): LiveData<List<AdDao.AdAndImageAndFavorite>> {
+        return repository.getAllAdAndImageAndFavoriteByIdAd(favList)
     }
 
     fun getAdByListIdAdNoLiveData(id_ad_: List<Int>): List<Ad> {
         return repository.getAdByListIdAdNoLiveData(id_ad_)
     }
-
 
     //image function
 
@@ -161,10 +148,6 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
     fun getImageByIdAd(id_ad: Int): LiveData<List<Image>> {
         return repository.getImageByIdAd(id_ad)
     }
-
-//    fun getAllImage(): LiveData<List<Image>> {
-//        return  repository.getAllImage()
-//    }
 
     fun getAllPreviewImage(id_ad_: List<Int>): LiveData<List<Image>> {
         return repository.getAllPreviewImage(id_ad_)
@@ -198,8 +181,8 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getOrderById(id_order)
     }
 
-    fun TestALlAd(): LiveData<List<AdDao.FullAd>> {
-        return repository.TestALlAd()
+    fun getAllAdAndImageAndFavorite(): LiveData<List<AdDao.AdAndImageAndFavorite>> {
+        return repository.getAllAdAndImageAndFavorite()
     }
 
     fun getOrdeIdrByUserIdAndDate(id_user: Int,date: Date): List<Int> {
@@ -279,7 +262,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllElementOnCartTets(id_user)
     }
 
-    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<FullAd1>> {
+    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<CartAndAdList>> {
         return repository.getAllElementOnCartTest1(id_user)
     }
 
@@ -303,9 +286,7 @@ class PrViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllIdElementOnCart(id_user)
     }
 
-
     // order item function
-
 
     fun addOrderItem(orderItem: OrderItem) {
         viewModelScope.launch(Dispatchers.IO) {

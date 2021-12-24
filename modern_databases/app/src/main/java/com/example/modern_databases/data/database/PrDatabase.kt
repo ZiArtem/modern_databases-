@@ -37,7 +37,6 @@ abstract class PrDatabase : RoomDatabase() {
                     PrDatabase::class.java,
                     "user_database"
                 ).fallbackToDestructiveMigration().createFromAsset("bd/new.db").build()
-//
 
                 INSTANCE = instance
                 return instance

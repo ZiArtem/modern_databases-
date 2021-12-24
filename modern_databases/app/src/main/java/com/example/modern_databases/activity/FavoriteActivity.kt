@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.modern_databases.*
 import com.example.modern_databases.adapters.AdActionListener1
 import com.example.modern_databases.adapters.FavoriteAdAdapter
-import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FavoriteDao
 import com.example.modern_databases.data.entities.Cart
-import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 

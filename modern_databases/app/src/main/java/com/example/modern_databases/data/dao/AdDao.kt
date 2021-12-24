@@ -33,7 +33,7 @@ interface AdDao {
     fun getAdByIdUser(id_user: Int): List<Ad>
 
     @Query("SELECT*FROM ad_table WHERE title LIKE '%' || :keyword || '%' ")
-    fun getByKeyword(keyword: String): LiveData<List<FullAd>>
+    fun getByKeyword(keyword: String): LiveData<List<AdAndImageAndFavorite>>
 
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:id_ad_)")
     fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>>
@@ -43,13 +43,13 @@ interface AdDao {
 
     @Transaction
     @Query("SELECT * FROM ad_table")
-    fun TestALlAd(): LiveData<List<FullAd>>
+    fun getAllAdAndImageAndFavorite(): LiveData<List<AdAndImageAndFavorite>>
 
     @Transaction
     @Query("SELECT * FROM ad_table WHERE id_ad IN (:favList)")
-    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<FullAd>>
+    fun getAllAdAndImageAndFavoriteByIdAd(favList: List<Int>): LiveData<List<AdAndImageAndFavorite>>
 
-    data class FullAd(
+    data class AdAndImageAndFavorite(
         @Embedded val ad: Ad,
         @Relation(
             parentColumn = "id_ad",

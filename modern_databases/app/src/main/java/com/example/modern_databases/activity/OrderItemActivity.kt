@@ -58,15 +58,15 @@ class OrderItemActivity : AppCompatActivity() {
 
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-        val save_id = sharedPref.getInt("id_user", -1)
-        mUserViewModel.getOrderItemByIdOrder( id_order).observe(this,  { ordersItem -> adapter.setData(ordersItem)})
+        mUserViewModel.getOrderItemByIdOrder(id_order)
+            .observe(this, { ordersItem -> adapter.setData(ordersItem) })
         Thread(Runnable {
             val order = mUserViewModel.getOrderById(id_order)
-            orderNum.text = "Order #"+ order[0].id_order.toString()
-            TotalCost.text = "Total cost " + DecimalFormat("##.00").format(order[0].price).toString()+" $"
+            orderNum.text = "Order #" + order[0].id_order.toString()
+            TotalCost.text =
+                "Total cost " + DecimalFormat("##.00").format(order[0].price).toString() + " $"
             val sdf = SimpleDateFormat("MMM  d  HH:mm")
-            from.text = "from "+sdf.format(order[0].date).toString()
+            from.text = "from " + sdf.format(order[0].date).toString()
         }).start()
     }
 }

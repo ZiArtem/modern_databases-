@@ -1,6 +1,5 @@
 package com.example.modern_databases.activity
 
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,10 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.modern_databases.R
 import com.example.modern_databases.viewmodel.PrViewModel
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var mUserViewModel: PrViewModel
@@ -97,7 +94,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkSignIn() {
         val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-        val save_id = sharedPref.getInt("id_user", -1)
         val save_bool = sharedPref.getBoolean("is_checked", false)
 
         if (save_bool) {

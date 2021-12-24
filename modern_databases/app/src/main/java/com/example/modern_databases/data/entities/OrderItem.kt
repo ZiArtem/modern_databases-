@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-
 @Entity(
     tableName = "order_item_table", foreignKeys = [
         ForeignKey(
@@ -24,8 +23,8 @@ import androidx.room.PrimaryKey
 data class OrderItem(
     @PrimaryKey(autoGenerate = true)
     val id_item: Int,
-    val id_order_:Int,
+    val id_order_: Int,
     val price: Double,
-    val id_ad_:Int,
-    val num:Int
+    val id_ad_: Int,
+    val num: Int
 )

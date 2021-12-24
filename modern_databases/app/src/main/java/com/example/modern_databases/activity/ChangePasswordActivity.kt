@@ -15,7 +15,6 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var oldPassword: TextView
     private lateinit var newPassword: TextView
     private lateinit var confirmPassword: TextView
-
     private lateinit var updatePassword: Button
     private var id_ad = -1
 

@@ -8,25 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.R
-import com.example.modern_databases.data.dao.AdDao
-import com.example.modern_databases.data.dao.FullAd1
+import com.example.modern_databases.data.dao.CartAndAdList
 import com.example.modern_databases.databinding.CartItemBinding
 import kotlinx.android.synthetic.main.cart_item.view.*
 import java.text.DecimalFormat
-import kotlin.math.roundToInt
-
 
 interface CartActionListener {
-    fun onAdDeteils(cart: FullAd1)
+    fun onAdDeteils(cart: CartAndAdList)
 
-    fun deleteItem(cart: FullAd1)
+    fun deleteItem(cart: CartAndAdList)
 
-    fun plusItem(cart: FullAd1)
+    fun plusItem(cart: CartAndAdList)
 
-    fun minusItem(cart: FullAd1)
+    fun minusItem(cart: CartAndAdList)
 }
 
-class CartDiffCallback(private val oldList: List<FullAd1>, private val  newList: List<FullAd1>) :
+class CartDiffCallback(
+    private val oldList: List<CartAndAdList>,
+    private val newList: List<CartAndAdList>
+) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
@@ -39,23 +39,22 @@ class CartDiffCallback(private val oldList: List<FullAd1>, private val  newList:
         val oldAd = oldList[oldItemPosition].cart
         val newAd = newList[newItemPosition].cart
 
-        if (oldAd.id_cart!=newAd.id_cart)
+        if (oldAd.id_cart != newAd.id_cart)
             return false
-        if (oldAd.date!=newAd.date)
+        if (oldAd.date != newAd.date)
             return false
-        if (oldAd.id_ad_!=newAd.id_cart)
+        if (oldAd.id_ad_ != newAd.id_cart)
             return false
-        if (oldAd.num!=newAd.num)
+        if (oldAd.num != newAd.num)
             return false
 
         return true
     }
 }
 
-
 class CartAdapter(private val actionListener: CartActionListener) :
     RecyclerView.Adapter<CartAdapter.MyViewHolder>(), View.OnClickListener {
-    private var cartList = emptyList<FullAd1>()
+    private var cartList = emptyList<CartAndAdList>()
 
     class MyViewHolder(
         private val binding: CartItemBinding
@@ -79,7 +78,8 @@ class CartAdapter(private val actionListener: CartActionListener) :
         val currentItem = cartList[position]
 
         holder.itemView.titleCart.text = currentItem.f[0].ad.title.toString()
-        holder.itemView.priceCart.text = DecimalFormat("##.00").format(currentItem.f[0].ad.price).toString()+" $"
+        holder.itemView.priceCart.text =
+            DecimalFormat("##.00").format(currentItem.f[0].ad.price).toString() + " $"
         holder.itemView.num.setText(currentItem.cart.num.toString())
 
         holder.itemView.tag = currentItem
@@ -105,15 +105,14 @@ class CartAdapter(private val actionListener: CartActionListener) :
         return cartList.size
     }
 
-    fun setData(cart_: List<FullAd1>) {
-        val difUpdate =  DiffUtil.calculateDiff(CartDiffCallback(cartList,cart_))
+    fun setData(cart_: List<CartAndAdList>) {
+        val difUpdate = DiffUtil.calculateDiff(CartDiffCallback(cartList, cart_))
         this.cartList = cart_
-//        notifyDataSetChanged()
         difUpdate.dispatchUpdatesTo(this)
     }
 
     override fun onClick(v: View) {
-        val cart: FullAd1 = v.tag as FullAd1
+        val cart: CartAndAdList = v.tag as CartAndAdList
         when (v.id) {
             R.id.imageCart -> {
                 actionListener.onAdDeteils(cart)
@@ -136,7 +135,6 @@ class CartAdapter(private val actionListener: CartActionListener) :
             }
 
             else -> {
-//                actionListener.onAdDeteils(cart)
             }
         }
     }

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.modern_databases.R
 import com.example.modern_databases.data.entities.UserInformation
 import com.example.modern_databases.viewmodel.PrViewModel
-import org.w3c.dom.Text
 
 class ModifyDataActivity : AppCompatActivity() {
     private var id_user = -1

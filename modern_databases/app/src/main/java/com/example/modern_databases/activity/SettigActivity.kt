@@ -24,7 +24,6 @@ import com.example.modern_databases.viewmodel.PrViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
 
 class SettigActivity : AppCompatActivity() {
     private lateinit var mUserViewModel: PrViewModel
@@ -38,7 +37,7 @@ class SettigActivity : AppCompatActivity() {
     private lateinit var registrationDate: TextView
     private lateinit var changePassword: Button
     private lateinit var modifyInformation: Button
-    private lateinit var test: Button
+//    private lateinit var test: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +52,13 @@ class SettigActivity : AppCompatActivity() {
         bottomNavigation()
 
         changePassword = findViewById(R.id.changePassword)
-        test = findViewById(R.id.test_button)
+//        test = findViewById(R.id.test_button)
         signOut = findViewById(R.id.exit)
         modifyInformation = findViewById(R.id.modifyData)
 
         signOut.setOnClickListener { signOut() }
         changePassword.setOnClickListener { ChangePassword() }
-        test.setOnClickListener { addAdTestFunction() }
+//        test.setOnClickListener { addAdTestFunction() }
         modifyInformation.setOnClickListener { modifyInformationFun() }
     }
 
@@ -163,103 +162,15 @@ class SettigActivity : AppCompatActivity() {
     }
 
     private fun addAdTestFunction() {
-
-
         lifecycleScope.launch {
             var ad: Ad
             var im: Image
-
 //            mUserViewModel.addImage(Image(
 //                0,
 //                getBitmap(""),
 //                5,
 //                1
 //            ))
-
-
-
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-57.userapi.com/impg/-yuWsYF4Wm0RaQHuSXnKGq2wu-mue1Sb2_oEIw/dz3G7JBqms8.jpg?size=1061x709&quality=96&sign=b1e897287abcb8f673e3257aeb7ef717&type=album"),
-                6,
-                1
-            ))
-
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-60.userapi.com/impg/Sd-ANIDvs7y76cimh_sAs1Xuvh3WV_x_EWXkkQ/DCW5MUz8piY.jpg?size=1020x721&quality=96&sign=9b1f360ffacc2462a81b8ad71dda5544&type=album"),
-                6,
-                2
-            ))
-
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-19.userapi.com/impg/J3jhyU89KIpWc9zO5Svo1kvKQYVS8INaoQhkdw/zjsMN_BjHgw.jpg?size=585x769&quality=96&sign=693b2e03a5d5427b27e10a557960c464&type=album"),
-                7,
-                1
-            ))
-
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-81.userapi.com/impg/kZcW1mP_zfA9CNlvDA-tU6uEkLFKvtcJAqZSdQ/RDHi35c4aJw.jpg?size=662x750&quality=96&sign=1d4287cb0d37be9820f3fce7c582f3f2&type=album"),
-                7,
-                2
-            ))
-
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-79.userapi.com/impg/JF6nZSrt2l9IhfgTxyCi2HU7GDvfhFO0AhERWQ/jw3-hJoVPjg.jpg?size=1095x707&quality=96&sign=646ccaffdf4f14d46405975b0294efcb&type=album"),
-                8,
-                1
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-57.userapi.com/impg/77t9v6BvcT8CvlJvac56jHV0I25AMZ5XwP9egA/kmAGJJYwtis.jpg?size=891x695&quality=96&sign=d7191c6bb3a0bacc7d2ba7e7480f4397&type=album"),
-                8,
-                2
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-64.userapi.com/impg/0Upt4oKNArO5QiDd_czZ0cFmrnK48kPs_qGZng/d54NegWyW2M.jpg?size=774x702&quality=96&sign=9008fe3352182c0187ffa2355213c5b1&type=album"),
-                8,
-                3
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-31.userapi.com/impg/Gg7hqtX4AJqzq0xYbTJBcvO640_LUOakyodnLw/wXaM5LZiCKM.jpg?size=1109x522&quality=96&sign=50e05c5b17b537a9143e61d259ce58e7&type=album"),
-                9,
-                1
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-73.userapi.com/impg/I6tAIMWIWAuAbFVdbCU3Pi8xN5Nx3nH9nItN5g/COVPv5W4suA.jpg?size=904x683&quality=96&sign=378db34fe537b2b9cafc42eb0dc4867a&type=album"),
-                9,
-                2
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-9.userapi.com/impg/N9fSvg3jNRzLq5PJo4JfOSIvXDoyoF-RqmnKQw/SaOeiIgJc0w.jpg?size=1123x706&quality=96&sign=728bf92b8572f473376aa7965df0466d&type=album"),
-                9,
-                3
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-80.userapi.com/impg/iujk6CyF34xG2huySKP9TIWKJXx4RiJSgkoYwA/w8liUSoEEtM.jpg?size=703x709&quality=96&sign=357df4a136fae8f05f53f2c23cbfc157&type=album"),
-                10,
-                1
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-88.userapi.com/impg/fAczV3DWCYzekWGJ3OCN5XFNie8RhPI2VPziSQ/4VBKVAPCTrM.jpg?size=606x706&quality=96&sign=ecde21d96b1e355a70e127868530a6e9&type=album"),
-                10,
-                2
-            ))
-            mUserViewModel.addImage(Image(
-                0,
-                getBitmap("https://sun9-43.userapi.com/impg/26JPN-HuA8KQEMQJnmKituCtLLXIjvnmXJEIbA/x5FTW1Av9NQ.jpg?size=722x696&quality=96&sign=fa37586a6baaf9eae1020dac49622bad&type=album"),
-                10,
-                3
-            ))
         }
     }
 
@@ -270,5 +181,4 @@ class SettigActivity : AppCompatActivity() {
         val result = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
     }
-
 }

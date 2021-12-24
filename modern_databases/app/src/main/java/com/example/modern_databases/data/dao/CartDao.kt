@@ -25,22 +25,19 @@ interface CartDao {
     @Query("SELECT id_ad_ FROM cart_table WHERE id_user_=(:id_user)")
     fun getAllIdElementOnCart(id_user: Int): List<Int>
 
-//
-//    @Query("SELECT*FROM parchasehistory_table WHERE id_order=(:id_order)")
-//    fun getOrderById(id_order: Int): List<Order>
 
     @Query("SELECT*FROM cart_table WHERE id_user_=(:id_user) ORDER BY date")
-    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<FullAd1>>
+    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<CartAndAdList>>
 
     @Query("SELECT*FROM cart_table WHERE id_ad_=(:id_ad) ORDER BY date")
     fun getCartByIdAd(id_ad: Int): List<Cart>
 }
 
-data class FullAd1 (
+data class CartAndAdList (
     @Embedded val cart: Cart,
     @Relation (
         parentColumn = "id_ad_",
         entity = Ad::class,
         entityColumn = "id_ad"
     )
-  val f:List<AdDao.FullAd>)
+  val f:List<AdDao.AdAndImageAndFavorite>)

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.R
-import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.dao.FavoriteDao
 import com.example.modern_databases.databinding.AdItemFavoriteBinding
 import com.like.LikeButton
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.ad_item_1.view.price
 import kotlinx.android.synthetic.main.ad_item_1.view.title
 import kotlinx.android.synthetic.main.ad_item_favorite.view.*
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
 
 interface AdActionListener1 {
     fun onAdDeteils(fav: FavoriteDao.FavoriteAndAdAndImage)
@@ -28,7 +26,10 @@ interface AdActionListener1 {
     fun onFavoriteDelete(fav: FavoriteDao.FavoriteAndAdAndImage)
 }
 
-class FavDiffCallback(private val oldList: List<FavoriteDao.FavoriteAndAdAndImage>, private val  newList: List<FavoriteDao.FavoriteAndAdAndImage>) :
+class FavDiffCallback(
+    private val oldList: List<FavoriteDao.FavoriteAndAdAndImage>,
+    private val newList: List<FavoriteDao.FavoriteAndAdAndImage>
+) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
@@ -41,11 +42,11 @@ class FavDiffCallback(private val oldList: List<FavoriteDao.FavoriteAndAdAndImag
         val oldAd = oldList[oldItemPosition].favorite
         val newAd = newList[newItemPosition].favorite
 
-        if (oldAd.id_favorite!=newAd.id_favorite)
+        if (oldAd.id_favorite != newAd.id_favorite)
             return false
-        if (oldAd.id_ad_!=newAd.id_ad_)
+        if (oldAd.id_ad_ != newAd.id_ad_)
             return false
-        if (oldAd.id_user_!=newAd.id_user_)
+        if (oldAd.id_user_ != newAd.id_user_)
             return false
         return true
     }
@@ -72,13 +73,12 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("dd.MM HH:mm")
         val currentAd = favList[position].adList[0].ad
         val currentItem = favList[position]
 
         holder.itemView.title.text = currentAd.title.toString()
-        holder.itemView.price.text = DecimalFormat("##.00").format(currentAd.price).toString() + " $"
-//        holder.itemView.description.text = currentAd.description.toString()
+        holder.itemView.price.text =
+            DecimalFormat("##.00").format(currentAd.price).toString() + " $"
         holder.itemView.like_button1.isLiked = true
 
         holder.itemView.tag = currentItem
@@ -86,8 +86,6 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
         holder.itemView.title.tag = currentItem
         holder.itemView.price.tag = currentItem
         holder.itemView.buttonAdd.tag = currentItem
-
-//        holder.itemView.description.tag = currentItem
 
         if (currentItem.adList[0].imageList.isEmpty()) {
             holder.itemView.imageView3.load("https://ebar.co.za/wp-content/uploads/2018/01/menu-pattern-1-1.png") {
@@ -115,7 +113,7 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
     }
 
     fun setData(fav: List<FavoriteDao.FavoriteAndAdAndImage>) {
-        val difUpdate =  DiffUtil.calculateDiff(FavDiffCallback(favList,fav))
+        val difUpdate = DiffUtil.calculateDiff(FavDiffCallback(favList, fav))
         this.favList = fav
         difUpdate.dispatchUpdatesTo(this)
     }
@@ -135,10 +133,7 @@ class FavoriteAdAdapter(private val actionListener: AdActionListener1) :
             R.id.buttonAdd -> {
                 actionListener.addToCart(fav)
             }
-
-
             else -> {
-//                actionListener.onAdDeteils(fav)
             }
         }
     }

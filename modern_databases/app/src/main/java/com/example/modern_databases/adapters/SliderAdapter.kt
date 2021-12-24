@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.modern_databases.R
-import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.data.entities.Image
 import com.smarteist.autoimageslider.SliderViewAdapter
-import kotlinx.android.synthetic.main.ad_item_1.view.*
 import kotlinx.android.synthetic.main.slider_item.view.*
 
 class SliderAdapter :
@@ -40,6 +38,4 @@ class SliderAdapter :
     override fun getCount(): Int {
         return imageList.size
     }
-
-
 }

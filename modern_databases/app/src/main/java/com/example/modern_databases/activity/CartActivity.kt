@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.R
 import com.example.modern_databases.adapters.CartActionListener
 import com.example.modern_databases.adapters.CartAdapter
-import com.example.modern_databases.data.dao.FullAd1
+import com.example.modern_databases.data.dao.CartAndAdList
 import com.example.modern_databases.data.entities.Cart
 import com.example.modern_databases.data.entities.Order
 import com.example.modern_databases.data.entities.OrderItem
@@ -135,7 +135,7 @@ class CartActivity : AppCompatActivity() {
         ).get(PrViewModel::class.java)
 
         adapter = CartAdapter(object : CartActionListener {
-            override fun onAdDeteils(cart: FullAd1) {
+            override fun onAdDeteils(cart: CartAndAdList) {
                 val intent = Intent(this@CartActivity, AdPageActivity::class.java)
                 intent.putExtra("id_ad", cart.cart.id_ad_.toInt())
 
@@ -143,7 +143,7 @@ class CartActivity : AppCompatActivity() {
                 overridePendingTransition(0, 0)
             }
 
-            override fun deleteItem(cart: FullAd1) {
+            override fun deleteItem(cart: CartAndAdList) {
                 Thread(Runnable {
                     var cart1 = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
                     mUserViewModel.deleteCartElement(cart1[0])
@@ -154,7 +154,7 @@ class CartActivity : AppCompatActivity() {
                 }
             }
 
-            override fun plusItem(cart: FullAd1) {
+            override fun plusItem(cart: CartAndAdList) {
                 Thread(Runnable {
                     val cartItem = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
 
@@ -177,7 +177,7 @@ class CartActivity : AppCompatActivity() {
 
             }
 
-            override fun minusItem(cart: FullAd1) {
+            override fun minusItem(cart: CartAndAdList) {
                 Thread(Runnable {
                     val cartItem = mUserViewModel.getCartByIdAd(cart.cart.id_ad_)
                     if (cartItem[0].num == 1) {

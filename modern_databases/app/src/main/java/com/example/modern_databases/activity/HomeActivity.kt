@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.view.*
 import android.text.TextWatcher
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.modern_databases.*
 import com.example.modern_databases.adapters.AdActionListener
 import com.example.modern_databases.adapters.AdAdapter
 import com.example.modern_databases.data.*
 import com.example.modern_databases.data.dao.AdDao
-import com.example.modern_databases.data.entities.Ad
 import com.example.modern_databases.data.entities.Cart
 import com.example.modern_databases.data.entities.Favorite
 import com.example.modern_databases.viewmodel.PrViewModel
@@ -52,9 +50,8 @@ class HomeActivity : AppCompatActivity() {
         ).get(PrViewModel::class.java)
 
         adapter = AdAdapter(object : AdActionListener {
-            override fun onAdDeteils(ad: AdDao.FullAd) {
+            override fun onAdDeteils(ad: AdDao.AdAndImageAndFavorite) {
                 val intent = Intent(this@HomeActivity, AdPageActivity::class.java)
-//                val intent = Intent(this@HomeActivity, New::class.java)
                 intent.putExtra("id_ad", ad.ad.id_ad.toInt())
 
                 startActivity(intent)
@@ -62,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
 
-            override fun buy(ad: AdDao.FullAd) {
+            override fun buy(ad: AdDao.AdAndImageAndFavorite) {
                 Thread(Runnable {
                     val cartItem = mUserViewModel.getCartByIdAd(ad.ad.id_ad)
                     if (cartItem.isEmpty()) {
@@ -81,11 +78,11 @@ class HomeActivity : AppCompatActivity() {
                 }).start()
             }
 
-            override fun onFavoriteAdd(ad: AdDao.FullAd) {
+            override fun onFavoriteAdd(ad: AdDao.AdAndImageAndFavorite) {
                 mUserViewModel.addFavorite(Favorite(0, ad.ad.id_ad, save_id_user))
             }
 
-            override fun onFavoriteDelete(ad: AdDao.FullAd) {
+            override fun onFavoriteDelete(ad: AdDao.AdAndImageAndFavorite) {
                 for (i in ad.fav)
                     if (i.id_ad_ == ad.ad.id_ad) {
                         mUserViewModel.deleteFavorite(i)
@@ -100,7 +97,7 @@ class HomeActivity : AppCompatActivity() {
 
         (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         adapter.setUserId(save_id_user)
-        mUserViewModel.TestALlAd().observe(this, Observer { adList -> adapter.setData(adList) })
+        mUserViewModel.getAllAdAndImageAndFavorite().observe(this, Observer { adList -> adapter.setData(adList) })
     }
 
     private fun navigationBar() {
@@ -163,6 +160,6 @@ class HomeActivity : AppCompatActivity() {
         if (query != null)
             mUserViewModel.getByKeyword(searchQuery).observe(this, { ad -> adapter.setData(ad) })
         else
-            mUserViewModel.TestALlAd().observe(this, Observer { adList -> adapter.setData(adList) })
+            mUserViewModel.getAllAdAndImageAndFavorite().observe(this, Observer { adList -> adapter.setData(adList) })
     }
 }

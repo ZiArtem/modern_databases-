@@ -70,16 +70,9 @@ class Repository(
         return adDao.getAdById(id)
     }
 
-    fun getAdByIdUser(id: Int): List<Ad> {
-        return adDao.getAdByIdUser(id)
-    }
 
-    fun getByKeyword(keyword: String): LiveData<List<AdDao.FullAd>> {
+    fun getByKeyword(keyword: String): LiveData<List<AdDao.AdAndImageAndFavorite>> {
         return adDao.getByKeyword(keyword)
-    }
-
-    fun getAllAd(): List<Ad> {
-        return adDao.getAllAd()
     }
 
     fun getAdByListIdAd(id_ad_: List<Int>): LiveData<List<Ad>> {
@@ -90,16 +83,12 @@ class Repository(
         return adDao.getAdByListIdAdNoLiveData(id_ad_)
     }
 
-    fun readAllAdId(): List<Int> {
-        return adDao.readAllAdId()
+    fun getAllAdAndImageAndFavorite(): LiveData<List<AdDao.AdAndImageAndFavorite>> {
+        return adDao.getAllAdAndImageAndFavorite()
     }
 
-    fun TestALlAd(): LiveData<List<AdDao.FullAd>> {
-        return adDao.TestALlAd()
-    }
-
-    fun TestALlAdByIdAd(favList: List<Int>): LiveData<List<AdDao.FullAd>> {
-        return adDao.TestALlAdByIdAd(favList)
+    fun getAllAdAndImageAndFavoriteByIdAd(favList: List<Int>): LiveData<List<AdDao.AdAndImageAndFavorite>> {
+        return adDao.getAllAdAndImageAndFavoriteByIdAd(favList)
     }
 
     //Image function
@@ -229,7 +218,7 @@ class Repository(
         return cartDao.getAllElementOnCartTest(id_user)
     }
 
-    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<FullAd1>> {
+    fun getAllElementOnCartTest1(id_user: Int): LiveData<List<CartAndAdList>> {
         return cartDao.getAllElementOnCartTest1(id_user)
     }
 
@@ -237,9 +226,7 @@ class Repository(
         return cartDao.getCartByIdAd(id_ad)
     }
 
-
     // order Item function
-
 
     suspend fun addOrderItem(orderItem: OrderItem) {
         orderItemDao.addOrderItem(orderItem)
@@ -252,7 +239,6 @@ class Repository(
     suspend fun updateOrderItem(orderItem: OrderItem){
         orderItemDao.updateOrderItem(orderItem)
     }
-
 
     fun getOrderItemByIdOrder(id_order: Int): LiveData<List<OrderItemDao.OrderItemAndAdAndImage>> {
         return  orderItemDao.getOrderItemByIdOrder(id_order)

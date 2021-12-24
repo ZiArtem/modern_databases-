@@ -9,23 +9,23 @@ import com.example.modern_databases.data.dao.AdDao
 import com.example.modern_databases.databinding.ItemPageBinding
 import com.like.LikeButton
 import com.like.OnLikeListener
-import kotlinx.android.synthetic.main.ad_item_1.view.*
 import kotlinx.android.synthetic.main.item_page.view.*
 import java.text.DecimalFormat
 
 
 interface PageActionListener {
-    fun AdToCart(ad: AdDao.FullAd)
+    fun AdToCart(ad: AdDao.AdAndImageAndFavorite)
 
-    fun onFavoriteAdd(ad: AdDao.FullAd)
-    fun onFavoriteDelete(ad: AdDao.FullAd)
+    fun onFavoriteAdd(ad: AdDao.AdAndImageAndFavorite)
 
-    fun BuyNow(ad: AdDao.FullAd)
+    fun onFavoriteDelete(ad: AdDao.AdAndImageAndFavorite)
+
+    fun BuyNow(ad: AdDao.AdAndImageAndFavorite)
 }
 
 class PageAdapter(private val actionListener: PageActionListener) :
     RecyclerView.Adapter<PageAdapter.MyViewHolder>(), View.OnClickListener {
-    private var ad: List<AdDao.FullAd> = emptyList<AdDao.FullAd>()
+    private var ad: List<AdDao.AdAndImageAndFavorite> = emptyList<AdDao.AdAndImageAndFavorite>()
     private var id_user = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -42,7 +42,7 @@ class PageAdapter(private val actionListener: PageActionListener) :
     ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onClick(v: View) {
-        val ad: AdDao.FullAd = v.tag as AdDao.FullAd
+        val ad: AdDao.AdAndImageAndFavorite = v.tag as AdDao.AdAndImageAndFavorite
         when (v.id) {
             R.id.add_to_cart -> {
                 actionListener.AdToCart(ad)
@@ -64,7 +64,6 @@ class PageAdapter(private val actionListener: PageActionListener) :
         holder.itemView.price_2.text = DecimalFormat("##.00").format(ad[0].ad.price).toString() + " $"
         holder.itemView.description_2.text =  ad[0].ad.description.toString()
         holder.itemView.aboutItem.text = ad[0].ad.about_this_item.toString()
-
         holder.itemView.add_to_cart.tag = ad[0]
         holder.itemView.buy_now.tag = ad[0]
 
@@ -87,10 +86,9 @@ class PageAdapter(private val actionListener: PageActionListener) :
                 actionListener.onFavoriteDelete(ad[0])
             }
         })
-
     }
 
-    fun setData(ad_: List<AdDao.FullAd>) {
+    fun setData(ad_: List<AdDao.AdAndImageAndFavorite>) {
         ad = ad_
         notifyDataSetChanged()
     }

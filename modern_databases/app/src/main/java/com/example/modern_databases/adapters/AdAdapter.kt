@@ -1,7 +1,5 @@
 package com.example.modern_databases.adapters
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,18 +13,17 @@ import com.example.modern_databases.databinding.AdItem1Binding
 import kotlinx.android.synthetic.main.ad_item_1.view.*
 import java.text.SimpleDateFormat
 import com.like.LikeButton
-
 import com.like.OnLikeListener
 import java.text.DecimalFormat
 
 interface AdActionListener {
-    fun onAdDeteils(ad: AdDao.FullAd)
-    fun onFavoriteAdd(ad: AdDao.FullAd)
-    fun onFavoriteDelete(ad: AdDao.FullAd)
-    fun buy (ad: AdDao.FullAd)
+    fun onAdDeteils(ad: AdDao.AdAndImageAndFavorite)
+    fun onFavoriteAdd(ad: AdDao.AdAndImageAndFavorite)
+    fun onFavoriteDelete(ad: AdDao.AdAndImageAndFavorite)
+    fun buy (ad: AdDao.AdAndImageAndFavorite)
 }
 
-class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newList: List<AdDao.FullAd>) :
+class AdDiffCallback(private val oldList: List<AdDao.AdAndImageAndFavorite>, private val  newList: List<AdDao.AdAndImageAndFavorite>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
@@ -62,7 +59,7 @@ class AdDiffCallback(private val oldList: List<AdDao.FullAd>, private val  newLi
 
 class AdAdapter(private val actionListener: AdActionListener) :
     RecyclerView.Adapter<AdAdapter.MyViewHolder>(), View.OnClickListener {
-    private var adList = emptyList<AdDao.FullAd>()
+    private var adList = emptyList<AdDao.AdAndImageAndFavorite>()
     private var id_user = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -76,7 +73,7 @@ class AdAdapter(private val actionListener: AdActionListener) :
     }
 
     override fun onClick(v: View) {
-        val ad:AdDao.FullAd = v.tag as AdDao.FullAd
+        val ad:AdDao.AdAndImageAndFavorite = v.tag as AdDao.AdAndImageAndFavorite
         when (v.id) {
             R.id.imageView3 -> {
                 actionListener.onAdDeteils(ad)
@@ -95,7 +92,6 @@ class AdAdapter(private val actionListener: AdActionListener) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("MM HH:mm")
         val currentItem = adList[position]
 
         holder.itemView.title.text = currentItem.ad.title.toString()
@@ -138,11 +134,10 @@ class AdAdapter(private val actionListener: AdActionListener) :
         })
     }
 
-    fun setData(ad_: List<AdDao.FullAd>) {
+    fun setData(ad_: List<AdDao.AdAndImageAndFavorite>) {
         val difUpdate =  DiffUtil.calculateDiff(AdDiffCallback(adList,ad_))
         this.adList = ad_
         difUpdate.dispatchUpdatesTo(this)
-//    notifyDataSetChanged()
     }
 
     fun setUserId (id: Int) {

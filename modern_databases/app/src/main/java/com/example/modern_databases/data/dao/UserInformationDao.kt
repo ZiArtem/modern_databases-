@@ -16,5 +16,4 @@ interface UserInformationDao {
 
     @Query("SELECT * FROM user_information_table WHERE id_user_=(:id)")
     fun getUserInfo(id: Int): List<UserInformation>
-
 }
